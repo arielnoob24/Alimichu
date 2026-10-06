@@ -83,7 +83,7 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 ## 2. Pantallas
 
 1. **Inicio**
-   - Arriba, "Alina" en glitter rosado.
+   - Arriba, "Alina" en cromo rosa y plata, con mariposas.
    - Al entrar, solo se ve el botón **Alina**, grande y centrado. Al apretarlo, el botón baja a su lugar y aparece el cuadro del outfit con las fotos de las prendas (parte de arriba, parte de abajo, zapatos y extra).
    - Abajo, el botón grande **Alina** para generar otro outfit, más un botón de corazón para guardarlo.
    - Opcional: un candado en cada prenda para dejarla fija y que se cambie solo el resto.
