@@ -2,15 +2,123 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alimichu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#140a2e">
+    <meta name="description" content="El armario de Alina: guarda tu ropa y arma outfits que combinan.">
+    <title>Alina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,700;1,800;1,900&amp;display=swap">
     <link rel="stylesheet" href="css/styles.css">
     <script type="module" src="js/app.js"></script>
   </head>
-  <body>
-    <main>
-      <h1>Alimichu</h1>
-      <p id="saludo">En construcción</p>
+  <body data-pantalla="inicio">
+    <header class="encabezado">
+      <h1 class="nombre">Alina</h1>
+      <div class="estrellas" aria-hidden="true">
+        <span class="estrella"></span>
+        <span class="estrella"></span>
+        <span class="estrella"></span>
+        <span class="estrella"></span>
+        <span class="estrella"></span>
+        <span class="estrella"></span>
+      </div>
+    </header>
+
+    <main class="contenido">
+      <section id="pantalla-inicio" class="pantalla" aria-label="Outfit del momento">
+        <div class="outfit" id="outfit" aria-live="polite">
+          <p class="outfit-vacio">
+            <span class="outfit-titulo">Tu armario está vacío</span>
+            Agrega tus prendas y aprieta el botón <strong>Alina</strong> para armar un outfit ✦
+          </p>
+          <a class="boton boton-secundario" href="#agregar">+ Agregar prenda</a>
+        </div>
+      </section>
+
+      <section id="pantalla-armario" class="pantalla" aria-labelledby="titulo-armario" hidden>
+        <h2 id="titulo-armario" class="titulo" tabindex="-1">Mi armario</h2>
+        <div class="filtros" role="group" aria-label="Filtrar por categoría">
+          <button class="chip" type="button" aria-pressed="true">Todo</button>
+          <button class="chip" type="button" aria-pressed="false">Arriba</button>
+          <button class="chip" type="button" aria-pressed="false">Abajo</button>
+          <button class="chip" type="button" aria-pressed="false">Vestidos</button>
+          <button class="chip" type="button" aria-pressed="false">Zapatos</button>
+          <button class="chip" type="button" aria-pressed="false">Abrigos</button>
+          <button class="chip" type="button" aria-pressed="false">Accesorios</button>
+        </div>
+        <p class="vacio">Todavía no hay prendas. ¡Agrega la primera!</p>
+        <a class="boton" href="#agregar">+ Agregar prenda</a>
+      </section>
+
+      <section id="pantalla-agregar" class="pantalla" aria-labelledby="titulo-agregar" hidden>
+        <h2 id="titulo-agregar" class="titulo" tabindex="-1">Agregar prenda</h2>
+        <form class="formulario" id="form-prenda">
+          <label class="foto" id="foto" for="foto-prenda">
+            <span class="foto-texto">Tocar para tomar una foto</span>
+          </label>
+          <input class="foto-input" id="foto-prenda" name="foto" type="file" accept="image/*" capture="environment">
+
+          <label class="campo">
+            <span>Categoría</span>
+            <select name="categoria" required>
+              <option value="" disabled selected>Elegir…</option>
+              <option value="arriba">Parte de arriba</option>
+              <option value="abajo">Parte de abajo</option>
+              <option value="vestido">Vestido / enterito</option>
+              <option value="zapatos">Zapatos</option>
+              <option value="abrigo">Abrigo</option>
+              <option value="accesorio">Accesorio</option>
+            </select>
+          </label>
+
+          <fieldset class="campo">
+            <legend>Estilo</legend>
+            <div class="opciones">
+              <label class="opcion"><input type="checkbox" name="estilo" value="casual"> Casual</label>
+              <label class="opcion"><input type="checkbox" name="estilo" value="elegante"> Elegante</label>
+              <label class="opcion"><input type="checkbox" name="estilo" value="deportivo"> Deportivo</label>
+              <label class="opcion"><input type="checkbox" name="estilo" value="fiesta"> Fiesta</label>
+            </div>
+          </fieldset>
+
+          <label class="campo campo-color">
+            <span>Color principal</span>
+            <input type="color" name="color" value="#ff8fd1">
+          </label>
+
+          <label class="campo">
+            <span>Conjunto (opcional)</span>
+            <input type="text" name="conjunto" placeholder="Ej.: set rosado" autocomplete="off">
+          </label>
+
+          <p class="aviso" id="aviso-prenda" role="status"></p>
+          <button class="boton" type="submit">Guardar prenda</button>
+          <a class="boton boton-secundario" href="#armario">Cancelar</a>
+        </form>
+      </section>
+
+      <section id="pantalla-favoritos" class="pantalla" aria-labelledby="titulo-favoritos" hidden>
+        <h2 id="titulo-favoritos" class="titulo" tabindex="-1">Favoritos</h2>
+        <p class="vacio">Cuando te guste un outfit, tócale el corazón y aparecerá aquí 💖</p>
+      </section>
     </main>
+
+    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit">Alina</button>
+
+    <nav class="barra" aria-label="Secciones">
+      <a class="barra-enlace" href="#inicio" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
+        Inicio
+      </a>
+      <a class="barra-enlace" href="#armario">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6a2 2 0 1 1 2.6 1.9c-.4.1-.6.5-.6.9V11l9 6.2a1 1 0 0 1-.6 1.8H3.6a1 1 0 0 1-.6-1.8L12 11"/></svg>
+        Armario
+      </a>
+      <a class="barra-enlace" href="#favoritos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>
+        Favoritos
+      </a>
+    </nav>
   </body>
 </html>

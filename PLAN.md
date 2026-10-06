@@ -199,12 +199,12 @@ Es la parte técnicamente más difícil.
 - [x] Categorías y estilos: por ahora, los de la sección 4
 
 ### Fase 2: Estructura y estilo
-- [ ] Maqueta HTML de las 4 pantallas y la barra de navegación
-- [ ] Paleta, tipografías y variables en `css/styles.css`
-- [ ] "Alina" en glitter rosado con destellos animados
-- [ ] Botón Alina grande, centrado, con animación al apretar
+- [x] Maqueta HTML de las 4 pantallas y la barra de navegación
+- [x] Paleta, tipografías y variables en `css/styles.css`
+- [x] "Alina" en glitter rosado con destellos animados
+- [x] Botón Alina grande, centrado, con animación al apretar
 - [ ] Todo mobile first según la sección 1; probado a 390, 402 y 440 px
-- [ ] `viewport-fit=cover`, bordes seguros y `100dvh`
+- [x] `viewport-fit=cover`, bordes seguros y `100dvh`
 - [ ] Probar en el iPhone de Alina por primera vez
 
 ### Fase 3: Armario (sin quitar fondo todavía)
