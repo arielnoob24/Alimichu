@@ -117,8 +117,50 @@
         <a class="boton" href="#agregar">+ Agregar prenda</a>
       </section>
 
-      <section id="pantalla-agregar" class="pantalla" aria-labelledby="titulo-agregar" hidden>
+      <section id="pantalla-favoritos" class="pantalla" aria-labelledby="titulo-favoritos" hidden>
+        <h2 id="titulo-favoritos" class="titulo cromo" tabindex="-1" data-texto="Favoritos"><span>Favoritos</span></h2>
+        <p class="vacio">Cuando te guste un outfit, tócale el corazón y aparecerá aquí 💖</p>
+      </section>
+    </main>
+
+    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit-pista">
+      <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
+      <svg class="posada posada-1" viewBox="0 0 200 140" aria-hidden="true">
+        <g class="ala"><use href="#alas-izquierdas"/></g>
+        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+        <use href="#cuerpo-mariposa"/>
+      </svg>
+      <svg class="posada posada-2" viewBox="0 0 200 140" aria-hidden="true">
+        <g class="ala"><use href="#alas-izquierdas"/></g>
+        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+        <use href="#cuerpo-mariposa"/>
+      </svg>
+    </button>
+
+    <nav class="barra" id="barra" aria-label="Secciones">
+      <span class="burbuja" aria-hidden="true"></span>
+      <a class="barra-enlace" href="#armario">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6a2 2 0 1 1 2.6 1.9c-.4.1-.6.5-.6.9V11l9 6.2a1 1 0 0 1-.6 1.8H3.6a1 1 0 0 1-.6-1.8L12 11"/></svg>
+        Armario
+      </a>
+      <a class="barra-enlace" href="#inicio" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
+        Inicio
+      </a>
+      <a class="barra-enlace" href="#favoritos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>
+        Favoritos
+      </a>
+    </nav>
+
+    <!-- "Agregar prenda" es una hoja que sube desde abajo, como en iOS -->
+    <div class="velo" id="velo"></div>
+    <section id="pantalla-agregar" class="hoja" role="dialog" aria-modal="true" aria-labelledby="titulo-agregar" inert>
+      <div class="hoja-asa" id="hoja-asa">
+        <span class="asa" aria-hidden="true"></span>
         <h2 id="titulo-agregar" class="titulo cromo" tabindex="-1" data-texto="Agregar prenda"><span>Agregar prenda</span></h2>
+      </div>
+      <div class="hoja-contenido">
         <form class="formulario" id="form-prenda">
           <label class="foto" id="foto" for="foto-prenda">
             <span class="foto-texto">Tocar para tomar una foto</span>
@@ -160,43 +202,9 @@
 
           <p class="aviso" id="aviso-prenda" role="status"></p>
           <button class="boton" type="submit">Guardar prenda</button>
-          <a class="boton boton-secundario" href="#armario">Cancelar</a>
+          <button class="boton boton-secundario" id="cerrar-hoja" type="button">Cancelar</button>
         </form>
-      </section>
-
-      <section id="pantalla-favoritos" class="pantalla" aria-labelledby="titulo-favoritos" hidden>
-        <h2 id="titulo-favoritos" class="titulo cromo" tabindex="-1" data-texto="Favoritos"><span>Favoritos</span></h2>
-        <p class="vacio">Cuando te guste un outfit, tócale el corazón y aparecerá aquí 💖</p>
-      </section>
-    </main>
-
-    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit-pista">
-      <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
-      <svg class="posada posada-1" viewBox="0 0 200 140" aria-hidden="true">
-        <g class="ala"><use href="#alas-izquierdas"/></g>
-        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
-        <use href="#cuerpo-mariposa"/>
-      </svg>
-      <svg class="posada posada-2" viewBox="0 0 200 140" aria-hidden="true">
-        <g class="ala"><use href="#alas-izquierdas"/></g>
-        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
-        <use href="#cuerpo-mariposa"/>
-      </svg>
-    </button>
-
-    <nav class="barra" aria-label="Secciones">
-      <a class="barra-enlace" href="#armario">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6a2 2 0 1 1 2.6 1.9c-.4.1-.6.5-.6.9V11l9 6.2a1 1 0 0 1-.6 1.8H3.6a1 1 0 0 1-.6-1.8L12 11"/></svg>
-        Armario
-      </a>
-      <a class="barra-enlace" href="#inicio" aria-current="page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
-        Inicio
-      </a>
-      <a class="barra-enlace" href="#favoritos">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>
-        Favoritos
-      </a>
-    </nav>
+      </div>
+    </section>
   </body>
 </html>

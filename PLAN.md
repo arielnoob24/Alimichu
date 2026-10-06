@@ -122,6 +122,12 @@ Referencias:
 - **Botón Alina:** píldora de cromo rosa con borde plateado y brillo arriba, con "Alina" en cromo. Tiene dos mariposas de cromo posadas que aletean.
   - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas rosadas y plateadas hacia todos lados.
 - **Marcos:** bordes finos de cromo rosa sobre fondo negro.
+- **Mezcla con Apple (iOS 26):** la estructura y la forma de interactuar son de Apple; la decoración sigue siendo Y2K. Se sigue la skill `apple-design`, instalada en `.claude/skills/`.
+  - **Barra de abajo:** cápsula de vidrio flotante con borde de cromo rosa y una burbuja que se desliza a la pestaña activa.
+  - **Agregar prenda:** hoja que sube desde abajo. Sigue al dedo y se cierra deslizándola hacia abajo según el impulso del gesto.
+  - **Respuesta inmediata al tocar:** los botones se achican apenas se tocan y no se selecciona su texto al mantenerlos presionados.
+  - **Bajo la barra:** el contenido se desvanece en lugar de cortarse.
+  - **Movimiento:** resorte sin rebote para todo lo que no viene de un gesto con impulso.
 - **Tarjetas de prenda con foto:** fondo blanco, como foto de producto.
 - **Animaciones suaves:** se respeta la opción "reducir movimiento" del iPhone.
 

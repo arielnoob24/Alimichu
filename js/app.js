@@ -1,27 +1,95 @@
-import { PANTALLAS, pantallaDesdeHash, pestanaDe } from './navegacion.js';
+import { pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
+import { debeCerrarHoja, elastico, velocidadDe } from './hoja.js';
 
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
+const PESTANAS = ['armario', 'inicio', 'favoritos'];
+
+// En iOS, :active solo se activa al tocar si la página escucha touchstart.
+document.addEventListener('touchstart', () => {}, { passive: true });
+
+const hoja = document.getElementById('pantalla-agregar');
+const velo = document.getElementById('velo');
+let pestanaVisible = null;
 
 function mostrarPantalla({ enfocar = true } = {}) {
   const actual = pantallaDesdeHash(location.hash);
-  document.body.dataset.pantalla = actual;
+  const pestana = pestanaDe(actual);
+  document.body.dataset.pantalla = pestana;
 
-  for (const nombre of PANTALLAS) {
-    document.getElementById(`pantalla-${nombre}`).hidden = nombre !== actual;
+  for (const nombre of PESTANAS) {
+    document.getElementById(`pantalla-${nombre}`).hidden = nombre !== pestana;
   }
 
+  // La burbuja de vidrio se desliza hasta la pestaña activa.
+  document.getElementById('barra').style.setProperty('--indice', PESTANAS.indexOf(pestana));
   for (const enlace of document.querySelectorAll('.barra-enlace')) {
-    if (enlace.getAttribute('href') === `#${pestanaDe(actual)}`) {
+    if (enlace.getAttribute('href') === `#${pestana}`) {
       enlace.setAttribute('aria-current', 'page');
     } else {
       enlace.removeAttribute('aria-current');
     }
   }
 
-  window.scrollTo(0, 0);
-  if (enfocar) document.querySelector(`#pantalla-${actual} .titulo`)?.focus();
+  if (pestana !== pestanaVisible) {
+    window.scrollTo(0, 0);
+    pestanaVisible = pestana;
+    if (enfocar && actual !== 'agregar') document.querySelector(`#pantalla-${pestana} .titulo`)?.focus();
+  }
+
+  mostrarHoja(actual === 'agregar', { enfocar });
 }
+
+function mostrarHoja(abierta, { enfocar }) {
+  hoja.classList.toggle('abierta', abierta);
+  hoja.inert = !abierta;
+  velo.classList.toggle('visible', abierta);
+  document.body.classList.toggle('hoja-abierta', abierta);
+  if (abierta && enfocar) document.getElementById('titulo-agregar').focus({ preventScroll: true });
+}
+
+function cerrarHoja() {
+  location.replace('#armario');
+}
+
+// Arrastrar la hoja desde el asa: sigue al dedo 1:1 y al soltar decide con el impulso.
+const asa = document.getElementById('hoja-asa');
+let arrastre = null;
+
+asa.addEventListener('pointerdown', (evento) => {
+  asa.setPointerCapture(evento.pointerId);
+  arrastre = { inicioY: evento.clientY, alto: hoja.offsetHeight, historial: [] };
+  hoja.classList.add('arrastrando');
+});
+
+asa.addEventListener('pointermove', (evento) => {
+  if (!arrastre) return;
+  const desplazamiento = evento.clientY - arrastre.inicioY;
+  const y = desplazamiento < 0 ? elastico(desplazamiento, arrastre.alto) : desplazamiento;
+  hoja.style.transform = `translateY(${y}px)`;
+  arrastre.historial.push({ y: evento.clientY, t: evento.timeStamp });
+  arrastre.historial = arrastre.historial.filter(({ t }) => evento.timeStamp - t < 100);
+});
+
+function soltarHoja(evento) {
+  if (!arrastre) return;
+  const desplazamiento = evento.clientY - arrastre.inicioY;
+  const velocidad = velocidadDe(arrastre.historial);
+  const { alto } = arrastre;
+  arrastre = null;
+  // Al quitar el transform en línea, la transición parte desde donde quedó el dedo.
+  hoja.classList.remove('arrastrando');
+  hoja.style.removeProperty('transform');
+  if (debeCerrarHoja({ desplazamiento, velocidad, alto })) cerrarHoja();
+}
+
+asa.addEventListener('pointerup', soltarHoja);
+asa.addEventListener('pointercancel', soltarHoja);
+velo.addEventListener('click', cerrarHoja);
+document.getElementById('cerrar-hoja').addEventListener('click', cerrarHoja);
+document.addEventListener('keydown', (evento) => {
+  if (evento.key === 'Escape' && hoja.classList.contains('abierta')) cerrarHoja();
+});
 
 function lanzarDestellos(boton) {
   if (sinMovimiento.matches) return;
