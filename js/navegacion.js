@@ -3,9 +3,7 @@ export const PESTANAS = ['armario', 'inicio', 'favoritos'];
 // Cada vista entra desde la derecha encima de su pestaña, con ‹ Volver y sin barra de abajo.
 export const VISTAS = {
   outfit: 'inicio',
-  'mi-armario': 'armario',
   agregar: 'armario',
-  'mis-favoritos': 'favoritos',
   crear: 'favoritos',
 };
 

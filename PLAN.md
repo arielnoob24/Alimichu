@@ -85,9 +85,9 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 ## 2. Pantallas
 
 La app funciona como una app de iPhone:
-- **Pestañas:** hay tres, Armario · Inicio · Favoritos, en la barra de abajo. Cada una tiene una **portada**:
+- **Pestañas:** hay tres, Armario · Inicio · Favoritos, en la barra de abajo. Cada una tiene:
   - arriba, un título de cromo con mariposas
-  - al centro, botones de píldora de cromo con una invitación debajo
+  - Inicio: el botón Alina centrado; Armario y Favoritos: su contenido directo, con un botón de píldora flotante para agregar o crear
 - **Vistas:** cada botón lleva a una vista de detalle.
   - entra desde la derecha
   - tiene una barra superior con **‹ Volver** y el título al centro
@@ -104,14 +104,14 @@ La app funciona como una app de iPhone:
      - más adelante, un corazón para guardarlo en Favoritos
      - opcional: un candado en cada prenda para dejarla fija y que cambie solo el resto
 2. **Armario** (título "Mi armario")
-   - **Vista "Mi armario"** (botón **Ver mi armario**): las prendas en cuadrícula, filtradas por categoría.
-   - **Vista "Agregar prenda"** (botón **Agregar prenda**):
+   - Se ven directamente los filtros por categoría y las prendas en cuadrícula. Si no hay prendas, aparece un mensaje con una mariposa.
+   - **Vista "Agregar prenda"**, desde el botón flotante **Agregar prenda**:
      - tomar la foto y procesarla a fondo blanco
      - elegir la categoría, revisar el color detectado y elegir el estilo
      - opcional: agregarla a un conjunto
 3. **Favoritos** (título "Favoritos")
-   - **Vista "Mis favoritos"** (botón **Ver favoritos**): los outfits guardados, con opción de borrarlos.
-   - **Vista "Nuevo outfit"** (botón **Crear combinación**): Alina elige una prenda de cada parte (arriba, abajo, zapatos y extra opcional) entre las de su armario, y la guarda en Favoritos.
+   - Se ven directamente los outfits guardados, con opción de borrarlos.
+   - **Vista "Nuevo outfit"**, desde el botón flotante **Crear combinación**: Alina elige una prenda de cada parte (arriba, abajo, zapatos y extra opcional) entre las de su armario, y la guarda en Favoritos.
 
 ## 3. Estilo visual
 

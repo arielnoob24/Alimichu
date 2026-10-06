@@ -21,7 +21,7 @@ El plan del proyecto está en [PLAN.md](PLAN.md). Léelo antes de empezar una ta
 ## Reglas
 
 - **Ningún texto se puede seleccionar ni copiar** (`user-select: none` en `body`). Solo los `input`, `textarea` y `select` permiten selección.
-- **Pestañas y vistas:** cada pestaña (`PESTANAS`) es una portada con botones de píldora centrados (`.portada`). Cada botón lleva a una vista de detalle (`.vista`), registrada en `VISTAS` de `js/navegacion.js` con su pestaña. Las vistas tienen `.barra-nav` con un botón `.volver` y esconden la barra de abajo.
+- **Pestañas y vistas:** Inicio es una portada con el botón Alina centrado (`.portada`). Armario y Favoritos muestran su contenido directo, con un botón de píldora flotante (`.boton-flotante`). Cada botón lleva a una vista de detalle (`.vista`), registrada en `VISTAS` de `js/navegacion.js` con su pestaña. Las vistas tienen `.barra-nav` con un botón `.volver` y esconden la barra de abajo.
 - **"Alina" solo aparece en el botón de Inicio.** Arriba, Inicio muestra un saludo según la hora y las otras pestañas muestran su nombre.
 
 - **Mobile first para iPhone** (ver "Regla principal" en PLAN.md):

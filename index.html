@@ -97,24 +97,39 @@
         <p class="invitacion" id="invitacion">Aprieta <strong>Alina</strong> para que se genere tu combinación</p>
       </section>
 
-      <section id="pantalla-armario" class="pantalla portada" aria-label="Armario" hidden>
-        <a class="boton-portada" href="#mi-armario">
-          <span class="cromo cromo-boton" data-texto="Ver mi armario"><span>Ver mi armario</span></span>
-        </a>
-        <a class="boton-portada" href="#agregar">
+      <!-- Armario: se ven las prendas directamente y un botón flotante para agregar -->
+      <section id="pantalla-armario" class="pantalla" aria-label="Armario" hidden>
+        <div class="filtros" role="group" aria-label="Filtrar por categoría">
+          <button class="chip" type="button" aria-pressed="true">Todo</button>
+          <button class="chip" type="button" aria-pressed="false">Arriba</button>
+          <button class="chip" type="button" aria-pressed="false">Abajo</button>
+          <button class="chip" type="button" aria-pressed="false">Vestidos</button>
+          <button class="chip" type="button" aria-pressed="false">Zapatos</button>
+          <button class="chip" type="button" aria-pressed="false">Abrigos</button>
+          <button class="chip" type="button" aria-pressed="false">Accesorios</button>
+        </div>
+        <div class="lista" id="lista-prendas">
+          <div class="vacio">
+            <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
+            <p>Todavía no hay prendas en tu armario.<br>¡Agrega la primera!</p>
+          </div>
+        </div>
+        <a class="boton-portada boton-flotante" href="#agregar">
           <span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span>
         </a>
-        <p class="invitacion">Mira tus prendas o fotografía una nueva</p>
       </section>
 
-      <section id="pantalla-favoritos" class="pantalla portada" aria-label="Favoritos" hidden>
-        <a class="boton-portada" href="#mis-favoritos">
-          <span class="cromo cromo-boton" data-texto="Ver favoritos"><span>Ver favoritos</span></span>
-        </a>
-        <a class="boton-portada" href="#crear">
+      <!-- Favoritos: se ven los outfits guardados directamente y un botón flotante para crear uno -->
+      <section id="pantalla-favoritos" class="pantalla" aria-label="Favoritos" hidden>
+        <div class="lista" id="lista-favoritos">
+          <div class="vacio">
+            <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
+            <p>Todavía no tienes outfits favoritos.<br>Guarda los que te gusten del botón Alina o arma uno tú 💖</p>
+          </div>
+        </div>
+        <a class="boton-portada boton-flotante" href="#crear">
           <span class="cromo cromo-boton" data-texto="Crear combinación"><span>Crear combinación</span></span>
         </a>
-        <p class="invitacion">Mira tus outfits guardados o arma uno tú</p>
       </section>
 
       <!-- ========== Vistas: entran desde la derecha, con ‹ Volver arriba y sin barra de abajo ========== -->
@@ -150,27 +165,6 @@
           <a class="boton boton-secundario" id="outfit-agregar" href="#agregar" hidden>+ Agregar prendas</a>
         </div>
         <button class="boton boton-otra" id="otra-combinacion" type="button">Otra combinación</button>
-      </section>
-
-      <section id="pantalla-mi-armario" class="pantalla vista" aria-labelledby="titulo-mi-armario" hidden>
-        <div class="barra-nav">
-          <button class="volver" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
-            Armario
-          </button>
-          <h2 id="titulo-mi-armario" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Mi armario"><span>Mi armario</span></h2>
-        </div>
-        <div class="filtros" role="group" aria-label="Filtrar por categoría">
-          <button class="chip" type="button" aria-pressed="true">Todo</button>
-          <button class="chip" type="button" aria-pressed="false">Arriba</button>
-          <button class="chip" type="button" aria-pressed="false">Abajo</button>
-          <button class="chip" type="button" aria-pressed="false">Vestidos</button>
-          <button class="chip" type="button" aria-pressed="false">Zapatos</button>
-          <button class="chip" type="button" aria-pressed="false">Abrigos</button>
-          <button class="chip" type="button" aria-pressed="false">Accesorios</button>
-        </div>
-        <p class="vacio">Todavía no hay prendas. ¡Agrega la primera!</p>
-        <a class="boton" href="#agregar">+ Agregar prenda</a>
       </section>
 
       <section id="pantalla-agregar" class="pantalla vista" aria-labelledby="titulo-agregar" hidden>
@@ -223,18 +217,6 @@
           <p class="aviso" id="aviso-prenda" role="status"></p>
           <button class="boton" type="submit">Guardar prenda</button>
         </form>
-      </section>
-
-      <section id="pantalla-mis-favoritos" class="pantalla vista" aria-labelledby="titulo-mis-favoritos" hidden>
-        <div class="barra-nav">
-          <button class="volver" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
-            Favoritos
-          </button>
-          <h2 id="titulo-mis-favoritos" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Mis favoritos"><span>Mis favoritos</span></h2>
-        </div>
-        <p class="vacio">Aquí van a aparecer tus outfits favoritos: los que guardes del botón Alina y los que armes tú 💖</p>
-        <a class="boton" href="#crear">+ Crear combinación</a>
       </section>
 
       <section id="pantalla-crear" class="pantalla vista" aria-labelledby="titulo-crear" hidden>
