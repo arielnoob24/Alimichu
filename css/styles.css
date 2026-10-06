@@ -19,6 +19,7 @@
   --fuente-texto: system-ui, -apple-system, sans-serif;
 
   --cromo-rosa: linear-gradient(180deg, #ffe0f1 0%, var(--rosa-chicle) 28%, #e0157f 50%, var(--rosa-oscuro) 56%, #ff5cb2 78%, var(--rosa-palido) 100%);
+  --cromo-celeste: linear-gradient(180deg, #e8f8ff 0%, #8fd8ff 28%, #2a9df4 50%, #0b4f8a 56%, #5cc2ff 78%, #d4f1ff 100%);
   --cromo-plata: linear-gradient(180deg, #fff 0%, #f0f0f6 30%, #a5a5b2 46%, #34343e 54%, #8d8d99 60%, #e9e9f0 78%, #fff 100%);
   --brillo-luz: linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%);
 
@@ -568,6 +569,10 @@ body:not([data-pantalla='inicio']) .boton-alina {
 
 .chispa-plata {
   background: var(--cromo-plata);
+}
+
+.chispa-celeste {
+  background: var(--cromo-celeste);
 }
 
 @keyframes chispa {

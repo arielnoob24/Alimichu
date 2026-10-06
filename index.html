@@ -32,11 +32,23 @@
           <stop offset="0.75" stop-color="#d9d9e2"/>
           <stop offset="1" stop-color="#fff"/>
         </linearGradient>
+        <linearGradient id="cromo-celeste" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e8f8ff"/>
+          <stop offset="0.28" stop-color="#8fd8ff"/>
+          <stop offset="0.5" stop-color="#2a9df4"/>
+          <stop offset="0.56" stop-color="#0b4f8a"/>
+          <stop offset="0.78" stop-color="#5cc2ff"/>
+          <stop offset="1" stop-color="#d4f1ff"/>
+        </linearGradient>
         <path id="ala-arriba" d="M100 68C82 22 30-2 14 22 0 44 34 72 100 72Z"/>
         <path id="ala-abajo" d="M100 76C66 76 28 92 34 118c6 22 48 12 66-38Z"/>
         <g id="alas-izquierdas">
           <use href="#ala-arriba" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="7"/>
           <use href="#ala-abajo" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="7"/>
+        </g>
+        <g id="alas-izquierdas-celeste">
+          <use href="#ala-arriba" fill="url(#cromo-celeste)" stroke="url(#cromo-plata)" stroke-width="7"/>
+          <use href="#ala-abajo" fill="url(#cromo-celeste)" stroke="url(#cromo-plata)" stroke-width="7"/>
         </g>
         <!-- Las cuatro alas sin color: el color lo pone quien las usa -->
         <g id="alas-forma">
@@ -55,13 +67,22 @@
           <use href="#alas-forma" fill="url(#cromo-rosa)" stroke="#ffd0ea" stroke-width="3" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
           <use href="#cuerpo-mariposa" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
         </g>
+        <g id="mariposa-doble-celeste">
+          <use href="#alas-forma" fill="none" stroke="url(#cromo-celeste)" stroke-width="6" transform="translate(100 72) scale(1.16) translate(-100 -72)"/>
+          <use href="#alas-forma" fill="url(#cromo-celeste)" stroke="#d4f1ff" stroke-width="3" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
+          <use href="#cuerpo-mariposa" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
+        </g>
         <symbol id="mariposas-y2k" viewBox="-24 -20 250 230">
           <use href="#mariposa-doble"/>
-          <use href="#mariposa-doble" transform="translate(-14 122) rotate(-14) scale(0.45)"/>
+          <use href="#mariposa-doble-celeste" transform="translate(-14 122) rotate(-14) scale(0.45)"/>
           <use href="#mariposa-doble" transform="translate(112 132) rotate(16) scale(0.4)"/>
         </symbol>
         <symbol id="mariposa-plata" viewBox="0 0 200 140">
           <use href="#alas-forma" fill="url(#cromo-plata)" stroke="#ff86c8" stroke-width="8"/>
+          <use href="#cuerpo-mariposa"/>
+        </symbol>
+        <symbol id="mariposa-celeste" viewBox="0 0 200 140">
+          <use href="#alas-forma" fill="url(#cromo-celeste)" stroke="#e8f8ff" stroke-width="8"/>
           <use href="#cuerpo-mariposa"/>
         </symbol>
       </defs>
@@ -73,9 +94,9 @@
       <h1 class="nombre cromo" data-texto="Alina"><span>Alina</span></h1>
       <div class="brillos" aria-hidden="true">
         <svg class="brillo"><use href="#mariposa-plata"/></svg>
+        <svg class="brillo"><use href="#mariposa-celeste"/></svg>
         <svg class="brillo"><use href="#mariposa-plata"/></svg>
-        <svg class="brillo"><use href="#mariposa-plata"/></svg>
-        <svg class="brillo"><use href="#mariposa-plata"/></svg>
+        <svg class="brillo"><use href="#mariposa-celeste"/></svg>
       </div>
     </header>
 
@@ -181,8 +202,8 @@
         <use href="#cuerpo-mariposa"/>
       </svg>
       <svg class="posada posada-2" viewBox="0 0 200 140" aria-hidden="true">
-        <g class="ala"><use href="#alas-izquierdas"/></g>
-        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+        <g class="ala"><use href="#alas-izquierdas-celeste"/></g>
+        <g class="ala"><use href="#alas-izquierdas-celeste" transform="translate(200 0) scale(-1 1)"/></g>
         <use href="#cuerpo-mariposa"/>
       </svg>
     </button>

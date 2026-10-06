@@ -30,7 +30,7 @@ function lanzarDestellos(boton) {
   const chispas = generarChispas(16, { distancia: 160 });
   chispas.forEach(({ x, y, tamano, retraso }, i) => {
     const chispa = document.createElement('span');
-    chispa.className = i % 2 === 0 ? 'chispa' : 'chispa chispa-plata';
+    chispa.className = ['chispa', 'chispa chispa-plata', 'chispa chispa-celeste'][i % 3];
     chispa.style.left = `${left + width / 2}px`;
     chispa.style.top = `${top + height / 2}px`;
     chispa.style.width = `${tamano + 10}px`;
