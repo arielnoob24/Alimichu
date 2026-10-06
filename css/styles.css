@@ -1,35 +1,32 @@
 /* Mobile first: los estilos base son para iPhone (390 px).
-   Las pantallas más grandes se agregan con min-width al final. */
+   Las pantallas más grandes se agregan con min-width al final.
+   Estética Y2K / Bratz: cromo rosa y plata sobre negro. */
 
 :root {
   --rosa-fuerte: #ff2fa8;
-  --rosa-chicle: #ff8fd1;
-  --rosa-palido: #ffd6f0;
-  --lila: #b36bff;
-  --morado-oscuro: #5b1680;
-  --noche: #140a2e;
-  --noche-clara: #241447;
+  --rosa-chicle: #ff86c8;
+  --rosa-palido: #ffd0ea;
+  --rosa-oscuro: #7d0845;
+  --vino: #3d0421;
+  --negro: #050006;
+  --negro-claro: #14000d;
   --blanco: #fff;
-  --texto: #fdf0fa;
-  --texto-suave: #d9c4ee;
+  --texto: #fff0f8;
+  --texto-suave: #e9b9d6;
 
+  --fuente-cromo: 'Pacifico', cursive;
   --fuente-titulo: 'Rubik', system-ui, sans-serif;
   --fuente-texto: system-ui, -apple-system, sans-serif;
 
+  --cromo-rosa: linear-gradient(180deg, #ffe0f1 0%, var(--rosa-chicle) 28%, #e0157f 50%, var(--rosa-oscuro) 56%, #ff5cb2 78%, var(--rosa-palido) 100%);
+  --cromo-plata: linear-gradient(180deg, #fff 0%, #f0f0f6 30%, #a5a5b2 46%, #34343e 54%, #8d8d99 60%, #e9e9f0 78%, #fff 100%);
+  --brillo-luz: linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%);
+
   --ancho-max: 440px;
   --alto-barra: 64px;
-  --tam-boton-alina: 116px;
+  --alto-boton-alina: 84px;
   --seguro-arriba: env(safe-area-inset-top, 0px);
   --seguro-abajo: env(safe-area-inset-bottom, 0px);
-
-  /* Glitter: puntitos blancos y rosados sobre rosa cromado */
-  --glitter:
-    radial-gradient(circle, var(--blanco) 0 0.6px, transparent 1.2px),
-    radial-gradient(circle, var(--rosa-palido) 0 0.8px, transparent 1.4px),
-    radial-gradient(circle, var(--rosa-fuerte) 0 0.7px, transparent 1.3px);
-  --glitter-tam: 7px 7px, 11px 11px, 5px 5px;
-  --glitter-pos: 0 0, 3px 5px, 2px 1px;
-  --cromado: linear-gradient(180deg, var(--rosa-palido) 0%, var(--rosa-chicle) 30%, var(--rosa-fuerte) 52%, #c2187a 68%, var(--rosa-chicle) 100%);
 }
 
 *,
@@ -45,6 +42,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background: var(--negro);
 }
 
 body {
@@ -53,21 +51,21 @@ body {
   max-width: var(--ancho-max);
   margin-inline: auto;
   padding-top: var(--seguro-arriba);
-  padding-bottom: calc(var(--alto-barra) + var(--tam-boton-alina) + var(--seguro-abajo) + 24px);
+  padding-bottom: calc(var(--alto-barra) + var(--alto-boton-alina) + var(--seguro-abajo) + 40px);
   font-family: var(--fuente-texto);
   font-size: 1rem;
   line-height: 1.5;
   color: var(--texto);
-  background-color: var(--noche);
+  background-color: var(--negro);
   background-image:
-    radial-gradient(circle at 15% 10%, rgb(255 47 168 / 0.28), transparent 45%),
-    radial-gradient(circle at 90% 60%, rgb(179 107 255 / 0.22), transparent 50%);
+    radial-gradient(ellipse 90% 45% at 50% -8%, rgb(255 47 168 / 0.32), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 50% 108%, rgb(255 47 168 / 0.18), transparent 70%);
   background-attachment: fixed;
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Cielo de estrellitas de fondo */
+/* Cielo de puntitos brillantes */
 body::before {
   content: '';
   position: fixed;
@@ -75,10 +73,10 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background-image:
-    radial-gradient(circle, rgb(255 255 255 / 0.7) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(255 214 240 / 0.5) 0 1px, transparent 1.5px);
-  background-size: 97px 89px, 61px 73px;
-  background-position: 0 0, 30px 40px;
+    radial-gradient(circle, rgb(255 255 255 / 0.55) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgb(255 134 200 / 0.45) 0 1px, transparent 1.5px);
+  background-size: 113px 97px, 71px 83px;
+  background-position: 0 0, 35px 45px;
 }
 
 body:not([data-pantalla='inicio']) {
@@ -93,112 +91,160 @@ label {
   touch-action: manipulation;
 }
 
-/* ---------- Encabezado: "Alina" en glitter rosado ---------- */
+.definiciones {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Texto de cromo: plata por dentro, borde rosa con relieve ----------
+   Uso: <span class="cromo" data-texto="Hola"><span>Hola</span></span>
+   ::before = borde rosa grueso y relieve, ::after = filo claro, span = plata. */
+
+.cromo {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.3em;
+  font-family: var(--fuente-cromo);
+  font-weight: 400;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.cromo::before,
+.cromo::after {
+  content: attr(data-texto);
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  pointer-events: none;
+}
+
+.cromo::before {
+  color: var(--rosa-fuerte);
+  -webkit-text-stroke: 0.22em var(--rosa-fuerte);
+  text-shadow:
+    0 0.05em 0 #c0106c,
+    0 0.1em 0 var(--rosa-oscuro),
+    0 0.14em 0 var(--vino),
+    0 0 0.4em rgb(255 47 168 / 0.8);
+}
+
+.cromo::after {
+  color: transparent;
+  -webkit-text-stroke: 0.1em var(--rosa-palido);
+}
+
+.cromo > span {
+  position: relative;
+  z-index: 1;
+  color: transparent;
+  background-image: var(--brillo-luz), var(--cromo-plata);
+  background-size: 300% 100%, 100% 100%;
+  background-position: 120% 0, 0 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 0.02em var(--vino);
+  animation: reflejo 5s ease-in-out infinite;
+}
+
+@keyframes reflejo {
+  0%,
+  55% {
+    background-position: 120% 0, 0 0;
+  }
+
+  85%,
+  100% {
+    background-position: -20% 0, 0 0;
+  }
+}
+
+/* ---------- Encabezado ---------- */
 
 .encabezado {
   position: relative;
-  padding: 20px 16px 8px;
+  padding: 18px 16px 14px;
+  overflow-x: clip;
   text-align: center;
 }
 
 .nombre {
-  position: relative;
-  display: inline-block;
+  z-index: 1;
   margin: 0;
-  padding: 0 0.12em;
-  font-family: var(--fuente-titulo);
-  font-style: italic;
-  font-weight: 900;
-  font-size: clamp(4.2rem, 23vw, 6rem);
-  line-height: 1.05;
-  letter-spacing: 0.01em;
-  color: transparent;
-  background-image:
-    linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%),
-    var(--glitter),
-    var(--cromado);
-  background-size: 300% 100%, var(--glitter-tam), 100% 100%;
-  background-position: 120% 0, var(--glitter-pos), 0 0;
-  background-repeat: no-repeat, repeat, repeat, repeat, no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  /* Contorno blanco, sombra morada en relieve y resplandor rosado */
-  filter:
-    drop-shadow(2px 0 0 var(--blanco))
-    drop-shadow(-2px 0 0 var(--blanco))
-    drop-shadow(0 2px 0 var(--blanco))
-    drop-shadow(0 -2px 0 var(--blanco))
-    drop-shadow(3px 4px 0 var(--morado-oscuro))
-    drop-shadow(0 0 14px rgb(255 47 168 / 0.75));
-  animation: brillo 4s ease-in-out infinite;
+  font-size: clamp(4rem, 20vw, 5.4rem);
 }
 
-@keyframes brillo {
-  0%,
-  45% {
-    background-position: 120% 0, var(--glitter-pos), 0 0;
-  }
-
-  75%,
-  100% {
-    background-position: -20% 0, var(--glitter-pos), 0 0;
-  }
+.decoracion {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgb(255 47 168 / 0.5));
 }
 
-/* Estrellitas de cuatro puntas que titilan alrededor del nombre */
-.estrellas {
+.estrellas-grandes {
+  top: -6px;
+  right: -34px;
+  width: 132px;
+  height: 132px;
+  transform: rotate(14deg);
+}
+
+.estrellas-chicas {
+  bottom: 4px;
+  left: -18px;
+  width: 78px;
+  height: 78px;
+  transform: rotate(-18deg);
+}
+
+/* Destellos de cuatro puntas que titilan alrededor del nombre */
+.destellos {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.estrella,
-.chispa {
+.destello {
   position: absolute;
-  aspect-ratio: 1;
-  background: var(--blanco);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  width: 26px;
+  height: 26px;
+  overflow: visible;
+  filter: drop-shadow(0 0 5px rgb(255 134 200 / 0.9));
+  animation: titilar 2.6s ease-in-out infinite;
 }
 
-.estrella {
-  width: 18px;
-  filter: drop-shadow(0 0 4px var(--rosa-chicle));
-  animation: titilar 2.4s ease-in-out infinite;
-}
-
-.estrella:nth-child(1) { top: 14px; left: 12%; width: 22px; }
-.estrella:nth-child(2) { top: 26%; right: 9%; width: 26px; animation-delay: 0.6s; }
-.estrella:nth-child(3) { bottom: 6px; left: 20%; width: 14px; animation-delay: 1.2s; }
-.estrella:nth-child(4) { top: 8px; right: 24%; width: 12px; animation-delay: 1.8s; }
-.estrella:nth-child(5) { bottom: 18%; right: 15%; width: 16px; animation-delay: 0.9s; }
-.estrella:nth-child(6) { top: 46%; left: 5%; width: 12px; animation-delay: 1.5s; }
+.destello:nth-child(1) { top: 22px; left: 17%; }
+.destello:nth-child(2) { bottom: 18px; right: 22%; width: 32px; height: 32px; animation-delay: 0.8s; }
+.destello:nth-child(3) { top: 12px; right: 30%; width: 16px; height: 16px; animation-delay: 1.5s; }
+.destello:nth-child(4) { bottom: 26px; left: 30%; width: 14px; height: 14px; animation-delay: 2s; }
 
 @keyframes titilar {
   0%,
   100% {
-    opacity: 0.15;
-    transform: scale(0.5) rotate(0deg);
+    opacity: 0.2;
+    transform: scale(0.45) rotate(0deg);
   }
 
   50% {
     opacity: 1;
-    transform: scale(1) rotate(45deg);
+    transform: scale(1) rotate(90deg);
   }
 }
 
 /* ---------- Contenido y pantallas ---------- */
 
 .contenido {
-  padding: 8px 16px 0;
+  padding: 4px 16px 0;
 }
 
 .titulo {
-  margin: 4px 0 16px;
-  font-family: var(--fuente-titulo);
-  font-style: italic;
-  font-weight: 800;
-  font-size: 1.75rem;
-  color: var(--rosa-chicle);
+  display: block;
+  width: fit-content;
+  margin: 0 0 14px -0.1em;
+  font-size: 2rem;
   outline: none;
 }
 
@@ -208,14 +254,24 @@ label {
   text-align: center;
 }
 
+/* Marco de cromo rosa reutilizable (funciona con bordes redondeados) */
+.marco-cromo,
+.outfit,
+.foto {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--fondo-marco, var(--negro-claro)), var(--fondo-marco, var(--negro-claro))) padding-box,
+    var(--cromo-rosa) border-box;
+}
+
 /* Espacio donde se arma el outfit al apretar Alina */
 .outfit {
+  --fondo-marco: rgb(20 0 13 / 0.92);
   display: grid;
   gap: 14px;
   padding: 14px;
-  border: 3px dashed rgb(255 143 209 / 0.6);
   border-radius: 28px;
-  background: rgb(36 20 71 / 0.6);
+  box-shadow: 0 0 24px rgb(255 47 168 / 0.25);
   text-align: center;
 }
 
@@ -236,12 +292,13 @@ label {
   align-content: center;
   gap: 4px;
   margin: 0;
-  border: 2px dashed rgb(255 143 209 / 0.45);
-  border-radius: 20px;
-  background: rgb(255 255 255 / 0.06);
+  border: 1.5px solid rgb(255 134 200 / 0.4);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.04);
   color: var(--texto-suave);
+  font-family: var(--fuente-titulo);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .prenda-arriba { grid-area: arriba; }
@@ -272,7 +329,7 @@ label {
   45% {
     transform: scale(0.9) rotate(-4deg);
     border-color: var(--rosa-chicle);
-    background: rgb(255 143 209 / 0.25);
+    background: rgb(255 134 200 / 0.22);
   }
 }
 
@@ -290,26 +347,33 @@ label {
   width: 100%;
   min-height: 52px;
   padding: 12px 20px;
-  border: 3px solid var(--blanco);
+  border: 3px solid transparent;
   border-radius: 999px;
-  background: var(--rosa-fuerte);
-  box-shadow: 0 4px 0 var(--morado-oscuro);
+  background:
+    radial-gradient(ellipse 80% 45% at 50% 15%, rgb(255 255 255 / 0.6), transparent 70%) padding-box,
+    var(--cromo-rosa) padding-box,
+    var(--cromo-plata) border-box;
+  box-shadow: 0 4px 0 var(--vino), 0 0 16px rgb(255 47 168 / 0.35);
   color: var(--blanco);
   font: 700 1.05rem var(--fuente-titulo);
   text-decoration: none;
+  text-shadow: 0 1px 0 var(--vino), 0 0 6px var(--rosa-oscuro);
   cursor: pointer;
 }
 
 .boton:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--morado-oscuro);
+  box-shadow: 0 1px 0 var(--vino);
 }
 
 .boton-secundario {
-  border-color: var(--rosa-chicle);
-  background: transparent;
+  border-width: 2px;
+  background:
+    linear-gradient(var(--negro-claro), var(--negro-claro)) padding-box,
+    var(--cromo-rosa) border-box;
   box-shadow: none;
   color: var(--rosa-chicle);
+  text-shadow: none;
 }
 
 .boton-secundario:active {
@@ -320,7 +384,7 @@ label {
 .chip {
   min-height: 44px;
   padding: 8px 16px;
-  border: 2px solid var(--rosa-chicle);
+  border: 1.5px solid var(--rosa-chicle);
   border-radius: 999px;
   background: transparent;
   color: var(--rosa-chicle);
@@ -330,8 +394,10 @@ label {
 }
 
 .chip[aria-pressed='true'] {
-  background: var(--rosa-chicle);
-  color: var(--noche);
+  border-color: var(--rosa-palido);
+  background: var(--cromo-rosa);
+  color: var(--blanco);
+  text-shadow: 0 1px 0 var(--vino);
 }
 
 .filtros {
@@ -347,42 +413,37 @@ label {
   display: none;
 }
 
-/* ---------- Botón grande "Alina" ---------- */
+/* ---------- Botón "Alina": píldora de cromo con mariposas ---------- */
 
 .boton-alina {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--alto-barra) + var(--seguro-abajo) + 12px);
+  bottom: calc(var(--alto-barra) + var(--seguro-abajo) + 22px);
   z-index: 20;
-  width: var(--tam-boton-alina);
-  height: var(--tam-boton-alina);
-  margin-left: calc(var(--tam-boton-alina) / -2);
-  border: 4px solid var(--blanco);
-  border-radius: 50%;
-  background-image: var(--glitter), var(--cromado);
-  background-size: var(--glitter-tam), 100% 100%;
-  background-position: var(--glitter-pos), 0 0;
+  display: grid;
+  place-items: center;
+  width: 250px;
+  height: var(--alto-boton-alina);
+  margin-left: -125px;
+  padding: 0 0 6px;
+  border: 4px solid transparent;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse 75% 42% at 50% 16%, rgb(255 255 255 / 0.75), transparent 70%) padding-box,
+    var(--cromo-rosa) padding-box,
+    var(--cromo-plata) border-box;
   box-shadow:
-    0 0 0 4px var(--rosa-fuerte),
-    0 6px 0 4px var(--morado-oscuro),
-    0 0 36px 6px rgb(255 47 168 / 0.65);
-  color: var(--blanco);
-  font-family: var(--fuente-titulo);
-  font-style: italic;
-  font-weight: 900;
-  font-size: 1.9rem;
-  text-shadow:
-    2px 2px 0 var(--morado-oscuro),
-    0 0 10px rgb(255 47 168 / 0.9);
+    0 6px 0 var(--vino),
+    0 0 30px 4px rgb(255 47 168 / 0.55);
   cursor: pointer;
-  animation: latido 2.6s ease-in-out infinite;
+  animation: latido 2.8s ease-in-out infinite;
 }
 
 .boton-alina:active {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
 
-.boton-alina.rebote {
+.boton-alina.activo {
   animation: rebote 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 
@@ -390,35 +451,118 @@ body:not([data-pantalla='inicio']) .boton-alina {
   display: none;
 }
 
+/* Dentro del botón rosa, el borde del texto va oscuro para que se lea */
+.cromo-boton {
+  font-size: 2.6rem;
+  line-height: 1.3;
+}
+
+.cromo-boton::before {
+  color: var(--vino);
+  -webkit-text-stroke-color: var(--vino);
+  text-shadow: 0 0 0.3em rgb(255 255 255 / 0.35);
+}
+
+.cromo-boton::after {
+  -webkit-text-stroke: 0.08em var(--rosa-chicle);
+}
+
 @keyframes latido {
   0%,
   100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
+  50% { transform: scale(1.03); }
 }
 
 @keyframes rebote {
-  0% { transform: scale(0.85); }
-  60% { transform: scale(1.12); }
+  0% { transform: scale(0.88); }
+  60% { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
 
-/* Lluvia de destellos al apretar el botón */
+/* Mariposas posadas en la píldora */
+.posada {
+  position: absolute;
+  width: 58px;
+  height: 41px;
+  overflow: visible;
+  filter: drop-shadow(2px 3px 0 var(--vino)) drop-shadow(0 0 6px rgb(255 47 168 / 0.6));
+}
+
+.posada .ala {
+  transform-box: view-box;
+  transform-origin: 100px 72px;
+  animation: aletear 0.6s ease-in-out infinite;
+}
+
+.posada-1 {
+  top: -30px;
+  left: -16px;
+  transform: rotate(-20deg);
+}
+
+.posada-2 {
+  right: -14px;
+  bottom: -24px;
+  width: 46px;
+  height: 32px;
+  transform: rotate(25deg);
+}
+
+.posada-2 .ala {
+  animation-delay: 0.25s;
+}
+
+.boton-alina.activo .posada-1 {
+  animation: volar-1 1s ease-in forwards;
+}
+
+.boton-alina.activo .posada-2 {
+  animation: volar-2 1s ease-in forwards;
+}
+
+.boton-alina.activo .posada .ala {
+  animation-duration: 0.18s;
+}
+
+@keyframes aletear {
+  0%,
+  100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.35); }
+}
+
+@keyframes volar-1 {
+  0% { opacity: 1; transform: rotate(-20deg); }
+  60% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-70px, -130px) rotate(-40deg) scale(0.6); }
+}
+
+@keyframes volar-2 {
+  0% { opacity: 1; transform: rotate(25deg); }
+  60% { opacity: 1; }
+  100% { opacity: 0; transform: translate(80px, -140px) rotate(30deg) scale(0.6); }
+}
+
+/* Mariposas y destellos que salen al apretar el botón */
 .chispa {
   position: fixed;
   z-index: 30;
+  aspect-ratio: 1;
   opacity: 0;
   pointer-events: none;
-  filter: drop-shadow(0 0 4px var(--rosa-fuerte));
-  animation: chispa 0.8s ease-out forwards;
+  background: var(--cromo-rosa);
+  -webkit-mask: var(--forma) center / contain no-repeat;
+  mask: var(--forma) center / contain no-repeat;
+  animation: chispa 1.1s ease-out forwards;
   animation-delay: var(--retraso);
 }
 
-.chispa:nth-child(3n) {
-  background: var(--rosa-palido);
+.chispa-mariposa {
+  --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8C10 4 6 2 3.5 3S1.6 8.6 5 10.5C2 11.8 2.4 16 5 16.6s5-1.4 7-5.1c2 3.7 4.4 5.7 7 5.1s3-4.8 0-6.1C22.4 8.6 23 4 20.5 3S14 4 12 8Z'/%3E%3C/svg%3E");
 }
 
-.chispa:nth-child(3n + 1) {
-  background: var(--rosa-chicle);
+.chispa-destello {
+  --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.5 5.5 11.4 12 12-6.5.6-11.4 5.5-12 12-.6-6.5-5.5-11.4-12-12C6.5 11.4 11.4 6.5 12 0Z'/%3E%3C/svg%3E");
+  background: var(--cromo-plata);
 }
 
 @keyframes chispa {
@@ -441,14 +585,15 @@ body:not([data-pantalla='inicio']) .boton-alina {
 }
 
 .foto {
+  --fondo-marco: var(--blanco);
   display: grid;
   place-items: center;
   aspect-ratio: 1;
   overflow: hidden;
-  border: 3px dashed var(--rosa-chicle);
+  border-width: 3px;
   border-radius: 24px;
-  background: var(--blanco);
-  color: var(--morado-oscuro);
+  color: var(--rosa-oscuro);
+  font-family: var(--fuente-titulo);
   font-weight: 700;
   cursor: pointer;
 }
@@ -478,6 +623,7 @@ body:not([data-pantalla='inicio']) .boton-alina {
   margin: 0;
   padding: 0;
   border: 0;
+  font-family: var(--fuente-titulo);
   font-weight: 700;
 }
 
@@ -491,9 +637,9 @@ body:not([data-pantalla='inicio']) .boton-alina {
 .campo input[type='text'] {
   min-height: 48px;
   padding: 10px 14px;
-  border: 2px solid var(--rosa-chicle);
+  border: 1.5px solid var(--rosa-chicle);
   border-radius: 14px;
-  background: var(--noche-clara);
+  background: var(--negro-claro);
   color: var(--texto);
   font: 400 1rem var(--fuente-texto);
 }
@@ -507,7 +653,7 @@ body:not([data-pantalla='inicio']) .boton-alina {
   width: 56px;
   height: 44px;
   padding: 0;
-  border: 2px solid var(--blanco);
+  border: 2px solid var(--rosa-palido);
   border-radius: 12px;
   background: none;
 }
@@ -524,14 +670,14 @@ body:not([data-pantalla='inicio']) .boton-alina {
   align-items: center;
   min-height: 48px;
   padding: 0 14px;
-  border: 2px solid rgb(255 143 209 / 0.5);
+  border: 1.5px solid rgb(255 134 200 / 0.45);
   border-radius: 14px;
   font-weight: 500;
 }
 
 .opcion:has(input:checked) {
   border-color: var(--rosa-chicle);
-  background: rgb(255 143 209 / 0.18);
+  background: rgb(255 134 200 / 0.16);
 }
 
 .opcion input {
@@ -560,10 +706,18 @@ body:not([data-pantalla='inicio']) .boton-alina {
   height: calc(var(--alto-barra) + var(--seguro-abajo));
   padding-bottom: var(--seguro-abajo);
   transform: translateX(-50%);
-  border-top: 1px solid rgb(255 143 209 / 0.35);
-  background: rgb(20 10 46 / 0.88);
+  background: rgb(5 0 6 / 0.9);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
+}
+
+/* Línea de cromo rosa arriba de la barra */
+.barra::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rosa-chicle) 20%, var(--rosa-palido) 50%, var(--rosa-chicle) 80%, transparent);
 }
 
 .barra-enlace {
@@ -573,8 +727,9 @@ body:not([data-pantalla='inicio']) .boton-alina {
   gap: 2px;
   min-height: 44px;
   color: var(--texto-suave);
+  font-family: var(--fuente-titulo);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -593,7 +748,8 @@ body:not([data-pantalla='inicio']) .boton-alina {
 }
 
 .barra-enlace[aria-current='page'] svg {
-  fill: rgb(255 143 209 / 0.25);
+  fill: rgb(255 134 200 / 0.25);
+  filter: drop-shadow(0 0 6px rgb(255 47 168 / 0.8));
 }
 
 /* ---------- Accesibilidad ---------- */
@@ -617,6 +773,6 @@ body:not([data-pantalla='inicio']) .boton-alina {
 
 @media (min-width: 600px) {
   body {
-    border-inline: 1px solid rgb(255 143 209 / 0.2);
+    border-inline: 1px solid rgb(255 134 200 / 0.2);
   }
 }

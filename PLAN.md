@@ -101,16 +101,28 @@ La navegación es una barra inferior con Inicio, Armario y Favoritos, con el bot
 
 ## 3. Estilo visual
 
-Referencia: [docs/referencia-estilo.png](docs/referencia-estilo.png). Es un estilo Y2K / caricatura con letras cromadas en rosa, contornos blancos y destellos.
+**Y2K de los 2000, tipo Bratz:** cromo líquido rosa y plata sobre negro.
 
-- **Colores:** rosa fuerte (`#ff2fa8`), rosa chicle (`#ff8fd1`), rosa pálido (`#ffd6f0`), lila de acento (`#b36bff`), fondo azul noche o negro (`#140a2e`) y blanco para los destellos y contornos.
-- **Tipografía:** letra gruesa en cursiva para títulos (por ejemplo, de Google Fonts) y una letra simple y legible para el resto.
-- **Nombre "Alina":**
-  - texto con degradado rosa cromado y contorno blanco
-  - resplandor rosado y un brillo que lo recorre cada pocos segundos
-  - estrellitas ✦ que titilan alrededor
-- **Botón Alina:** el mismo tratamiento cromado y glitter. Al apretarlo, rebota y suelta una lluvia de destellos.
-- **Tarjetas de prenda:** fondo blanco, bordes redondeados y contorno grueso estilo caricatura.
+Referencias:
+- [docs/referencia-letras.png](docs/referencia-letras.png): letras de cromo plateado con borde de cromo rosa y relieve
+- [docs/referencia-estrellas.png](docs/referencia-estrellas.png): estrellas afiladas de cromo rosa, con contorno
+- [docs/referencia-estilo.png](docs/referencia-estilo.png): la primera referencia
+
+**Lo que va y lo que no:**
+- **Sin puntitos de glitter.** El brillo viene de los reflejos del cromo y de los destellos de cuatro puntas.
+- **Colores:**
+  - cromo rosa: degradado de `#ffe0f1` a `#ff86c8`, `#e0157f` y `#7d0845`
+  - cromo plata: degradado de blanco a gris oscuro y de vuelta a blanco
+  - fondo negro (`#050006`) con un resplandor rosa arriba
+- **Tipografía:** Pacifico, una cursiva gruesa y retro, para "Alina" y los títulos. Rubik o la letra del sistema para el resto.
+- **Texto de cromo** (clase `.cromo`): relleno plateado, borde rosa grueso con relieve oscuro, un filo claro y un reflejo de luz que lo recorre cada pocos segundos.
+- **Decoración:**
+  - grupos de estrellas Y2K de cromo rosa en las esquinas del encabezado
+  - destellos plateados de cuatro puntas que titilan
+- **Botón Alina:** píldora de cromo rosa con borde plateado y brillo arriba, con "Alina" en cromo. Tiene dos mariposas de cromo posadas que aletean.
+  - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas y destellos hacia todos lados.
+- **Marcos:** bordes finos de cromo rosa sobre fondo negro.
+- **Tarjetas de prenda con foto:** fondo blanco, como foto de producto.
 - **Animaciones suaves:** se respeta la opción "reducir movimiento" del iPhone.
 
 ## 4. Cómo se generan outfits que combinen
@@ -196,7 +208,8 @@ Es la parte técnicamente más difícil.
 ### Fase 1: Confirmar con Alina
 - [x] "Conjunto" = prendas de un mismo set que salen juntas
 - [ ] ¿El botón Alina va abajo o arriba? (por ahora, abajo)
-- [ ] Forma del botón Alina: el círculo no convence. Las opciones están en `opciones.html` (mariposa, píldora con mariposas o corazón). Es una página temporal: se borra al elegir.
+- [x] Forma del botón Alina: píldora de cromo con mariposas
+- [x] Estética: Y2K / Bratz con cromo rosa y plata (ver sección 3)
 - [x] Categorías y estilos: por ahora, los de la sección 4
 
 ### Fase 2: Estructura y estilo

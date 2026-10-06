@@ -3,25 +3,70 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#140a2e">
+    <meta name="theme-color" content="#050006">
     <meta name="description" content="El armario de Alina: guarda tu ropa y arma outfits que combinan.">
     <title>Alina</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,700;1,800;1,900&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&amp;family=Rubik:wght@500;700&amp;display=block">
     <link rel="stylesheet" href="css/styles.css">
     <script type="module" src="js/app.js"></script>
   </head>
   <body data-pantalla="inicio">
+    <!-- Dibujos compartidos: degradados de cromo, estrella Y2K, destello y mariposa -->
+    <svg class="definiciones" aria-hidden="true">
+      <defs>
+        <linearGradient id="cromo-rosa" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffe0f1"/>
+          <stop offset="0.28" stop-color="#ff86c8"/>
+          <stop offset="0.5" stop-color="#e0157f"/>
+          <stop offset="0.56" stop-color="#7d0845"/>
+          <stop offset="0.78" stop-color="#ff5cb2"/>
+          <stop offset="1" stop-color="#ffd0ea"/>
+        </linearGradient>
+        <linearGradient id="cromo-plata" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff"/>
+          <stop offset="0.4" stop-color="#e6e6ee"/>
+          <stop offset="0.5" stop-color="#6f6f7c"/>
+          <stop offset="0.58" stop-color="#2c2c35"/>
+          <stop offset="0.75" stop-color="#d9d9e2"/>
+          <stop offset="1" stop-color="#fff"/>
+        </linearGradient>
+        <path id="forma-estrella" d="M50 2 60 36.2 95.6 35.2 66.2 55.3 78.2 88.8 50 67 21.8 88.8 33.8 55.3 4.4 35.2 40 36.2Z"/>
+        <g id="estrella-doble">
+          <use href="#forma-estrella" fill="none" stroke="url(#cromo-rosa)" stroke-width="4" transform="translate(50 50) scale(1.18) translate(-50 -50)"/>
+          <use href="#forma-estrella" fill="url(#cromo-rosa)" stroke="#ffd0ea" stroke-width="1.5" transform="translate(50 52) scale(0.72) translate(-50 -50)"/>
+        </g>
+        <symbol id="estrella-y2k" viewBox="-12 -12 150 150">
+          <use href="#estrella-doble"/>
+          <use href="#estrella-doble" transform="translate(-4 72) scale(0.42)"/>
+          <use href="#estrella-doble" transform="translate(66 78) scale(0.36)"/>
+        </symbol>
+        <symbol id="destello" viewBox="0 0 24 24">
+          <path d="M12 0c.6 6.5 5.5 11.4 12 12-6.5.6-11.4 5.5-12 12-.6-6.5-5.5-11.4-12-12C6.5 11.4 11.4 6.5 12 0Z" fill="url(#cromo-plata)" stroke="#ff86c8" stroke-width="1.2"/>
+        </symbol>
+        <path id="ala-arriba" d="M100 68C82 22 30-2 14 22 0 44 34 72 100 72Z"/>
+        <path id="ala-abajo" d="M100 76C66 76 28 92 34 118c6 22 48 12 66-38Z"/>
+        <g id="alas-izquierdas">
+          <use href="#ala-arriba" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="7"/>
+          <use href="#ala-abajo" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="7"/>
+        </g>
+        <g id="cuerpo-mariposa">
+          <path d="M97 40c-4-14-10-22-18-26M103 40c4-14 10-22 18-26" fill="none" stroke="#e6e6ee" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="100" cy="76" rx="7" ry="36" fill="url(#cromo-plata)" stroke="#7d0845" stroke-width="2"/>
+        </g>
+      </defs>
+    </svg>
+
     <header class="encabezado">
-      <h1 class="nombre">Alina</h1>
-      <div class="estrellas" aria-hidden="true">
-        <span class="estrella"></span>
-        <span class="estrella"></span>
-        <span class="estrella"></span>
-        <span class="estrella"></span>
-        <span class="estrella"></span>
-        <span class="estrella"></span>
+      <svg class="decoracion estrellas-grandes" aria-hidden="true"><use href="#estrella-y2k"/></svg>
+      <svg class="decoracion estrellas-chicas" aria-hidden="true"><use href="#estrella-y2k"/></svg>
+      <h1 class="nombre cromo" data-texto="Alina"><span>Alina</span></h1>
+      <div class="destellos" aria-hidden="true">
+        <svg class="destello"><use href="#destello"/></svg>
+        <svg class="destello"><use href="#destello"/></svg>
+        <svg class="destello"><use href="#destello"/></svg>
+        <svg class="destello"><use href="#destello"/></svg>
       </div>
     </header>
 
@@ -52,7 +97,7 @@
       </section>
 
       <section id="pantalla-armario" class="pantalla" aria-labelledby="titulo-armario" hidden>
-        <h2 id="titulo-armario" class="titulo" tabindex="-1">Mi armario</h2>
+        <h2 id="titulo-armario" class="titulo cromo" tabindex="-1" data-texto="Mi armario"><span>Mi armario</span></h2>
         <div class="filtros" role="group" aria-label="Filtrar por categoría">
           <button class="chip" type="button" aria-pressed="true">Todo</button>
           <button class="chip" type="button" aria-pressed="false">Arriba</button>
@@ -67,7 +112,7 @@
       </section>
 
       <section id="pantalla-agregar" class="pantalla" aria-labelledby="titulo-agregar" hidden>
-        <h2 id="titulo-agregar" class="titulo" tabindex="-1">Agregar prenda</h2>
+        <h2 id="titulo-agregar" class="titulo cromo" tabindex="-1" data-texto="Agregar prenda"><span>Agregar prenda</span></h2>
         <form class="formulario" id="form-prenda">
           <label class="foto" id="foto" for="foto-prenda">
             <span class="foto-texto">Tocar para tomar una foto</span>
@@ -114,12 +159,24 @@
       </section>
 
       <section id="pantalla-favoritos" class="pantalla" aria-labelledby="titulo-favoritos" hidden>
-        <h2 id="titulo-favoritos" class="titulo" tabindex="-1">Favoritos</h2>
+        <h2 id="titulo-favoritos" class="titulo cromo" tabindex="-1" data-texto="Favoritos"><span>Favoritos</span></h2>
         <p class="vacio">Cuando te guste un outfit, tócale el corazón y aparecerá aquí 💖</p>
       </section>
     </main>
 
-    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit-pista">Alina</button>
+    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit-pista">
+      <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
+      <svg class="posada posada-1" viewBox="0 0 200 140" aria-hidden="true">
+        <g class="ala"><use href="#alas-izquierdas"/></g>
+        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+        <use href="#cuerpo-mariposa"/>
+      </svg>
+      <svg class="posada posada-2" viewBox="0 0 200 140" aria-hidden="true">
+        <g class="ala"><use href="#alas-izquierdas"/></g>
+        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+        <use href="#cuerpo-mariposa"/>
+      </svg>
+    </button>
 
     <nav class="barra" aria-label="Secciones">
       <a class="barra-enlace" href="#armario">

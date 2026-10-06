@@ -27,19 +27,22 @@ function lanzarDestellos(boton) {
   if (sinMovimiento.matches) return;
   const { left, top, width, height } = boton.getBoundingClientRect();
 
-  for (const { x, y, tamano, giro, retraso } of generarChispas(14)) {
+  const chispas = generarChispas(16, { distancia: 160 });
+  chispas.forEach(({ x, y, tamano, giro, retraso }, i) => {
+    const esMariposa = i % 2 === 0;
     const chispa = document.createElement('span');
-    chispa.className = 'chispa';
+    chispa.className = `chispa ${esMariposa ? 'chispa-mariposa' : 'chispa-destello'}`;
     chispa.style.left = `${left + width / 2}px`;
     chispa.style.top = `${top + height / 2}px`;
-    chispa.style.width = `${tamano}px`;
+    chispa.style.width = `${tamano + (esMariposa ? 12 : 0)}px`;
     chispa.style.setProperty('--x', `${x}px`);
-    chispa.style.setProperty('--y', `${y}px`);
-    chispa.style.setProperty('--giro', `${giro}deg`);
+    // Las mariposas vuelan hacia arriba y casi sin girar.
+    chispa.style.setProperty('--y', `${esMariposa ? y - 70 : y}px`);
+    chispa.style.setProperty('--giro', `${esMariposa ? Math.round(x / 6) : giro}deg`);
     chispa.style.setProperty('--retraso', `${retraso}ms`);
     chispa.addEventListener('animationend', () => chispa.remove());
     document.body.append(chispa);
-  }
+  });
 }
 
 function reiniciarAnimacion(elemento, clase) {
@@ -49,9 +52,13 @@ function reiniciarAnimacion(elemento, clase) {
 }
 
 const botonAlina = document.getElementById('boton-alina');
+let temporizadorMariposas;
 botonAlina.addEventListener('click', () => {
-  reiniciarAnimacion(botonAlina, 'rebote');
+  reiniciarAnimacion(botonAlina, 'activo');
   lanzarDestellos(botonAlina);
+  // Las mariposas posadas salen volando y vuelven a posarse.
+  clearTimeout(temporizadorMariposas);
+  temporizadorMariposas = setTimeout(() => botonAlina.classList.remove('activo'), 1800);
   reiniciarAnimacion(document.getElementById('prendas'), 'barajando');
   // Hasta que exista el armario (fase 3) no hay prendas con qué armar el outfit.
   document.getElementById('outfit-pista').textContent =
