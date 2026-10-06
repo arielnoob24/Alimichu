@@ -27,12 +27,27 @@
 
     <main class="contenido">
       <section id="pantalla-inicio" class="pantalla" aria-label="Outfit del momento">
-        <div class="outfit" id="outfit" aria-live="polite">
-          <p class="outfit-vacio">
-            <span class="outfit-titulo">Tu armario está vacío</span>
-            Agrega tus prendas y aprieta el botón <strong>Alina</strong> para armar un outfit ✦
-          </p>
-          <a class="boton boton-secundario" href="#agregar">+ Agregar prenda</a>
+        <div class="outfit" id="outfit">
+          <div class="prendas" id="prendas">
+            <figure class="prenda prenda-arriba">
+              <span class="prenda-icono" aria-hidden="true">👚</span>
+              <figcaption>Arriba</figcaption>
+            </figure>
+            <figure class="prenda prenda-extra">
+              <span class="prenda-icono" aria-hidden="true">👜</span>
+              <figcaption>Extra</figcaption>
+            </figure>
+            <figure class="prenda prenda-abajo">
+              <span class="prenda-icono" aria-hidden="true">👖</span>
+              <figcaption>Abajo</figcaption>
+            </figure>
+            <figure class="prenda prenda-zapatos">
+              <span class="prenda-icono" aria-hidden="true">👟</span>
+              <figcaption>Zapatos</figcaption>
+            </figure>
+          </div>
+          <p class="outfit-pista" id="outfit-pista" aria-live="polite">Aprieta <strong>Alina</strong> y aquí aparece tu outfit ✦</p>
+          <a class="boton boton-secundario" id="outfit-agregar" href="#agregar" hidden>+ Agregar prendas</a>
         </div>
       </section>
 
@@ -104,16 +119,16 @@
       </section>
     </main>
 
-    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit">Alina</button>
+    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="outfit-pista">Alina</button>
 
     <nav class="barra" aria-label="Secciones">
-      <a class="barra-enlace" href="#inicio" aria-current="page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
-        Inicio
-      </a>
       <a class="barra-enlace" href="#armario">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6a2 2 0 1 1 2.6 1.9c-.4.1-.6.5-.6.9V11l9 6.2a1 1 0 0 1-.6 1.8H3.6a1 1 0 0 1-.6-1.8L12 11"/></svg>
         Armario
+      </a>
+      <a class="barra-enlace" href="#inicio" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
+        Inicio
       </a>
       <a class="barra-enlace" href="#favoritos">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>

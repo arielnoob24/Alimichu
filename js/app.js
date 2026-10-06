@@ -52,8 +52,11 @@ const botonAlina = document.getElementById('boton-alina');
 botonAlina.addEventListener('click', () => {
   reiniciarAnimacion(botonAlina, 'rebote');
   lanzarDestellos(botonAlina);
-  // Hasta que exista el armario (fase 3), el outfit avisa que faltan prendas.
-  reiniciarAnimacion(document.getElementById('outfit'), 'avisar');
+  reiniciarAnimacion(document.getElementById('prendas'), 'barajando');
+  // Hasta que exista el armario (fase 3) no hay prendas con qué armar el outfit.
+  document.getElementById('outfit-pista').textContent =
+    'Todavía no hay prendas en tu armario. ¡Agrega algunas y vuelve a apretar Alina!';
+  document.getElementById('outfit-agregar').hidden = false;
 });
 
 const inputFoto = document.getElementById('foto-prenda');
