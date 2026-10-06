@@ -1,0 +1,75 @@
+/* Página temporal para elegir la letra de los títulos y botones de cromo. */
+
+.letras {
+  display: grid;
+  gap: 18px;
+  padding: 20px 16px 0;
+}
+
+.letras-titulo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.letras-ayuda {
+  margin: 0;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.letra-tarjeta {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 18px 12px 22px;
+  border: 1.5px solid rgb(255 134 200 / 0.4);
+  border-radius: 24px;
+  background: rgb(20 0 13 / 0.7);
+}
+
+.letra-tarjeta h2 {
+  justify-self: start;
+  margin: 0;
+  color: var(--rosa-chicle);
+  font-family: var(--fuente-titulo);
+  font-size: 1.05rem;
+}
+
+.letra-tarjeta h2 span {
+  display: block;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.letra-muestra-titulo {
+  font-size: 2.4rem;
+}
+
+.letra-bagel { --fuente-cromo: 'Bagel Fat One', cursive; }
+.letra-shrikhand { --fuente-cromo: 'Shrikhand', cursive; }
+.letra-bungee { --fuente-cromo: 'Bungee', sans-serif; }
+.letra-audiowide { --fuente-cromo: 'Audiowide', sans-serif; }
+
+/* Las letras más anchas necesitan un poco menos de tamaño para entrar en el botón */
+.letra-bungee .cromo-boton,
+.letra-audiowide .cromo-boton {
+  font-size: 1.45rem;
+}
+
+.letra-bungee .letra-muestra-titulo,
+.letra-audiowide .letra-muestra-titulo {
+  font-size: 1.9rem;
+}
+
+/* "Alina" con el tamaño que tiene en el botón real */
+.boton-portada .muestra-alina {
+  font-size: 2.4rem;
+}
+
+.letra-bungee .boton-portada .muestra-alina,
+.letra-audiowide .boton-portada .muestra-alina {
+  font-size: 1.9rem;
+}

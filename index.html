@@ -59,6 +59,9 @@
           <use href="#mariposa-doble"/>
           <use href="#mariposa-doble" transform="translate(112 132) rotate(16) scale(0.4)"/>
         </symbol>
+        <symbol id="mariposa-sola" viewBox="-20 -16 240 176">
+          <use href="#mariposa-doble"/>
+        </symbol>
         <symbol id="mariposa-plata" viewBox="0 0 200 140">
           <use href="#alas-forma" fill="url(#cromo-plata)" stroke="#ff86c8" stroke-width="8"/>
           <use href="#cuerpo-mariposa"/>
@@ -69,7 +72,8 @@
     <header class="encabezado">
       <svg class="decoracion grupo-grande" aria-hidden="true"><use href="#mariposas-y2k"/></svg>
       <svg class="decoracion grupo-chico" aria-hidden="true"><use href="#mariposas-y2k"/></svg>
-      <!-- Saludo según la hora en Inicio; en las otras pestañas, el nombre de la sección -->
+      <svg class="decoracion mariposa-central" aria-hidden="true"><use href="#mariposa-sola"/></svg>
+      <!-- En Inicio el título no se ve (solo mariposas); en las otras pestañas, el nombre de la sección -->
       <h1 class="nombre cromo" id="titulo-pagina" data-texto="Hola"><span>Hola</span></h1>
       <div class="brillos" aria-hidden="true">
         <svg class="brillo"><use href="#mariposa-plata"/></svg>

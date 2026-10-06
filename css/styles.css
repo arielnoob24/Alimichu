@@ -212,6 +212,35 @@ select {
   text-align: center;
 }
 
+/* En Inicio no hay texto arriba: solo mariposas. El título queda para lectores de pantalla. */
+body[data-pantalla='inicio'] .encabezado {
+  min-height: 124px;
+}
+
+body[data-pantalla='inicio'] #titulo-pagina {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.mariposa-central {
+  --giro: -6deg;
+  display: none;
+  top: 50%;
+  left: 50%;
+  width: 130px;
+  height: 95px;
+  margin: -44px 0 0 -65px;
+  animation-delay: 0.6s;
+}
+
+body[data-pantalla='inicio'] .mariposa-central {
+  display: block;
+}
+
 .nombre {
   z-index: 1;
   margin: 0;

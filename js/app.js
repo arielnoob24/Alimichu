@@ -1,9 +1,8 @@
 import { PANTALLAS, PESTANAS, esVista, pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
-import { saludo } from './saludo.js';
 
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
-const TITULOS = { armario: 'Mi armario', favoritos: 'Favoritos' };
+const TITULOS = { inicio: 'Inicio', armario: 'Mi armario', favoritos: 'Favoritos' };
 
 // En iOS, :active solo se activa al tocar si la página escucha touchstart.
 document.addEventListener('touchstart', () => {}, { passive: true });
@@ -52,9 +51,9 @@ function mostrarPantalla({ enfocar = true } = {}) {
   }
 }
 
-// En Inicio, un saludo según la hora; en las otras pestañas, el nombre de la sección.
+// El nombre de la sección arriba (en Inicio no se ve: ahí solo hay mariposas).
 function ponerTitulo(pestana) {
-  const texto = pestana === 'inicio' ? saludo(new Date()) : TITULOS[pestana];
+  const texto = TITULOS[pestana];
   const titulo = document.getElementById('titulo-pagina');
   titulo.dataset.texto = texto;
   titulo.firstElementChild.textContent = texto;
@@ -152,9 +151,5 @@ document.getElementById('form-prenda').addEventListener('submit', (evento) => {
 window.addEventListener('hashchange', () => {
   navegoDentroDeLaApp = true;
   mostrarPantalla();
-});
-// Si la app queda abierta, el saludo se actualiza al volver a ella.
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) ponerTitulo(pestanaDe(pantallaDesdeHash(location.hash)));
 });
 mostrarPantalla({ enfocar: false });
