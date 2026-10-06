@@ -77,7 +77,22 @@
     </header>
 
     <main class="contenido">
-      <section id="pantalla-inicio" class="pantalla" aria-label="Inicio"></section>
+      <section id="pantalla-inicio" class="pantalla" aria-label="Inicio">
+        <button class="boton-alina" id="boton-alina" type="button" aria-describedby="invitacion">
+          <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
+          <svg class="posada posada-1" viewBox="0 0 200 140" aria-hidden="true">
+            <g class="ala"><use href="#alas-izquierdas"/></g>
+            <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+            <use href="#cuerpo-mariposa"/>
+          </svg>
+          <svg class="posada posada-2" viewBox="0 0 200 140" aria-hidden="true">
+            <g class="ala"><use href="#alas-izquierdas"/></g>
+            <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
+            <use href="#cuerpo-mariposa"/>
+          </svg>
+        </button>
+        <p class="invitacion" id="invitacion">Aprieta <strong>Alina</strong> para que se genere tu combinación</p>
+      </section>
 
       <!-- Vista a la que lleva el botón Alina: se abre encima de Inicio, como en iOS -->
       <section id="pantalla-outfit" class="pantalla" aria-labelledby="titulo-outfit" hidden>
@@ -86,7 +101,7 @@
           Inicio
         </button>
         <h2 id="titulo-outfit" class="titulo cromo" tabindex="-1" data-texto="Tu outfit"><span>Tu outfit</span></h2>
-        <div class="outfit" id="outfit">
+        <div class="outfit" id="cuadro-outfit">
           <div class="prendas" id="prendas">
             <figure class="prenda prenda-arriba">
               <span class="prenda-icono" aria-hidden="true">👚</span>
@@ -132,22 +147,6 @@
         <a class="boton" href="#crear">+ Crear combinación</a>
       </section>
     </main>
-
-    <button class="boton-alina" id="boton-alina" type="button" aria-describedby="invitacion">
-      <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
-      <svg class="posada posada-1" viewBox="0 0 200 140" aria-hidden="true">
-        <g class="ala"><use href="#alas-izquierdas"/></g>
-        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
-        <use href="#cuerpo-mariposa"/>
-      </svg>
-      <svg class="posada posada-2" viewBox="0 0 200 140" aria-hidden="true">
-        <g class="ala"><use href="#alas-izquierdas"/></g>
-        <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>
-        <use href="#cuerpo-mariposa"/>
-      </svg>
-    </button>
-
-    <p class="invitacion" id="invitacion">Aprieta <strong>Alina</strong> para que se genere tu combinación</p>
 
     <nav class="barra" id="barra" aria-label="Secciones">
       <span class="burbuja" aria-hidden="true"></span>
