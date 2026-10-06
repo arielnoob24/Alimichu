@@ -1,0 +1,255 @@
+/* Página temporal para elegir la forma del botón Alina. */
+
+body[data-pantalla='opciones'] {
+  padding-bottom: calc(var(--seguro-abajo) + 32px);
+}
+
+.definiciones {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.opciones-pagina {
+  display: grid;
+  gap: 20px;
+  padding: 20px 16px 0;
+}
+
+.opciones-titulo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.opciones-titulo span {
+  color: var(--rosa-chicle);
+}
+
+.opciones-ayuda {
+  margin: 0;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.opcion-tarjeta {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 20px 16px;
+  border: 2px solid rgb(255 143 209 / 0.4);
+  border-radius: 24px;
+  background: rgb(36 20 71 / 0.6);
+  text-align: center;
+}
+
+.opcion-tarjeta h2 {
+  justify-self: start;
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+  color: var(--rosa-chicle);
+}
+
+.opcion-tarjeta p {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+}
+
+/* Texto "Alina" compartido por las tres opciones */
+.texto-boton {
+  position: relative;
+  color: var(--blanco);
+  font-family: var(--fuente-titulo);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.9rem;
+  text-shadow:
+    2px 2px 0 var(--morado-oscuro),
+    -1px -1px 0 var(--morado-oscuro),
+    0 0 10px rgb(255 47 168 / 0.9);
+}
+
+.boton-mariposa,
+.boton-pildora,
+.boton-corazon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dibujo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter:
+    drop-shadow(3px 4px 0 var(--morado-oscuro))
+    drop-shadow(0 0 16px rgb(255 47 168 / 0.6));
+}
+
+/* ---------- 1. Mariposa ---------- */
+
+.boton-mariposa {
+  width: 220px;
+  height: 154px;
+}
+
+.boton-mariposa .texto-boton {
+  top: 4px;
+}
+
+.ala {
+  transform-box: view-box;
+  transform-origin: 100px 72px;
+}
+
+.boton-mariposa .ala {
+  animation: planear 3s ease-in-out infinite;
+}
+
+.boton-mariposa.activo .ala {
+  animation: aletear 0.22s ease-in-out 4;
+}
+
+@keyframes planear {
+  0%,
+  100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.9); }
+}
+
+@keyframes aletear {
+  0%,
+  100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.35); }
+}
+
+/* ---------- 2. Píldora con mariposas ---------- */
+
+.boton-pildora {
+  width: 230px;
+  height: 78px;
+  margin: 14px 0;
+  border: 4px solid var(--blanco);
+  border-radius: 999px;
+  background-image: var(--glitter), var(--cromado);
+  background-size: var(--glitter-tam), 100% 100%;
+  background-position: var(--glitter-pos), 0 0;
+  box-shadow:
+    0 0 0 4px var(--rosa-fuerte),
+    0 6px 0 4px var(--morado-oscuro),
+    0 0 30px 4px rgb(255 47 168 / 0.55);
+}
+
+.boton-pildora:active {
+  transform: scale(0.95);
+}
+
+.posada {
+  position: absolute;
+  width: 54px;
+  height: 38px;
+  overflow: visible;
+  filter: drop-shadow(2px 2px 0 var(--morado-oscuro));
+}
+
+.posada .ala {
+  animation: aletear 0.5s ease-in-out infinite;
+}
+
+.posada-1 {
+  top: -26px;
+  left: -14px;
+  transform: rotate(-20deg);
+}
+
+.posada-2 {
+  right: -12px;
+  bottom: -22px;
+  width: 42px;
+  height: 30px;
+  transform: rotate(25deg);
+}
+
+.posada-2 .ala {
+  animation-delay: 0.2s;
+}
+
+.boton-pildora.activo .posada-1 {
+  animation: volar-1 1s ease-in forwards;
+}
+
+.boton-pildora.activo .posada-2 {
+  animation: volar-2 1s ease-in forwards;
+}
+
+@keyframes volar-1 {
+  0% { opacity: 1; transform: rotate(-20deg); }
+  60% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-60px, -110px) rotate(-40deg) scale(0.6); }
+}
+
+@keyframes volar-2 {
+  0% { opacity: 1; transform: rotate(25deg); }
+  60% { opacity: 1; }
+  100% { opacity: 0; transform: translate(70px, -120px) rotate(30deg) scale(0.6); }
+}
+
+/* ---------- 3. Corazón ---------- */
+
+.boton-corazon {
+  width: 180px;
+  height: 162px;
+}
+
+.boton-corazon .texto-boton {
+  top: -8px;
+}
+
+.boton-corazon.activo {
+  animation: latido-corazon 0.6s ease-in-out;
+}
+
+@keyframes latido-corazon {
+  0%,
+  100% { transform: scale(1); }
+  20% { transform: scale(1.15); }
+  40% { transform: scale(0.95); }
+  60% { transform: scale(1.08); }
+}
+
+/* ---------- Mariposas que salen al tocar ---------- */
+
+.mariposita {
+  position: fixed;
+  z-index: 30;
+  aspect-ratio: 1;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--rosa-chicle);
+  -webkit-mask: var(--forma-mariposa) center / contain no-repeat;
+  mask: var(--forma-mariposa) center / contain no-repeat;
+  animation: chispa 1.1s ease-out forwards;
+  animation-delay: var(--retraso);
+  --forma-mariposa: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8C10 4 6 2 3.5 3S1.6 8.6 5 10.5C2 11.8 2.4 16 5 16.6s5-1.4 7-5.1c2 3.7 4.4 5.7 7 5.1s3-4.8 0-6.1C22.4 8.6 23 4 20.5 3S14 4 12 8Z'/%3E%3C/svg%3E");
+}
+
+.mariposita:nth-child(3n) {
+  background: var(--rosa-palido);
+}
+
+.mariposita:nth-child(3n + 1) {
+  background: var(--lila);
+}

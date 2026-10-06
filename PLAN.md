@@ -196,6 +196,7 @@ Es la parte técnicamente más difícil.
 ### Fase 1: Confirmar con Alina
 - [x] "Conjunto" = prendas de un mismo set que salen juntas
 - [ ] ¿El botón Alina va abajo o arriba? (por ahora, abajo)
+- [ ] Forma del botón Alina: el círculo no convence. Las opciones están en `opciones.html` (mariposa, píldora con mariposas o corazón). Es una página temporal: se borra al elegir.
 - [x] Categorías y estilos: por ahora, los de la sección 4
 
 ### Fase 2: Estructura y estilo
