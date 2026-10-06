@@ -33,6 +33,7 @@ El plan del proyecto está en [PLAN.md](PLAN.md). Léelo antes de empezar una ta
   - Lo que use cámara, fotos o instalación se verifica en el iPhone real.
 
 - **Todo cambio se publica:** se trabaja directo en `main`. Después de cada cambio, corre `npm run check`, haz commit y `git push` a `main`. El workflow `.github/workflows/ci-cd.yml` vuelve a validar y publica en GitHub Pages. Después, confirma que el workflow pasó.
-- El paso "Preparar sitio" del workflow copia `*.html`, `css/`, `js/` y `assets/`. Si creas otra carpeta pública, agrégala ahí.
+- El paso "Preparar sitio" del workflow copia `*.html`, `sw.js`, `css/`, `js/` y `assets/`. Si creas otra carpeta o archivo público, agrégalo ahí.
+- `sw.js` (service worker) pide siempre la versión más nueva de cada archivo (red primero) para que no se mezclen versiones por el caché de GitHub Pages, y guarda copias para usar sin conexión. Si el caché falla, la app debe seguir funcionando desde la red.
 - Usa rutas relativas (`css/styles.css`, no `/css/styles.css`): el sitio vive bajo `/Alimichu/`.
 - Separa la lógica pura (sin DOM) en módulos de `js/` para poder testearla.

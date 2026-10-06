@@ -8,6 +8,11 @@ const TITULOS = { armario: 'Mi armario', favoritos: 'Favoritos' };
 // En iOS, :active solo se activa al tocar si la página escucha touchstart.
 document.addEventListener('touchstart', () => {}, { passive: true });
 
+// El service worker hace que siempre se cargue la versión más nueva, completa y sin mezclas.
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
 let pantallaVisible = null;
 let navegoDentroDeLaApp = false;
 

@@ -264,6 +264,7 @@ Es la parte técnicamente más difícil.
 - [ ] Instalable en la pantalla de inicio del iPhone (manifest, `apple-touch-icon`, barra de estado)
 - [ ] Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio
 - [ ] `navigator.storage.persist()` para que iOS no borre el armario
+- [x] Service worker (`sw.js`): siempre carga la versión más nueva sin mezclar archivos y guarda copias para usar sin conexión
 - [ ] Accesibilidad: contraste, textos alternativos, "reducir movimiento"
 - [ ] Probar en el iPhone de Alina
 - [ ] Mensajes para cuando el armario está vacío o no hay prendas suficientes
