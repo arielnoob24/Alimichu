@@ -18,5 +18,4 @@ npm run check
 
 ## CI/CD
 
-- **Pull requests a `main`**: valida el HTML, revisa el JavaScript y corre los tests.
-- **Push a `main`**: lo anterior y, si pasa, publica el sitio en GitHub Pages.
+Se trabaja directo en `main`. Cada push valida el HTML, revisa el JavaScript y corre los tests. Si todo pasa, publica el sitio en GitHub Pages; si algo falla, sigue en línea la versión anterior.

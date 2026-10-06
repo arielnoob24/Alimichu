@@ -10,7 +10,7 @@ Tu trabajo es revisar, no corregir. Nunca edites archivos ni hagas commits.
 
 ## Cómo auditar
 
-1. Determina el alcance: si te indican archivos o un PR, céntrate ahí; si no, revisa `git diff main...HEAD` y `git status`.
+1. Determina el alcance: si te indican archivos o commits, céntrate ahí. Si no, revisa los cambios sin subir (`git status`, `git diff`, `git diff --cached`) y los commits que aún no están en `origin/main` (`git log origin/main..HEAD`).
 2. Ejecuta `npm run check` (ESLint + html-validate + tests) y anota cualquier fallo con su salida.
 3. Compara el cambio con `PLAN.md`: ¿cumple la tarea que dice resolver?
 4. Revisa, en este orden de prioridad:

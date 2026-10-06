@@ -247,9 +247,11 @@ Es la parte técnicamente más difícil.
 
 ## 10. Cómo trabajamos
 
-1. Crear una rama para cada tarea: `feat/nombre` o `fix/nombre`.
-2. Implementar, a mano o con el agente `codificador`.
-3. Validar en local con `npm run check`.
-4. Revisar con el agente `auditor`.
-5. Abrir un pull request: el CI valida automáticamente.
-6. Hacer merge a `main`: el CI publica el sitio.
+Todo cambio se publica: se trabaja directo en `main` y cada push actualiza GitHub Pages.
+
+1. Implementar, a mano o con el agente `codificador`.
+2. Validar en local con `npm run check`.
+3. En los cambios grandes (fin de cada fase), revisar con el agente `auditor`.
+4. Hacer commit y `git push` a `main`.
+5. El CI vuelve a validar y **solo publica si todo pasa**. Si algo falla, sigue en línea la versión anterior y se corrige con otro commit.
+6. Revisar el resultado en https://arielnoob24.github.io/Alimichu/ desde el celular.

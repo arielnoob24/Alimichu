@@ -28,7 +28,7 @@ Lee `PLAN.md` y `CLAUDE.md`. Ubica en qué fase y tarea del plan cae lo que te p
 7. Usa rutas relativas (`css/styles.css`, no `/css/styles.css`).
 8. Antes de terminar ejecuta `npm run check` y corrige hasta que pase. Nunca desactives reglas ni tests para que pase.
 9. Si completas una tarea del plan, márcala con `[x]` en `PLAN.md`.
-10. No hagas `git commit` ni `git push` salvo que te lo pidan. Si te lo piden, trabaja en una rama (`feat/...`, `fix/...`), nunca directo en `main`.
+10. Se trabaja directo en `main` y cada push se publica en GitHub Pages. No hagas commit ni push por tu cuenta: deja el cambio listo y verificado, y quien te llamó se encarga de subirlo.
 
 ## Al terminar
 

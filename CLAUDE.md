@@ -28,7 +28,7 @@ El plan del proyecto está en [PLAN.md](PLAN.md). Léelo antes de empezar una ta
   - Safari no tiene Vibration API; agrega prefijos `-webkit-` donde haga falta.
   - Lo que use cámara, fotos o instalación se verifica en el iPhone real.
 
-- `main` se publica automáticamente vía `.github/workflows/ci-cd.yml`; los cambios entran por rama + PR.
+- **Todo cambio se publica:** se trabaja directo en `main`. Después de cada cambio, corre `npm run check`, haz commit y `git push` a `main`. El workflow `.github/workflows/ci-cd.yml` vuelve a validar y publica en GitHub Pages. Después, confirma que el workflow pasó.
 - El paso "Preparar sitio" del workflow copia `*.html`, `css/`, `js/` y `assets/`. Si creas otra carpeta pública, agrégala ahí.
 - Usa rutas relativas (`css/styles.css`, no `/css/styles.css`): el sitio vive bajo `/Alimichu/`.
 - Separa la lógica pura (sin DOM) en módulos de `js/` para poder testearla.
