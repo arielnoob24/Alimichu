@@ -1,4 +1,4 @@
-import { pantallaDesdeHash, pestanaDe } from './navegacion.js';
+import { HOJAS, pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
 import { debeCerrarHoja, elastico, velocidadDe } from './hoja.js';
 
@@ -8,7 +8,6 @@ const PESTANAS = ['armario', 'inicio', 'favoritos'];
 // En iOS, :active solo se activa al tocar si la página escucha touchstart.
 document.addEventListener('touchstart', () => {}, { passive: true });
 
-const hoja = document.getElementById('pantalla-agregar');
 const velo = document.getElementById('velo');
 let pestanaVisible = null;
 
@@ -34,61 +33,72 @@ function mostrarPantalla({ enfocar = true } = {}) {
   if (pestana !== pestanaVisible) {
     window.scrollTo(0, 0);
     pestanaVisible = pestana;
-    if (enfocar && actual !== 'agregar') document.querySelector(`#pantalla-${pestana} .titulo`)?.focus();
+    if (enfocar && !(actual in HOJAS)) document.querySelector(`#pantalla-${pestana} .titulo`)?.focus();
   }
 
-  mostrarHoja(actual === 'agregar', { enfocar });
+  mostrarHojas(actual, { enfocar });
 }
 
-function mostrarHoja(abierta, { enfocar }) {
-  hoja.classList.toggle('abierta', abierta);
-  hoja.inert = !abierta;
-  velo.classList.toggle('visible', abierta);
-  document.body.classList.toggle('hoja-abierta', abierta);
-  if (abierta && enfocar) document.getElementById('titulo-agregar').focus({ preventScroll: true });
+function mostrarHojas(actual, { enfocar }) {
+  for (const nombre of Object.keys(HOJAS)) {
+    const hoja = document.getElementById(`pantalla-${nombre}`);
+    const abierta = nombre === actual;
+    hoja.classList.toggle('abierta', abierta);
+    hoja.inert = !abierta;
+    if (abierta && enfocar) document.getElementById(`titulo-${nombre}`).focus({ preventScroll: true });
+  }
+  const hayHoja = actual in HOJAS;
+  velo.classList.toggle('visible', hayHoja);
+  document.body.classList.toggle('hoja-abierta', hayHoja);
 }
 
+// Al cerrar una hoja se vuelve a la pestaña sobre la que estaba abierta.
 function cerrarHoja() {
-  location.replace('#armario');
+  location.replace(`#${pestanaDe(pantallaDesdeHash(location.hash))}`);
 }
 
-// Arrastrar la hoja desde el asa: sigue al dedo 1:1 y al soltar decide con el impulso.
-const asa = document.getElementById('hoja-asa');
-let arrastre = null;
+// Arrastrar una hoja desde su asa: sigue al dedo 1:1 y al soltar decide con el impulso.
+for (const asa of document.querySelectorAll('.hoja-asa')) {
+  const hoja = asa.closest('.hoja');
+  let arrastre = null;
 
-asa.addEventListener('pointerdown', (evento) => {
-  asa.setPointerCapture(evento.pointerId);
-  arrastre = { inicioY: evento.clientY, alto: hoja.offsetHeight, historial: [] };
-  hoja.classList.add('arrastrando');
-});
+  asa.addEventListener('pointerdown', (evento) => {
+    asa.setPointerCapture(evento.pointerId);
+    arrastre = { inicioY: evento.clientY, alto: hoja.offsetHeight, historial: [] };
+    hoja.classList.add('arrastrando');
+  });
 
-asa.addEventListener('pointermove', (evento) => {
-  if (!arrastre) return;
-  const desplazamiento = evento.clientY - arrastre.inicioY;
-  const y = desplazamiento < 0 ? elastico(desplazamiento, arrastre.alto) : desplazamiento;
-  hoja.style.transform = `translateY(${y}px)`;
-  arrastre.historial.push({ y: evento.clientY, t: evento.timeStamp });
-  arrastre.historial = arrastre.historial.filter(({ t }) => evento.timeStamp - t < 100);
-});
+  asa.addEventListener('pointermove', (evento) => {
+    if (!arrastre) return;
+    const desplazamiento = evento.clientY - arrastre.inicioY;
+    const y = desplazamiento < 0 ? elastico(desplazamiento, arrastre.alto) : desplazamiento;
+    hoja.style.transform = `translateY(${y}px)`;
+    arrastre.historial.push({ y: evento.clientY, t: evento.timeStamp });
+    arrastre.historial = arrastre.historial.filter(({ t }) => evento.timeStamp - t < 100);
+  });
 
-function soltarHoja(evento) {
-  if (!arrastre) return;
-  const desplazamiento = evento.clientY - arrastre.inicioY;
-  const velocidad = velocidadDe(arrastre.historial);
-  const { alto } = arrastre;
-  arrastre = null;
-  // Al quitar el transform en línea, la transición parte desde donde quedó el dedo.
-  hoja.classList.remove('arrastrando');
-  hoja.style.removeProperty('transform');
-  if (debeCerrarHoja({ desplazamiento, velocidad, alto })) cerrarHoja();
+  const soltar = (evento) => {
+    if (!arrastre) return;
+    const desplazamiento = evento.clientY - arrastre.inicioY;
+    const velocidad = velocidadDe(arrastre.historial);
+    const { alto } = arrastre;
+    arrastre = null;
+    // Al quitar el transform en línea, la transición parte desde donde quedó el dedo.
+    hoja.classList.remove('arrastrando');
+    hoja.style.removeProperty('transform');
+    if (debeCerrarHoja({ desplazamiento, velocidad, alto })) cerrarHoja();
+  };
+
+  asa.addEventListener('pointerup', soltar);
+  asa.addEventListener('pointercancel', soltar);
 }
 
-asa.addEventListener('pointerup', soltarHoja);
-asa.addEventListener('pointercancel', soltarHoja);
 velo.addEventListener('click', cerrarHoja);
-document.getElementById('cerrar-hoja').addEventListener('click', cerrarHoja);
+for (const boton of document.querySelectorAll('.cerrar-hoja')) {
+  boton.addEventListener('click', cerrarHoja);
+}
 document.addEventListener('keydown', (evento) => {
-  if (evento.key === 'Escape' && hoja.classList.contains('abierta')) cerrarHoja();
+  if (evento.key === 'Escape' && document.body.classList.contains('hoja-abierta')) cerrarHoja();
 });
 
 function lanzarDestellos(boton) {

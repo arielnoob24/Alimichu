@@ -14,7 +14,9 @@ test('vuelve a inicio con un hash vacío o desconocido', () => {
   assert.equal(pantallaDesdeHash(undefined), 'inicio');
 });
 
-test('agregar prenda marca la pestaña del armario', () => {
+test('las hojas marcan la pestaña sobre la que se abren', () => {
   assert.equal(pestanaDe('agregar'), 'armario');
+  assert.equal(pestanaDe('crear'), 'favoritos');
   assert.equal(pestanaDe('favoritos'), 'favoritos');
+  assert.equal(pantallaDesdeHash('#crear'), 'crear');
 });

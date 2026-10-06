@@ -20,6 +20,9 @@ El plan del proyecto está en [PLAN.md](PLAN.md). Léelo antes de empezar una ta
 
 ## Reglas
 
+- **Ningún texto se puede seleccionar ni copiar** (`user-select: none` en `body`). Solo los `input`, `textarea` y `select` permiten selección.
+- **Hojas:** las pantallas que suben desde abajo (`.hoja`, por ejemplo `#agregar` o `#crear`) se registran en `HOJAS` de `js/navegacion.js`, con la pestaña sobre la que se abren.
+
 - **Mobile first para iPhone** (ver "Regla principal" en PLAN.md):
   - Alina usa un iPhone 15 o más nuevo con Safari: ancho de 390 a 440 px, Dynamic Island y barra de inicio.
   - Los estilos base son para 390 px y las pantallas grandes se agregan con `@media (min-width: …)`.

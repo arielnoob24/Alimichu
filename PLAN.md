@@ -78,7 +78,9 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 | 4 | Que la foto se guarde con fondo blanco, como para vender | Quitar el fondo automáticamente y poner la prenda sobre blanco (ver sección 5) |
 | 5 | Si le sale un outfit que le gusta, poder guardarlo | Botón "Guardar" (corazón) en cada outfit generado, más una sección de Favoritos |
 | 6 | Opción de tener un conjunto | Marcar prendas que forman un conjunto (por ejemplo, top y falda del mismo set) para que siempre salgan juntas ✅ confirmado |
-| 7 | Un botón grande que diga "Alina", al centro, arriba o abajo | Botón circular grande y centrado. Por ahora va fijo abajo, donde llega el pulgar. *Falta que Alina confirme la posición.* |
+| 7 | Un botón grande que diga "Alina", al centro, arriba o abajo | Píldora de cromo con mariposas, centrada al entrar y con una invitación debajo ("Aprieta Alina para que se genere tu combinación"). Al apretarla baja a su lugar y aparece el outfit ✅ |
+| 8 | Poder armar sus propias combinaciones | En Favoritos, "Crear combinación": elige una prenda de cada parte entre las de su armario |
+| 9 | Que el texto no se pueda seleccionar ni copiar | Toda la app tiene la selección de texto desactivada, como una app nativa; los campos para escribir funcionan normal ✅ |
 
 ## 2. Pantallas
 
@@ -96,6 +98,7 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
    - Opcional: agregarla a un conjunto.
 4. **Favoritos**
    - Los outfits guardados, con opción de borrarlos.
+   - Botón **+ Crear combinación**: abre una hoja donde Alina elige una prenda de cada parte (arriba, abajo, zapatos y extra opcional) entre las que tiene en el armario, y la guarda en Favoritos.
 
 La navegación es una barra inferior con Inicio, Armario y Favoritos, con el botón Alina siempre visible en Inicio.
 
@@ -213,7 +216,7 @@ Es la parte técnicamente más difícil.
 
 ### Fase 1: Confirmar con Alina
 - [x] "Conjunto" = prendas de un mismo set que salen juntas
-- [ ] ¿El botón Alina va abajo o arriba? (por ahora, abajo)
+- [x] Posición del botón Alina: centrado al entrar, abajo después del primer outfit
 - [x] Forma del botón Alina: píldora de cromo con mariposas
 - [x] Estética: Y2K / Bratz con cromo rosa y plata (ver sección 3)
 - [x] Categorías y estilos: por ahora, los de la sección 4
@@ -243,6 +246,7 @@ Es la parte técnicamente más difícil.
 - [ ] Conjuntos
 - [ ] Botón Alina conectado y animación de entrada del outfit
 - [ ] Guardar outfit en Favoritos
+- [ ] Crear combinación a mano: elegir una prenda de cada parte entre las del armario y guardarla en Favoritos (la hoja ya está maquetada)
 - [ ] Candado para dejar fija una prenda
 
 ### Fase 6: Pulido

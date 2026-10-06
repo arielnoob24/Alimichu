@@ -112,15 +112,20 @@ label {
   touch-action: manipulation;
 }
 
-/* Como en iOS: mantener presionado un botón no selecciona su texto ni abre vista previa */
-button,
-.boton,
-.chip,
-.barra,
-.hoja-asa {
+/* Como en una app: ningún texto se puede seleccionar ni copiar,
+   y mantener presionado no abre menús ni vistas previas.
+   Los campos donde se escribe siguen funcionando normal. */
+body {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
+}
+
+input,
+textarea,
+select {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* Respuesta inmediata al tocar (se usa `scale` para no chocar con otras animaciones) */
@@ -427,6 +432,12 @@ body[data-outfit='oculto'] .outfit {
   scale: 0.97;
 }
 
+.boton:disabled {
+  opacity: 0.45;
+  cursor: default;
+  scale: 1;
+}
+
 .boton-secundario {
   border-width: 2px;
   background:
@@ -501,8 +512,49 @@ body[data-outfit='oculto'] .outfit {
 }
 
 /* Antes del primer outfit, el botón espera centrado entre el nombre y la barra */
+body[data-outfit='oculto'] {
+  --subir-boton: calc((100dvh - var(--seguro-arriba) - 130px - var(--abajo-barra) - var(--alto-barra)) / -2 + 66px);
+}
+
 body[data-outfit='oculto'] .boton-alina {
-  translate: 0 calc((100dvh - var(--seguro-arriba) - 130px - var(--abajo-barra) - var(--alto-barra)) / -2 + 66px);
+  translate: 0 var(--subir-boton);
+}
+
+/* Invitación debajo del botón centrado; se va al apretarlo */
+.invitacion {
+  position: fixed;
+  inset: auto 24px calc(var(--abajo-barra) + var(--alto-barra) + 24px - 58px);
+  z-index: 20;
+  max-width: calc(var(--ancho-max) - 48px);
+  margin: 0 auto;
+  color: var(--rosa-palido);
+  font-family: var(--fuente-titulo);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  text-shadow: 0 0 12px rgb(255 47 168 / 0.6);
+  translate: 0 var(--subir-boton, 0px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--resorte), visibility 0s 0.3s;
+}
+
+.invitacion strong {
+  color: var(--blanco);
+}
+
+body[data-pantalla='inicio'][data-outfit='oculto'] .invitacion {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s var(--resorte);
+  animation: respirar 2.8s ease-in-out infinite;
+}
+
+@keyframes respirar {
+  0%,
+  100% { opacity: 1; }
+  50% { opacity: 0.65; }
 }
 
 .boton-alina:active {
@@ -921,6 +973,63 @@ body:not([data-pantalla='inicio']) .boton-alina {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 4px 16px calc(24px + var(--seguro-abajo));
+}
+
+.hoja-ayuda {
+  margin: 0 0 16px;
+  color: var(--texto-suave);
+}
+
+.hoja-acciones {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Filas para elegir una prenda de cada parte, que se deslizan hacia el lado */
+.selector {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.selector-titulo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.opcional {
+  color: var(--texto-suave);
+  font-weight: 500;
+}
+
+.selector-prendas {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 104px;
+  margin-inline: -16px;
+  padding: 4px 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.selector-prendas::-webkit-scrollbar {
+  display: none;
+}
+
+.selector-vacio {
+  flex: 1;
+  margin: 0;
+  padding: 26px 12px;
+  border: 1.5px dashed rgb(255 134 200 / 0.4);
+  border-radius: 18px;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 /* Si el iPhone pide menos transparencia, el vidrio se vuelve sólido */

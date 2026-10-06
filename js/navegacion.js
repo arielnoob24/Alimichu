@@ -1,11 +1,13 @@
-export const PANTALLAS = ['inicio', 'armario', 'agregar', 'favoritos'];
+// Las hojas no tienen pestaña propia: se abren encima de la pestaña indicada.
+export const HOJAS = { agregar: 'armario', crear: 'favoritos' };
+
+export const PANTALLAS = ['inicio', 'armario', 'favoritos', ...Object.keys(HOJAS)];
 
 export function pantallaDesdeHash(hash) {
   const nombre = (hash ?? '').replace(/^#/, '');
   return PANTALLAS.includes(nombre) ? nombre : 'inicio';
 }
 
-// "Agregar prenda" no tiene pestaña propia: se marca la del armario.
 export function pestanaDe(pantalla) {
-  return pantalla === 'agregar' ? 'armario' : pantalla;
+  return HOJAS[pantalla] ?? pantalla;
 }
