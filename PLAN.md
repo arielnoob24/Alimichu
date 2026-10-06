@@ -78,7 +78,7 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 | 4 | Que la foto se guarde con fondo blanco, como para vender | Quitar el fondo automáticamente y poner la prenda sobre blanco (ver sección 5) |
 | 5 | Si le sale un outfit que le gusta, poder guardarlo | Botón "Guardar" (corazón) en cada outfit generado, más una sección de Favoritos |
 | 6 | Opción de tener un conjunto | Marcar prendas que forman un conjunto (por ejemplo, top y falda del mismo set) para que siempre salgan juntas ✅ confirmado |
-| 7 | Un botón grande que diga "Alina", al centro, arriba o abajo | Píldora de cromo con mariposas, centrada al entrar y con una invitación debajo ("Aprieta Alina para que se genere tu combinación"). Al apretarla baja a su lugar y aparece el outfit ✅ |
+| 7 | Un botón grande que diga "Alina", al centro, arriba o abajo | Píldora de cromo con mariposas, centrada al entrar y con una invitación debajo ("Aprieta Alina para que se genere tu combinación"). Al apretarla lleva a la vista "Tu outfit" ✅ |
 | 8 | Poder armar sus propias combinaciones | En Favoritos, "Crear combinación": elige una prenda de cada parte entre las de su armario |
 | 9 | Que el texto no se pueda seleccionar ni copiar | Toda la app tiene la selección de texto desactivada, como una app nativa; los campos para escribir funcionan normal ✅ |
 
@@ -86,8 +86,12 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 
 1. **Inicio**
    - Arriba, "Alina" en cromo rosa y plata, con mariposas.
-   - Al entrar, solo se ve el botón **Alina**, grande y centrado. Al apretarlo, el botón baja a su lugar y aparece el cuadro del outfit con las fotos de las prendas (parte de arriba, parte de abajo, zapatos y extra).
-   - Abajo, el botón grande **Alina** para generar otro outfit, más un botón de corazón para guardarlo.
+   - Solo el botón **Alina**, grande y centrado, con la invitación "Aprieta Alina para que se genere tu combinación" debajo.
+   - Al apretarlo salen mariposas y se pasa a la vista **Tu outfit**, que entra desde la derecha como en iOS. Tiene:
+     - el botón **‹ Inicio** para volver
+     - el cuadro con las fotos de las prendas (arriba, abajo, zapatos y extra)
+     - **Otra combinación** para generar otro outfit
+     - más adelante, un corazón para guardarlo en Favoritos
    - Opcional: un candado en cada prenda para dejarla fija y que se cambie solo el resto.
 2. **Mi armario**
    - Las prendas en cuadrícula, filtradas por categoría.

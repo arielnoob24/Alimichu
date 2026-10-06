@@ -20,3 +20,8 @@ test('las hojas marcan la pestaña sobre la que se abren', () => {
   assert.equal(pestanaDe('favoritos'), 'favoritos');
   assert.equal(pantallaDesdeHash('#crear'), 'crear');
 });
+
+test('la vista del outfit pertenece a la pestaña de inicio', () => {
+  assert.equal(pantallaDesdeHash('#outfit'), 'outfit');
+  assert.equal(pestanaDe('outfit'), 'inicio');
+});

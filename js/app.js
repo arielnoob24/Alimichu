@@ -1,24 +1,31 @@
-import { HOJAS, pantallaDesdeHash, pestanaDe } from './navegacion.js';
+import { HOJAS, VISTAS, pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
 import { debeCerrarHoja, elastico, velocidadDe } from './hoja.js';
 
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 const PESTANAS = ['armario', 'inicio', 'favoritos'];
+const SECCIONES = [...PESTANAS, ...Object.keys(VISTAS)];
 
 // En iOS, :active solo se activa al tocar si la página escucha touchstart.
 document.addEventListener('touchstart', () => {}, { passive: true });
 
 const velo = document.getElementById('velo');
-let pestanaVisible = null;
+let vistaVisible = null;
 
 function mostrarPantalla({ enfocar = true } = {}) {
   const actual = pantallaDesdeHash(location.hash);
   const pestana = pestanaDe(actual);
-  document.body.dataset.pantalla = pestana;
+  // Las hojas se abren encima: debajo sigue la pestaña. Las vistas reemplazan a su pestaña.
+  const vista = actual in HOJAS ? pestana : actual;
+  document.body.dataset.pantalla = vista;
 
-  for (const nombre of PESTANAS) {
-    document.getElementById(`pantalla-${nombre}`).hidden = nombre !== pestana;
+  for (const nombre of SECCIONES) {
+    document.getElementById(`pantalla-${nombre}`).hidden = nombre !== vista;
   }
+
+  // Como en iOS: la vista nueva entra desde la derecha y al volver se regresa por el mismo camino.
+  if (VISTAS[vista] === vistaVisible) animarEntrada(vista, 'entrar-adelante');
+  if (VISTAS[vistaVisible] === vista) animarEntrada(vista, 'entrar-atras');
 
   // La burbuja de vidrio se desliza hasta la pestaña activa.
   document.getElementById('barra').style.setProperty('--indice', PESTANAS.indexOf(pestana));
@@ -30,13 +37,21 @@ function mostrarPantalla({ enfocar = true } = {}) {
     }
   }
 
-  if (pestana !== pestanaVisible) {
+  if (vista !== vistaVisible) {
     window.scrollTo(0, 0);
-    pestanaVisible = pestana;
-    if (enfocar && !(actual in HOJAS)) document.querySelector(`#pantalla-${pestana} .titulo`)?.focus();
+    vistaVisible = vista;
+    if (vista === 'outfit') generarOutfit();
+    if (enfocar && !(actual in HOJAS)) document.querySelector(`#pantalla-${vista} .titulo`)?.focus();
   }
 
   mostrarHojas(actual, { enfocar });
+}
+
+function animarEntrada(nombre, clase) {
+  if (sinMovimiento.matches) return;
+  const seccion = document.getElementById(`pantalla-${nombre}`);
+  seccion.classList.add(clase);
+  seccion.addEventListener('animationend', () => seccion.classList.remove(clase), { once: true });
 }
 
 function mostrarHojas(actual, { enfocar }) {
@@ -128,21 +143,39 @@ function reiniciarAnimacion(elemento, clase) {
   elemento.classList.add(clase);
 }
 
-const botonAlina = document.getElementById('boton-alina');
-let temporizadorMariposas;
-botonAlina.addEventListener('click', () => {
-  reiniciarAnimacion(botonAlina, 'activo');
-  lanzarDestellos(botonAlina);
-  // El primer toque baja el botón a su lugar y hace aparecer el cuadro del outfit.
-  document.body.dataset.outfit = 'visible';
-  // Las mariposas posadas salen volando y vuelven a posarse.
-  clearTimeout(temporizadorMariposas);
-  temporizadorMariposas = setTimeout(() => botonAlina.classList.remove('activo'), 1800);
+function generarOutfit() {
   reiniciarAnimacion(document.getElementById('prendas'), 'barajando');
   // Hasta que exista el armario (fase 3) no hay prendas con qué armar el outfit.
   document.getElementById('outfit-pista').textContent =
     'Todavía no hay prendas en tu armario. ¡Agrega algunas y vuelve a apretar Alina!';
   document.getElementById('outfit-agregar').hidden = false;
+}
+
+const botonAlina = document.getElementById('boton-alina');
+let temporizadorMariposas;
+let llegoDesdeInicio = false;
+botonAlina.addEventListener('click', () => {
+  reiniciarAnimacion(botonAlina, 'activo');
+  lanzarDestellos(botonAlina);
+  // Las mariposas posadas salen volando y vuelven a posarse.
+  clearTimeout(temporizadorMariposas);
+  temporizadorMariposas = setTimeout(() => botonAlina.classList.remove('activo'), 1800);
+  // Se deja ver un momento la lluvia de mariposas y se pasa a la vista del outfit.
+  setTimeout(() => {
+    llegoDesdeInicio = true;
+    location.hash = '#outfit';
+  }, sinMovimiento.matches ? 0 : 450);
+});
+
+document.getElementById('otra-combinacion').addEventListener('click', generarOutfit);
+
+// Volver usa el historial, así también funciona el gesto de deslizar desde el borde en iPhone.
+document.getElementById('volver').addEventListener('click', () => {
+  if (llegoDesdeInicio) {
+    history.back();
+  } else {
+    location.replace('#inicio');
+  }
 });
 
 const inputFoto = document.getElementById('foto-prenda');
