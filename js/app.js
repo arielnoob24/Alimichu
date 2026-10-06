@@ -123,6 +123,8 @@ let temporizadorMariposas;
 botonAlina.addEventListener('click', () => {
   reiniciarAnimacion(botonAlina, 'activo');
   lanzarDestellos(botonAlina);
+  // El primer toque baja el botón a su lugar y hace aparecer el cuadro del outfit.
+  document.body.dataset.outfit = 'visible';
   // Las mariposas posadas salen volando y vuelven a posarse.
   clearTimeout(temporizadorMariposas);
   temporizadorMariposas = setTimeout(() => botonAlina.classList.remove('activo'), 1800);

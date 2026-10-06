@@ -322,6 +322,19 @@ button,
   border-radius: 28px;
   box-shadow: 0 0 24px rgb(255 47 168 / 0.25);
   text-align: center;
+  transition:
+    opacity 0.5s var(--resorte) 0.15s,
+    scale 0.5s var(--resorte) 0.15s,
+    filter 0.5s var(--resorte) 0.15s;
+}
+
+/* Hasta apretar Alina, el cuadro del outfit no se ve: aparece como un material que llega */
+body[data-outfit='oculto'] .outfit {
+  visibility: hidden;
+  opacity: 0;
+  scale: 0.94;
+  filter: blur(10px);
+  transition: none;
 }
 
 /* Como una foto "flat lay": arriba y abajo grandes, extra y zapatos al lado */
@@ -484,6 +497,12 @@ button,
     0 0 30px 4px rgb(255 47 168 / 0.55);
   cursor: pointer;
   animation: latido 2.8s ease-in-out infinite;
+  transition: scale var(--toque), translate 0.6s var(--resorte);
+}
+
+/* Antes del primer outfit, el botón espera centrado entre el nombre y la barra */
+body[data-outfit='oculto'] .boton-alina {
+  translate: 0 calc((100dvh - var(--seguro-arriba) - 130px - var(--abajo-barra) - var(--alto-barra)) / -2 + 66px);
 }
 
 .boton-alina:active {
