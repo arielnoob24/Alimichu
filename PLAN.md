@@ -85,10 +85,10 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 ## 2. Pantallas
 
 1. **Inicio**
-   - Arriba, "Alina" en cromo rosa y plata, con mariposas.
+   - Arriba, "Alina" en cromo rosa y plata, con mariposas. Solo aparece en Inicio: en Armario y Favoritos el título grande es el de la sección, como en las apps de iPhone.
    - Solo el botón **Alina**, grande y centrado, con la invitación "Aprieta Alina para que se genere tu combinación" debajo.
    - Al apretarlo salen mariposas y se pasa a la vista **Tu outfit**, que entra desde la derecha como en iOS. Tiene:
-     - el botón **‹ Inicio** para volver
+     - barra superior estilo iOS con **‹ Inicio** para volver y el título al centro; la barra de abajo se esconde
      - el cuadro con las fotos de las prendas (arriba, abajo, zapatos y extra)
      - **Otra combinación** para generar otro outfit
      - más adelante, un corazón para guardarlo en Favoritos

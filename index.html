@@ -96,11 +96,14 @@
 
       <!-- Vista a la que lleva el botón Alina: se abre encima de Inicio, como en iOS -->
       <section id="pantalla-outfit" class="pantalla" aria-labelledby="titulo-outfit" hidden>
-        <button class="volver" id="volver" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
-          Inicio
-        </button>
-        <h2 id="titulo-outfit" class="titulo cromo" tabindex="-1" data-texto="Tu outfit"><span>Tu outfit</span></h2>
+        <!-- Barra de navegación superior estilo iOS: volver a la izquierda y título al centro -->
+        <div class="barra-nav">
+          <button class="volver" id="volver" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
+            Inicio
+          </button>
+          <h2 id="titulo-outfit" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Tu outfit"><span>Tu outfit</span></h2>
+        </div>
         <div class="outfit" id="cuadro-outfit">
           <div class="prendas" id="prendas">
             <figure class="prenda prenda-arriba">

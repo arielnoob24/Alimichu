@@ -337,13 +337,60 @@ select {
   margin-top: 16px;
 }
 
+/* ---------- Navegación como app de iPhone ----------
+   "Alina" grande solo en Inicio (la portada). En las otras pestañas,
+   el título de la sección es el título grande, como en las apps de Apple. */
+body:not([data-pantalla='inicio']) .encabezado {
+  display: none;
+}
+
+#pantalla-armario > .titulo,
+#pantalla-favoritos > .titulo {
+  margin: 20px 0 14px -0.1em;
+  font-size: 2.6rem;
+}
+
+/* En "Tu outfit" la barra de abajo se va deslizando hacia abajo: es una pantalla de detalle */
+body[data-pantalla='outfit'] {
+  padding-bottom: calc(var(--seguro-abajo) + 24px);
+}
+
+body[data-pantalla='outfit'] .barra {
+  translate: 0 calc(100% + var(--abajo-barra) + 24px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Barra superior estilo iOS: volver a la izquierda, título al centro, vidrio que deja ver lo de abajo */
+.barra-nav {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin: calc(-4px - var(--seguro-arriba)) -16px 14px;
+  padding: calc(var(--seguro-arriba) + 6px) 8px 6px;
+  background: rgb(5 0 6 / 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 rgb(255 134 200 / 0.18);
+}
+
+.titulo-nav {
+  grid-column: 2;
+  margin: 0;
+  font-size: 1.6rem;
+}
+
 /* Botón para volver, como el "‹ Atrás" de iOS */
 .volver {
   display: inline-flex;
+  justify-self: start;
   align-items: center;
   gap: 2px;
   min-height: 44px;
-  margin: 0 0 4px -10px;
+  margin: 0;
   padding: 0 12px 0 4px;
   border: 0;
   border-radius: 999px;
@@ -860,6 +907,7 @@ select {
     inset 0 1px 0 rgb(255 255 255 / 0.2),
     0 12px 30px rgb(0 0 0 / 0.55),
     0 0 22px rgb(255 47 168 / 0.22);
+  transition: translate 0.4s var(--resorte), opacity 0.3s var(--resorte);
 }
 
 /* Borde fino de cromo rosa que deja ver el vidrio por dentro */
