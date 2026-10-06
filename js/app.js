@@ -1,31 +1,27 @@
-import { HOJAS, VISTAS, pantallaDesdeHash, pestanaDe } from './navegacion.js';
+import { PANTALLAS, PESTANAS, esVista, pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
-import { debeCerrarHoja, elastico, velocidadDe } from './hoja.js';
+import { saludo } from './saludo.js';
 
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
-const PESTANAS = ['armario', 'inicio', 'favoritos'];
-const SECCIONES = [...PESTANAS, ...Object.keys(VISTAS)];
+const TITULOS = { armario: 'Mi armario', favoritos: 'Favoritos' };
 
 // En iOS, :active solo se activa al tocar si la página escucha touchstart.
 document.addEventListener('touchstart', () => {}, { passive: true });
 
-const velo = document.getElementById('velo');
-let vistaVisible = null;
+let pantallaVisible = null;
+let navegoDentroDeLaApp = false;
 
 function mostrarPantalla({ enfocar = true } = {}) {
   const actual = pantallaDesdeHash(location.hash);
   const pestana = pestanaDe(actual);
-  // Las hojas se abren encima: debajo sigue la pestaña. Las vistas reemplazan a su pestaña.
-  const vista = actual in HOJAS ? pestana : actual;
-  document.body.dataset.pantalla = vista;
+  document.body.dataset.pantalla = actual;
+  document.body.dataset.tipo = esVista(actual) ? 'vista' : 'pestana';
 
-  for (const nombre of SECCIONES) {
-    document.getElementById(`pantalla-${nombre}`).hidden = nombre !== vista;
+  for (const nombre of PANTALLAS) {
+    document.getElementById(`pantalla-${nombre}`).hidden = nombre !== actual;
   }
 
-  // Como en iOS: la vista nueva entra desde la derecha y al volver se regresa por el mismo camino.
-  if (VISTAS[vista] === vistaVisible) animarEntrada(vista, 'entrar-adelante');
-  if (VISTAS[vistaVisible] === vista) animarEntrada(vista, 'entrar-atras');
+  ponerTitulo(pestana);
 
   // La burbuja de vidrio se desliza hasta la pestaña activa.
   document.getElementById('barra').style.setProperty('--indice', PESTANAS.indexOf(pestana));
@@ -37,14 +33,26 @@ function mostrarPantalla({ enfocar = true } = {}) {
     }
   }
 
-  if (vista !== vistaVisible) {
-    window.scrollTo(0, 0);
-    vistaVisible = vista;
-    if (vista === 'outfit') generarOutfit();
-    if (enfocar && !(actual in HOJAS)) document.querySelector(`#pantalla-${vista} .titulo`)?.focus();
+  // Como en iOS: la vista nueva entra desde la derecha y al volver la pestaña regresa desde la izquierda.
+  if (pantallaVisible !== null && actual !== pantallaVisible) {
+    if (esVista(actual)) animarEntrada(actual, 'entrar-adelante');
+    else if (esVista(pantallaVisible) && pestanaDe(pantallaVisible) === actual) animarEntrada(actual, 'entrar-atras');
   }
 
-  mostrarHojas(actual, { enfocar });
+  if (actual !== pantallaVisible) {
+    window.scrollTo(0, 0);
+    pantallaVisible = actual;
+    if (actual === 'outfit') generarOutfit();
+    if (enfocar && esVista(actual)) document.querySelector(`#pantalla-${actual} .titulo`)?.focus();
+  }
+}
+
+// En Inicio, un saludo según la hora; en las otras pestañas, el nombre de la sección.
+function ponerTitulo(pestana) {
+  const texto = pestana === 'inicio' ? saludo(new Date()) : TITULOS[pestana];
+  const titulo = document.getElementById('titulo-pagina');
+  titulo.dataset.texto = texto;
+  titulo.firstElementChild.textContent = texto;
 }
 
 function animarEntrada(nombre, clase) {
@@ -54,67 +62,19 @@ function animarEntrada(nombre, clase) {
   seccion.addEventListener('animationend', () => seccion.classList.remove(clase), { once: true });
 }
 
-function mostrarHojas(actual, { enfocar }) {
-  for (const nombre of Object.keys(HOJAS)) {
-    const hoja = document.getElementById(`pantalla-${nombre}`);
-    const abierta = nombre === actual;
-    hoja.classList.toggle('abierta', abierta);
-    hoja.inert = !abierta;
-    if (abierta && enfocar) document.getElementById(`titulo-${nombre}`).focus({ preventScroll: true });
+// Volver usa el historial, así también funciona el gesto de deslizar desde el borde en iPhone.
+// Si se entró directo a una vista (por ejemplo, recargando), vuelve a su pestaña.
+function volver() {
+  if (navegoDentroDeLaApp) {
+    history.back();
+  } else {
+    location.replace(`#${pestanaDe(pantallaDesdeHash(location.hash))}`);
   }
-  const hayHoja = actual in HOJAS;
-  velo.classList.toggle('visible', hayHoja);
-  document.body.classList.toggle('hoja-abierta', hayHoja);
 }
 
-// Al cerrar una hoja se vuelve a la pestaña sobre la que estaba abierta.
-function cerrarHoja() {
-  location.replace(`#${pestanaDe(pantallaDesdeHash(location.hash))}`);
+for (const boton of document.querySelectorAll('.volver')) {
+  boton.addEventListener('click', volver);
 }
-
-// Arrastrar una hoja desde su asa: sigue al dedo 1:1 y al soltar decide con el impulso.
-for (const asa of document.querySelectorAll('.hoja-asa')) {
-  const hoja = asa.closest('.hoja');
-  let arrastre = null;
-
-  asa.addEventListener('pointerdown', (evento) => {
-    asa.setPointerCapture(evento.pointerId);
-    arrastre = { inicioY: evento.clientY, alto: hoja.offsetHeight, historial: [] };
-    hoja.classList.add('arrastrando');
-  });
-
-  asa.addEventListener('pointermove', (evento) => {
-    if (!arrastre) return;
-    const desplazamiento = evento.clientY - arrastre.inicioY;
-    const y = desplazamiento < 0 ? elastico(desplazamiento, arrastre.alto) : desplazamiento;
-    hoja.style.transform = `translateY(${y}px)`;
-    arrastre.historial.push({ y: evento.clientY, t: evento.timeStamp });
-    arrastre.historial = arrastre.historial.filter(({ t }) => evento.timeStamp - t < 100);
-  });
-
-  const soltar = (evento) => {
-    if (!arrastre) return;
-    const desplazamiento = evento.clientY - arrastre.inicioY;
-    const velocidad = velocidadDe(arrastre.historial);
-    const { alto } = arrastre;
-    arrastre = null;
-    // Al quitar el transform en línea, la transición parte desde donde quedó el dedo.
-    hoja.classList.remove('arrastrando');
-    hoja.style.removeProperty('transform');
-    if (debeCerrarHoja({ desplazamiento, velocidad, alto })) cerrarHoja();
-  };
-
-  asa.addEventListener('pointerup', soltar);
-  asa.addEventListener('pointercancel', soltar);
-}
-
-velo.addEventListener('click', cerrarHoja);
-for (const boton of document.querySelectorAll('.cerrar-hoja')) {
-  boton.addEventListener('click', cerrarHoja);
-}
-document.addEventListener('keydown', (evento) => {
-  if (evento.key === 'Escape' && document.body.classList.contains('hoja-abierta')) cerrarHoja();
-});
 
 function lanzarDestellos(boton) {
   if (sinMovimiento.matches) return;
@@ -144,7 +104,7 @@ function reiniciarAnimacion(elemento, clase) {
 }
 
 function generarOutfit() {
-  reiniciarAnimacion(document.getElementById('prendas'), 'barajando');
+  reiniciarAnimacion(document.getElementById('prendas-outfit'), 'barajando');
   // Hasta que exista el armario (fase 3) no hay prendas con qué armar el outfit.
   document.getElementById('outfit-pista').textContent =
     'Todavía no hay prendas en tu armario. ¡Agrega algunas y vuelve a apretar Alina!';
@@ -153,7 +113,6 @@ function generarOutfit() {
 
 const botonAlina = document.getElementById('boton-alina');
 let temporizadorMariposas;
-let llegoDesdeInicio = false;
 botonAlina.addEventListener('click', () => {
   reiniciarAnimacion(botonAlina, 'activo');
   lanzarDestellos(botonAlina);
@@ -162,21 +121,11 @@ botonAlina.addEventListener('click', () => {
   temporizadorMariposas = setTimeout(() => botonAlina.classList.remove('activo'), 1800);
   // Se deja ver un momento la lluvia de mariposas y se pasa a la vista del outfit.
   setTimeout(() => {
-    llegoDesdeInicio = true;
     location.hash = '#outfit';
   }, sinMovimiento.matches ? 0 : 450);
 });
 
 document.getElementById('otra-combinacion').addEventListener('click', generarOutfit);
-
-// Volver usa el historial, así también funciona el gesto de deslizar desde el borde en iPhone.
-document.getElementById('volver').addEventListener('click', () => {
-  if (llegoDesdeInicio) {
-    history.back();
-  } else {
-    location.replace('#inicio');
-  }
-});
 
 const inputFoto = document.getElementById('foto-prenda');
 const vistaFoto = document.createElement('img');
@@ -195,5 +144,12 @@ document.getElementById('form-prenda').addEventListener('submit', (evento) => {
   document.getElementById('aviso-prenda').textContent = 'Muy pronto vas a poder guardar tus prendas 💖';
 });
 
-window.addEventListener('hashchange', () => mostrarPantalla());
+window.addEventListener('hashchange', () => {
+  navegoDentroDeLaApp = true;
+  mostrarPantalla();
+});
+// Si la app queda abierta, el saludo se actualiza al volver a ella.
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) ponerTitulo(pestanaDe(pantallaDesdeHash(location.hash)));
+});
 mostrarPantalla({ enfocar: false });

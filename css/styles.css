@@ -99,9 +99,6 @@ body::after {
   background: linear-gradient(transparent, rgb(5 0 6 / 0.85) 70%);
 }
 
-body.hoja-abierta {
-  overflow: hidden;
-}
 
 a,
 button,
@@ -218,7 +215,7 @@ select {
 .nombre {
   z-index: 1;
   margin: 0;
-  font-size: clamp(4rem, 20vw, 5.4rem);
+  font-size: clamp(2.4rem, 10vw, 3rem);
 }
 
 /* Grupos de mariposas Y2K en las esquinas, que flotan suavemente */
@@ -338,24 +335,22 @@ select {
 }
 
 /* ---------- Navegación como app de iPhone ----------
-   "Alina" grande solo en Inicio (la portada). En las otras pestañas,
-   el título de la sección es el título grande, como en las apps de Apple. */
-body:not([data-pantalla='inicio']) .encabezado {
+   Las pestañas (Inicio, Armario, Favoritos) muestran arriba el título con mariposas.
+   Las vistas de detalle no: llevan su barra superior con ‹ Volver, y la barra de abajo se esconde. */
+body[data-tipo='vista'] .encabezado {
   display: none;
 }
 
-#pantalla-armario > .titulo,
-#pantalla-favoritos > .titulo {
-  margin: 20px 0 14px -0.1em;
-  font-size: 2.6rem;
-}
-
-/* En "Tu outfit" la barra de abajo se va deslizando hacia abajo: es una pantalla de detalle */
-body[data-pantalla='outfit'] {
+body[data-tipo='vista'] {
   padding-bottom: calc(var(--seguro-abajo) + 24px);
 }
 
-body[data-pantalla='outfit'] .barra {
+/* Sin barra de abajo no hace falta desvanecer el contenido */
+body[data-tipo='vista']::after {
+  display: none;
+}
+
+body[data-tipo='vista'] .barra {
   translate: 0 calc(100% + var(--abajo-barra) + 24px);
   opacity: 0;
   pointer-events: none;
@@ -367,7 +362,8 @@ body[data-pantalla='outfit'] .barra {
   top: 0;
   z-index: 15;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* Columnas laterales iguales: el título queda en el centro exacto, como en iOS */
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   margin: calc(-4px - var(--seguro-arriba)) -16px 14px;
   padding: calc(var(--seguro-arriba) + 6px) 8px 6px;
@@ -380,12 +376,13 @@ body[data-pantalla='outfit'] .barra {
 .titulo-nav {
   grid-column: 2;
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 1.45rem;
 }
 
 /* Botón para volver, como el "‹ Atrás" de iOS */
 .volver {
   display: inline-flex;
+  white-space: nowrap;
   justify-self: start;
   align-items: center;
   gap: 2px;
@@ -581,10 +578,10 @@ body[data-pantalla='outfit'] .barra {
   display: none;
 }
 
-/* ---------- Inicio: botón "Alina" e invitación, centrados como un solo bloque ---------- */
+/* ---------- Portadas de las pestañas: botones centrados como un solo bloque ---------- */
 
-/* Inicio ocupa todo el espacio libre entre el nombre y la barra, y centra su contenido */
-#pantalla-inicio {
+/* La portada ocupa todo el espacio libre entre el título y la barra, y centra su contenido */
+.portada {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -593,6 +590,38 @@ body[data-pantalla='outfit'] .barra {
   gap: 26px;
   /* Llega hasta el borde de la barra, para que el centro sea el del espacio realmente libre */
   margin-bottom: -32px;
+}
+
+/* Los botones de Armario y Favoritos: la misma píldora de cromo, sin mariposas */
+.boton-portada {
+  display: grid;
+  place-items: center;
+  width: 280px;
+  height: 76px;
+  padding: 0 0 6px;
+  border: 4px solid transparent;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse 75% 42% at 50% 16%, rgb(255 255 255 / 0.75), transparent 70%) padding-box,
+    var(--cromo-rosa) padding-box,
+    var(--cromo-plata) border-box;
+  box-shadow:
+    0 6px 0 var(--vino),
+    0 0 26px 3px rgb(255 47 168 / 0.45);
+  text-decoration: none;
+  transition: scale var(--toque);
+}
+
+.boton-portada:active {
+  scale: 0.95;
+}
+
+.portada .boton-portada + .boton-portada {
+  margin-top: -6px;
+}
+
+.boton-portada .cromo-boton {
+  font-size: 1.75rem;
 }
 
 /* Píldora de cromo con mariposas */
@@ -911,8 +940,7 @@ body[data-pantalla='outfit'] .barra {
 }
 
 /* Borde fino de cromo rosa que deja ver el vidrio por dentro */
-.barra::before,
-.hoja::before {
+.barra::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -982,86 +1010,14 @@ body[data-pantalla='outfit'] .barra {
   filter: drop-shadow(0 0 6px rgb(255 47 168 / 0.8));
 }
 
-/* ---------- Hoja que sube desde abajo (Agregar prenda) ---------- */
+/* ---------- Contenido de las vistas ---------- */
 
-.velo {
-  position: fixed;
-  inset: 0;
-  z-index: 35;
-  background: rgb(0 0 0 / 0.6);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s var(--resorte);
-}
-
-.velo.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.hoja {
-  position: fixed;
-  inset: auto 0 0;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  width: min(100%, var(--ancho-max));
-  height: calc(100dvh - var(--seguro-arriba) - 10px);
-  margin-inline: auto;
-  border-radius: 30px 30px 0 0;
-  background: rgb(22 4 16 / 0.86);
-  -webkit-backdrop-filter: blur(30px) saturate(160%);
-  backdrop-filter: blur(30px) saturate(160%);
-  box-shadow: 0 -12px 40px rgb(0 0 0 / 0.6), 0 0 30px rgb(255 47 168 / 0.18);
-  transform: translateY(105%);
-  visibility: hidden;
-  transition: transform 0.5s var(--resorte), visibility 0s 0.5s;
-}
-
-.hoja.abierta {
-  transform: translateY(0);
-  visibility: visible;
-  transition: transform 0.5s var(--resorte);
-}
-
-/* Mientras el dedo arrastra, la hoja lo sigue sin animación */
-.hoja.arrastrando {
-  transition: none;
-}
-
-.hoja-asa {
-  flex: none;
-  padding: 8px 16px 0;
-  cursor: grab;
-  touch-action: none;
-}
-
-.asa {
-  display: block;
-  width: 40px;
-  height: 5px;
-  margin: 0 auto 6px;
-  border-radius: 3px;
-  background: rgb(255 208 234 / 0.55);
-}
-
-.hoja .titulo {
-  margin-bottom: 8px;
-}
-
-.hoja-contenido {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 4px 16px calc(24px + var(--seguro-abajo));
-}
-
-.hoja-ayuda {
+.ayuda {
   margin: 0 0 16px;
   color: var(--texto-suave);
 }
 
-.hoja-acciones {
+.acciones {
   display: grid;
   gap: 12px;
   margin-top: 8px;
@@ -1116,7 +1072,7 @@ body[data-pantalla='outfit'] .barra {
 /* Si el iPhone pide menos transparencia, el vidrio se vuelve sólido */
 @media (prefers-reduced-transparency: reduce) {
   .barra,
-  .hoja {
+  .barra-nav {
     background: var(--negro-claro);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;

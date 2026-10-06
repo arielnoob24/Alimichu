@@ -1,6 +1,6 @@
 # Alimichu
 
-Armario digital para Alina: fotografía su ropa (guardada con fondo blanco) y genera outfits que combinan con un botón grande "Alina". Estética Y2K de los 2000 tipo Bratz: cromo rosa y plata sobre negro, con mariposas (nunca estrellas), sin puntitos de glitter (ver sección 3 de PLAN.md). Para el texto de cromo se usa la clase `.cromo` con `data-texto`. La estructura y las interacciones siguen el estilo de Apple (iOS 26): barra de vidrio flotante, hojas que se arrastran y respuesta inmediata al tocar. Para eso se usa la skill `apple-design` de `.claude/skills/`. Hecha con HTML, CSS y JavaScript puros (sin frameworks ni build), publicada en GitHub Pages: https://arielnoob24.github.io/Alimichu/
+Armario digital para Alina: fotografía su ropa (guardada con fondo blanco) y genera outfits que combinan con un botón grande "Alina". Estética Y2K de los 2000 tipo Bratz: cromo rosa y plata sobre negro, con mariposas (nunca estrellas), sin puntitos de glitter (ver sección 3 de PLAN.md). Para el texto de cromo se usa la clase `.cromo` con `data-texto`. La estructura y las interacciones siguen el estilo de Apple (iOS 26): barra de vidrio flotante, portadas con botones que llevan a vistas de detalle y respuesta inmediata al tocar. Para eso se usa la skill `apple-design` de `.claude/skills/`. Hecha con HTML, CSS y JavaScript puros (sin frameworks ni build), publicada en GitHub Pages: https://arielnoob24.github.io/Alimichu/
 
 Pensada para celular. Los datos (prendas, fotos, favoritos) se guardan en IndexedDB, solo en el navegador; no hay servidor.
 
@@ -21,7 +21,8 @@ El plan del proyecto está en [PLAN.md](PLAN.md). Léelo antes de empezar una ta
 ## Reglas
 
 - **Ningún texto se puede seleccionar ni copiar** (`user-select: none` en `body`). Solo los `input`, `textarea` y `select` permiten selección.
-- **Hojas:** las pantallas que suben desde abajo (`.hoja`, por ejemplo `#agregar` o `#crear`) se registran en `HOJAS` de `js/navegacion.js`, con la pestaña sobre la que se abren.
+- **Pestañas y vistas:** cada pestaña (`PESTANAS`) es una portada con botones de píldora centrados (`.portada`). Cada botón lleva a una vista de detalle (`.vista`), registrada en `VISTAS` de `js/navegacion.js` con su pestaña. Las vistas tienen `.barra-nav` con un botón `.volver` y esconden la barra de abajo.
+- **"Alina" solo aparece en el botón de Inicio.** Arriba, Inicio muestra un saludo según la hora y las otras pestañas muestran su nombre.
 
 - **Mobile first para iPhone** (ver "Regla principal" en PLAN.md):
   - Alina usa un iPhone 15 o más nuevo con Safari: ancho de 390 a 440 px, Dynamic Island y barra de inicio.

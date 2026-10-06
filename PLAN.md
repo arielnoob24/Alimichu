@@ -84,27 +84,34 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 
 ## 2. Pantallas
 
+La app funciona como una app de iPhone:
+- **Pestañas:** hay tres, Armario · Inicio · Favoritos, en la barra de abajo. Cada una tiene una **portada**:
+  - arriba, un título de cromo con mariposas
+  - al centro, botones de píldora de cromo con una invitación debajo
+- **Vistas:** cada botón lleva a una vista de detalle.
+  - entra desde la derecha
+  - tiene una barra superior con **‹ Volver** y el título al centro
+  - la barra de abajo se esconde
+  - el gesto de volver del iPhone también funciona
+- **Nombre "Alina":** aparece solo en el botón de Inicio, porque Alina pidió que no se repita.
+
 1. **Inicio**
-   - Arriba, "Alina" en cromo rosa y plata, con mariposas. Solo aparece en Inicio: en Armario y Favoritos el título grande es el de la sección, como en las apps de iPhone.
-   - Solo el botón **Alina**, grande y centrado, con la invitación "Aprieta Alina para que se genere tu combinación" debajo.
-   - Al apretarlo salen mariposas y se pasa a la vista **Tu outfit**, que entra desde la derecha como en iOS. Tiene:
-     - barra superior estilo iOS con **‹ Inicio** para volver y el título al centro; la barra de abajo se esconde
-     - el cuadro con las fotos de las prendas (arriba, abajo, zapatos y extra)
+   - **Arriba:** un saludo según la hora ("Buenos días", "Buenas tardes" o "Buenas noches").
+   - **Al centro:** el botón **Alina**, con la invitación "Aprieta Alina para que se genere tu combinación".
+   - **Vista "Tu outfit":** se abre al apretar Alina, después de las mariposas.
+     - el cuadro con las fotos de las prendas: arriba, abajo, zapatos y extra
      - **Otra combinación** para generar otro outfit
      - más adelante, un corazón para guardarlo en Favoritos
-   - Opcional: un candado en cada prenda para dejarla fija y que se cambie solo el resto.
-2. **Mi armario**
-   - Las prendas en cuadrícula, filtradas por categoría.
-   - Botón **+ Agregar prenda**.
-3. **Agregar prenda**
-   - Tomar la foto y procesarla a fondo blanco.
-   - Elegir la categoría, revisar el color detectado y elegir el estilo.
-   - Opcional: agregarla a un conjunto.
-4. **Favoritos**
-   - Los outfits guardados, con opción de borrarlos.
-   - Botón **+ Crear combinación**: abre una hoja donde Alina elige una prenda de cada parte (arriba, abajo, zapatos y extra opcional) entre las que tiene en el armario, y la guarda en Favoritos.
-
-La navegación es una barra inferior con Inicio, Armario y Favoritos, con el botón Alina siempre visible en Inicio.
+     - opcional: un candado en cada prenda para dejarla fija y que cambie solo el resto
+2. **Armario** (título "Mi armario")
+   - **Vista "Mi armario"** (botón **Ver mi armario**): las prendas en cuadrícula, filtradas por categoría.
+   - **Vista "Agregar prenda"** (botón **Agregar prenda**):
+     - tomar la foto y procesarla a fondo blanco
+     - elegir la categoría, revisar el color detectado y elegir el estilo
+     - opcional: agregarla a un conjunto
+3. **Favoritos** (título "Favoritos")
+   - **Vista "Mis favoritos"** (botón **Ver favoritos**): los outfits guardados, con opción de borrarlos.
+   - **Vista "Nuevo outfit"** (botón **Crear combinación**): Alina elige una prenda de cada parte (arriba, abajo, zapatos y extra opcional) entre las de su armario, y la guarda en Favoritos.
 
 ## 3. Estilo visual
 
@@ -131,7 +138,7 @@ Referencias:
 - **Marcos:** bordes finos de cromo rosa sobre fondo negro.
 - **Mezcla con Apple (iOS 26):** la estructura y la forma de interactuar son de Apple; la decoración sigue siendo Y2K. Se sigue la skill `apple-design`, instalada en `.claude/skills/`.
   - **Barra de abajo:** cápsula de vidrio flotante con borde de cromo rosa y una burbuja que se desliza a la pestaña activa.
-  - **Agregar prenda:** hoja que sube desde abajo. Sigue al dedo y se cierra deslizándola hacia abajo según el impulso del gesto.
+  - **Vistas de detalle:** entran desde la derecha y tienen una barra superior de vidrio con ‹ Volver. La barra de abajo se esconde. Volver usa el historial, así que funciona el gesto del iPhone.
   - **Respuesta inmediata al tocar:** los botones se achican apenas se tocan y no se selecciona su texto al mantenerlos presionados.
   - **Bajo la barra:** el contenido se desvanece en lugar de cortarse.
   - **Movimiento:** resorte sin rebote para todo lo que no viene de un gesto con impulso.
@@ -250,7 +257,7 @@ Es la parte técnicamente más difícil.
 - [ ] Conjuntos
 - [ ] Botón Alina conectado y animación de entrada del outfit
 - [ ] Guardar outfit en Favoritos
-- [ ] Crear combinación a mano: elegir una prenda de cada parte entre las del armario y guardarla en Favoritos (la hoja ya está maquetada)
+- [ ] Crear combinación a mano: elegir una prenda de cada parte entre las del armario y guardarla en Favoritos (la vista "Nuevo outfit" ya está maquetada)
 - [ ] Candado para dejar fija una prenda
 
 ### Fase 6: Pulido

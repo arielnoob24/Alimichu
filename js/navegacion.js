@@ -1,10 +1,15 @@
-// Las hojas suben desde abajo encima de la pestaña indicada.
-export const HOJAS = { agregar: 'armario', crear: 'favoritos' };
+export const PESTANAS = ['armario', 'inicio', 'favoritos'];
 
-// Las vistas entran desde la derecha en lugar de la pestaña indicada, con botón para volver.
-export const VISTAS = { outfit: 'inicio' };
+// Cada vista entra desde la derecha encima de su pestaña, con ‹ Volver y sin barra de abajo.
+export const VISTAS = {
+  outfit: 'inicio',
+  'mi-armario': 'armario',
+  agregar: 'armario',
+  'mis-favoritos': 'favoritos',
+  crear: 'favoritos',
+};
 
-export const PANTALLAS = ['inicio', 'armario', 'favoritos', ...Object.keys(VISTAS), ...Object.keys(HOJAS)];
+export const PANTALLAS = [...PESTANAS, ...Object.keys(VISTAS)];
 
 export function pantallaDesdeHash(hash) {
   const nombre = (hash ?? '').replace(/^#/, '');
@@ -12,5 +17,9 @@ export function pantallaDesdeHash(hash) {
 }
 
 export function pestanaDe(pantalla) {
-  return HOJAS[pantalla] ?? VISTAS[pantalla] ?? pantalla;
+  return VISTAS[pantalla] ?? pantalla;
+}
+
+export function esVista(pantalla) {
+  return pantalla in VISTAS;
 }

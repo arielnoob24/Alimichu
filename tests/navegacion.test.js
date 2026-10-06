@@ -1,11 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { pantallaDesdeHash, pestanaDe } from '../js/navegacion.js';
+import { esVista, pantallaDesdeHash, pestanaDe } from '../js/navegacion.js';
 
-test('reconoce las pantallas desde el hash', () => {
+test('reconoce las pestañas y vistas desde el hash', () => {
   assert.equal(pantallaDesdeHash('#armario'), 'armario');
   assert.equal(pantallaDesdeHash('#favoritos'), 'favoritos');
-  assert.equal(pantallaDesdeHash('#agregar'), 'agregar');
+  assert.equal(pantallaDesdeHash('#outfit'), 'outfit');
+  assert.equal(pantallaDesdeHash('#mi-armario'), 'mi-armario');
+  assert.equal(pantallaDesdeHash('#crear'), 'crear');
 });
 
 test('vuelve a inicio con un hash vacío o desconocido', () => {
@@ -14,14 +16,16 @@ test('vuelve a inicio con un hash vacío o desconocido', () => {
   assert.equal(pantallaDesdeHash(undefined), 'inicio');
 });
 
-test('las hojas marcan la pestaña sobre la que se abren', () => {
+test('cada vista pertenece a su pestaña', () => {
+  assert.equal(pestanaDe('outfit'), 'inicio');
+  assert.equal(pestanaDe('mi-armario'), 'armario');
   assert.equal(pestanaDe('agregar'), 'armario');
+  assert.equal(pestanaDe('mis-favoritos'), 'favoritos');
   assert.equal(pestanaDe('crear'), 'favoritos');
   assert.equal(pestanaDe('favoritos'), 'favoritos');
-  assert.equal(pantallaDesdeHash('#crear'), 'crear');
 });
 
-test('la vista del outfit pertenece a la pestaña de inicio', () => {
-  assert.equal(pantallaDesdeHash('#outfit'), 'outfit');
-  assert.equal(pestanaDe('outfit'), 'inicio');
+test('distingue vistas de pestañas', () => {
+  assert.equal(esVista('crear'), true);
+  assert.equal(esVista('inicio'), false);
 });
