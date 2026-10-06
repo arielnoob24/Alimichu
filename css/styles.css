@@ -35,6 +35,15 @@
   --toque: 120ms ease-out;
 }
 
+/* Vista previa temporal de letras: abrir la app con ?letra=bagel o ?letra=shrikhand */
+:root[data-letra='bagel'] {
+  --fuente-cromo: 'Bagel Fat One', cursive;
+}
+
+:root[data-letra='shrikhand'] {
+  --fuente-cromo: 'Shrikhand', cursive;
+}
+
 *,
 *::before,
 *::after {
@@ -212,12 +221,13 @@ select {
   text-align: center;
 }
 
-/* En Inicio no hay texto arriba: solo mariposas. El título queda para lectores de pantalla. */
-body[data-pantalla='inicio'] .encabezado {
+/* Arriba no hay texto en ninguna pestaña: solo mariposas.
+   El título de la sección queda para lectores de pantalla. */
+.encabezado {
   min-height: 124px;
 }
 
-body[data-pantalla='inicio'] #titulo-pagina {
+#titulo-pagina {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -228,17 +238,12 @@ body[data-pantalla='inicio'] #titulo-pagina {
 
 .mariposa-central {
   --giro: -6deg;
-  display: none;
   top: 50%;
   left: 50%;
   width: 130px;
   height: 95px;
   margin: -44px 0 0 -65px;
   animation-delay: 0.6s;
-}
-
-body[data-pantalla='inicio'] .mariposa-central {
-  display: block;
 }
 
 .nombre {

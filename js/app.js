@@ -4,6 +4,10 @@ import { generarChispas } from './destellos.js';
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 const TITULOS = { inicio: 'Inicio', armario: 'Mi armario', favoritos: 'Favoritos' };
 
+// Vista previa temporal de letras: ?letra=bagel o ?letra=shrikhand en el link.
+const letraElegida = new URLSearchParams(location.search).get('letra');
+if (letraElegida) document.documentElement.dataset.letra = letraElegida;
+
 // En iOS, :active solo se activa al tocar si la página escucha touchstart.
 document.addEventListener('touchstart', () => {}, { passive: true });
 
@@ -51,7 +55,7 @@ function mostrarPantalla({ enfocar = true } = {}) {
   }
 }
 
-// El nombre de la sección arriba (en Inicio no se ve: ahí solo hay mariposas).
+// El nombre de la sección, para lectores de pantalla (arriba solo se ven mariposas).
 function ponerTitulo(pestana) {
   const texto = TITULOS[pestana];
   const titulo = document.getElementById('titulo-pagina');

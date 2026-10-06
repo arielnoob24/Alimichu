@@ -230,6 +230,7 @@ Es la parte técnicamente más difícil.
 - [x] Posición del botón Alina: centrado al entrar, abajo después del primer outfit
 - [x] Forma del botón Alina: píldora de cromo con mariposas
 - [x] Estética: Y2K / Bratz con cromo rosa y plata (ver sección 3)
+- [ ] Letra de los títulos y botones: a la dueña no le gustó Pacifico. Opciones: Bagel Fat One o Shrikhand (se prueban abriendo la app con `?letra=bagel` o `?letra=shrikhand`)
 - [x] Categorías y estilos: por ahora, los de la sección 4
 
 ### Fase 2: Estructura y estilo
