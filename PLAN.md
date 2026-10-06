@@ -72,7 +72,7 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 
 | # | Pedido | Cómo lo resolvemos |
 |---|---|---|
-| 1 | Que tenga brillos y su nombre en brillos rosados | Encabezado con "Alina" en letras rosa con glitter y destellos animados (ver sección 3) |
+| 1 | Que tenga brillos y su nombre en brillos rosados | "Alina" en letras de cromo plateado con borde rosa, reflejos y mariposas que titilan (ver sección 3) |
 | 2 | Que genere combinaciones de outfit que combinen bien, no aleatorias | Motor de combinación con reglas de color, estilo y tipo de prenda (ver sección 4) |
 | 3 | Guardar prendas tomándoles fotos | Botón "Agregar prenda" que abre la cámara del iPhone |
 | 4 | Que la foto se guarde con fondo blanco, como para vender | Quitar el fondo automáticamente y poner la prenda sobre blanco (ver sección 5) |
@@ -215,7 +215,7 @@ Es la parte técnicamente más difícil.
 ### Fase 2: Estructura y estilo
 - [x] Maqueta HTML de las 4 pantallas y la barra de navegación
 - [x] Paleta, tipografías y variables en `css/styles.css`
-- [x] "Alina" en glitter rosado con destellos animados
+- [x] "Alina" en cromo rosa y plata con mariposas animadas
 - [x] Botón Alina grande, centrado, con animación al apretar
 - [ ] Todo mobile first según la sección 1; probado a 390, 402 y 440 px
 - [x] `viewport-fit=cover`, bordes seguros y `100dvh`
