@@ -101,15 +101,15 @@ La navegación es una barra inferior con Inicio, Armario y Favoritos, con el bot
 
 ## 3. Estilo visual
 
-**Y2K de los 2000, tipo Bratz:** cromo líquido rosa y plata sobre negro.
+**Y2K de los 2000, tipo Bratz:** cromo líquido rosa y plata sobre negro. **Mariposas en vez de estrellas** en todo el diseño.
 
 Referencias:
 - [docs/referencia-letras.png](docs/referencia-letras.png): letras de cromo plateado con borde de cromo rosa y relieve
-- [docs/referencia-estrellas.png](docs/referencia-estrellas.png): estrellas afiladas de cromo rosa, con contorno
+- [docs/referencia-estrellas.png](docs/referencia-estrellas.png): estilo de contorno de cromo rosa (en la app se usa con mariposas, no con estrellas)
 - [docs/referencia-estilo.png](docs/referencia-estilo.png): la primera referencia
 
 **Lo que va y lo que no:**
-- **Sin puntitos de glitter.** El brillo viene de los reflejos del cromo y de los destellos de cuatro puntas.
+- **Sin puntitos de glitter.** El brillo viene de los reflejos del cromo y de las mariposas plateadas.
 - **Colores:**
   - cromo rosa: degradado de `#ffe0f1` a `#ff86c8`, `#e0157f` y `#7d0845`
   - cromo plata: degradado de blanco a gris oscuro y de vuelta a blanco
@@ -117,10 +117,10 @@ Referencias:
 - **Tipografía:** Pacifico, una cursiva gruesa y retro, para "Alina" y los títulos. Rubik o la letra del sistema para el resto.
 - **Texto de cromo** (clase `.cromo`): relleno plateado, borde rosa grueso con relieve oscuro, un filo claro y un reflejo de luz que lo recorre cada pocos segundos.
 - **Decoración:**
-  - grupos de estrellas Y2K de cromo rosa en las esquinas del encabezado
-  - destellos plateados de cuatro puntas que titilan
+  - grupos de mariposas Y2K de cromo rosa con contorno, que flotan en las esquinas del encabezado
+  - mariposas plateadas pequeñas que titilan alrededor del nombre
 - **Botón Alina:** píldora de cromo rosa con borde plateado y brillo arriba, con "Alina" en cromo. Tiene dos mariposas de cromo posadas que aletean.
-  - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas y destellos hacia todos lados.
+  - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas rosadas y plateadas hacia todos lados.
 - **Marcos:** bordes finos de cromo rosa sobre fondo negro.
 - **Tarjetas de prenda con foto:** fondo blanco, como foto de producto.
 - **Animaciones suaves:** se respeta la opción "reducir movimiento" del iPhone.

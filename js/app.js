@@ -28,17 +28,16 @@ function lanzarDestellos(boton) {
   const { left, top, width, height } = boton.getBoundingClientRect();
 
   const chispas = generarChispas(16, { distancia: 160 });
-  chispas.forEach(({ x, y, tamano, giro, retraso }, i) => {
-    const esMariposa = i % 2 === 0;
+  chispas.forEach(({ x, y, tamano, retraso }, i) => {
     const chispa = document.createElement('span');
-    chispa.className = `chispa ${esMariposa ? 'chispa-mariposa' : 'chispa-destello'}`;
+    chispa.className = i % 2 === 0 ? 'chispa' : 'chispa chispa-plata';
     chispa.style.left = `${left + width / 2}px`;
     chispa.style.top = `${top + height / 2}px`;
-    chispa.style.width = `${tamano + (esMariposa ? 12 : 0)}px`;
+    chispa.style.width = `${tamano + 10}px`;
     chispa.style.setProperty('--x', `${x}px`);
     // Las mariposas vuelan hacia arriba y casi sin girar.
-    chispa.style.setProperty('--y', `${esMariposa ? y - 70 : y}px`);
-    chispa.style.setProperty('--giro', `${esMariposa ? Math.round(x / 6) : giro}deg`);
+    chispa.style.setProperty('--y', `${y - 70}px`);
+    chispa.style.setProperty('--giro', `${Math.round(x / 6)}deg`);
     chispa.style.setProperty('--retraso', `${retraso}ms`);
     chispa.addEventListener('animationend', () => chispa.remove());
     document.body.append(chispa);
@@ -80,7 +79,7 @@ inputFoto.addEventListener('change', () => {
 
 document.getElementById('form-prenda').addEventListener('submit', (evento) => {
   evento.preventDefault();
-  document.getElementById('aviso-prenda').textContent = 'Muy pronto vas a poder guardar tus prendas ✦';
+  document.getElementById('aviso-prenda').textContent = 'Muy pronto vas a poder guardar tus prendas 💖';
 });
 
 window.addEventListener('hashchange', () => mostrarPantalla());

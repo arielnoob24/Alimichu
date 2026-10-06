@@ -177,60 +177,69 @@ label {
   font-size: clamp(4rem, 20vw, 5.4rem);
 }
 
+/* Grupos de mariposas Y2K en las esquinas, que flotan suavemente */
 .decoracion {
   position: absolute;
   pointer-events: none;
   overflow: visible;
   filter: drop-shadow(0 0 10px rgb(255 47 168 / 0.5));
+  animation: flotar 4s ease-in-out infinite;
 }
 
-.estrellas-grandes {
-  top: -6px;
-  right: -34px;
-  width: 132px;
-  height: 132px;
-  transform: rotate(14deg);
+.grupo-grande {
+  --giro: 16deg;
+  top: -10px;
+  right: -36px;
+  width: 140px;
+  height: 128px;
 }
 
-.estrellas-chicas {
-  bottom: 4px;
-  left: -18px;
-  width: 78px;
-  height: 78px;
-  transform: rotate(-18deg);
+.grupo-chico {
+  --giro: -18deg;
+  bottom: 0;
+  left: -22px;
+  width: 84px;
+  height: 77px;
+  animation-delay: 1.3s;
 }
 
-/* Destellos de cuatro puntas que titilan alrededor del nombre */
-.destellos {
+@keyframes flotar {
+  0%,
+  100% { transform: translateY(0) rotate(var(--giro)); }
+  50% { transform: translateY(-6px) rotate(calc(var(--giro) + 4deg)); }
+}
+
+/* Mariposas plateadas que titilan alrededor del nombre */
+.brillos {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.destello {
+.brillo {
   position: absolute;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 22px;
   overflow: visible;
   filter: drop-shadow(0 0 5px rgb(255 134 200 / 0.9));
   animation: titilar 2.6s ease-in-out infinite;
 }
 
-.destello:nth-child(1) { top: 22px; left: 17%; }
-.destello:nth-child(2) { bottom: 18px; right: 22%; width: 32px; height: 32px; animation-delay: 0.8s; }
-.destello:nth-child(3) { top: 12px; right: 30%; width: 16px; height: 16px; animation-delay: 1.5s; }
-.destello:nth-child(4) { bottom: 26px; left: 30%; width: 14px; height: 14px; animation-delay: 2s; }
+.brillo:nth-child(1) { top: 22px; left: 15%; --giro: -20deg; }
+.brillo:nth-child(2) { bottom: 16px; right: 21%; width: 36px; height: 26px; animation-delay: 0.8s; --giro: 18deg; }
+.brillo:nth-child(3) { top: 10px; right: 30%; width: 20px; height: 14px; animation-delay: 1.5s; --giro: 10deg; }
+.brillo:nth-child(4) { bottom: 24px; left: 29%; width: 18px; height: 13px; animation-delay: 2s; --giro: -12deg; }
 
 @keyframes titilar {
   0%,
   100% {
-    opacity: 0.2;
-    transform: scale(0.45) rotate(0deg);
+    opacity: 0.25;
+    transform: scale(0.55) rotate(var(--giro, 0deg));
   }
 
   50% {
     opacity: 1;
-    transform: scale(1) rotate(90deg);
+    transform: scale(1) rotate(var(--giro, 0deg));
   }
 }
 
@@ -542,8 +551,9 @@ body:not([data-pantalla='inicio']) .boton-alina {
   100% { opacity: 0; transform: translate(80px, -140px) rotate(30deg) scale(0.6); }
 }
 
-/* Mariposas y destellos que salen al apretar el botón */
+/* Mariposas rosadas y plateadas que salen volando al apretar el botón */
 .chispa {
+  --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8C10 4 6 2 3.5 3S1.6 8.6 5 10.5C2 11.8 2.4 16 5 16.6s5-1.4 7-5.1c2 3.7 4.4 5.7 7 5.1s3-4.8 0-6.1C22.4 8.6 23 4 20.5 3S14 4 12 8Z'/%3E%3C/svg%3E");
   position: fixed;
   z-index: 30;
   aspect-ratio: 1;
@@ -556,12 +566,7 @@ body:not([data-pantalla='inicio']) .boton-alina {
   animation-delay: var(--retraso);
 }
 
-.chispa-mariposa {
-  --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8C10 4 6 2 3.5 3S1.6 8.6 5 10.5C2 11.8 2.4 16 5 16.6s5-1.4 7-5.1c2 3.7 4.4 5.7 7 5.1s3-4.8 0-6.1C22.4 8.6 23 4 20.5 3S14 4 12 8Z'/%3E%3C/svg%3E");
-}
-
-.chispa-destello {
-  --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.5 5.5 11.4 12 12-6.5.6-11.4 5.5-12 12-.6-6.5-5.5-11.4-12-12C6.5 11.4 11.4 6.5 12 0Z'/%3E%3C/svg%3E");
+.chispa-plata {
   background: var(--cromo-plata);
 }
 
