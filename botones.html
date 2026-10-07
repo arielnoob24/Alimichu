@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#050006">
+    <title>Contraste de botones</title>
+    <link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700&amp;family=Shrikhand&amp;display=block">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/botones.css">
+  </head>
+  <!-- Página temporal para elegir cómo mejorar el contraste del texto en los botones. Se borra al elegir. -->
+  <body data-pantalla="botones" data-tipo="vista">
+    <main class="comparar">
+      <h1 class="comparar-titulo">¿Cuál se lee mejor?</h1>
+      <p class="comparar-ayuda">Mismos colores y letra; cambia cómo se ve el texto sobre el rosa.</p>
+
+      <section class="comparar-tarjeta" aria-labelledby="opcion-a">
+        <h2 id="opcion-a">A. Actual <span>para comparar</span></h2>
+        <span class="boton-portada"><span class="cromo cromo-boton grande" data-texto="Alina"><span>Alina</span></span></span>
+        <span class="boton-portada"><span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span></span>
+      </section>
+
+      <section class="comparar-tarjeta variante-b" aria-labelledby="opcion-b">
+        <h2 id="opcion-b">B. Texto casi blanco con borde oscuro <span>recomendada: sigue siendo cromo, pero brillante</span></h2>
+        <span class="boton-portada"><span class="cromo cromo-boton grande" data-texto="Alina"><span>Alina</span></span></span>
+        <span class="boton-portada"><span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span></span>
+      </section>
+
+      <section class="comparar-tarjeta variante-c" aria-labelledby="opcion-c">
+        <h2 id="opcion-c">C. Botón más oscuro <span>el texto igual, la píldora fucsia profundo</span></h2>
+        <span class="boton-portada"><span class="cromo cromo-boton grande" data-texto="Alina"><span>Alina</span></span></span>
+        <span class="boton-portada"><span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span></span>
+      </section>
+
+      <section class="comparar-tarjeta variante-d" aria-labelledby="opcion-d">
+        <h2 id="opcion-d">D. Texto oscuro <span>el que más contrasta, pero sin cromo en las letras</span></h2>
+        <span class="boton-portada"><span class="cromo cromo-boton grande" data-texto="Alina"><span>Alina</span></span></span>
+        <span class="boton-portada"><span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span></span>
+      </section>
+
+      <a class="boton boton-secundario" href="./">Volver a la app</a>
+    </main>
+  </body>
+</html>
