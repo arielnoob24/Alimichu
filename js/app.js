@@ -12,8 +12,38 @@ document.addEventListener('touchstart', () => {}, { passive: true });
 
 // El service worker hace que siempre se cargue la versión más nueva, completa y sin mezclas.
 if ('serviceWorker' in navigator) {
+  // Si el service worker que controla la app ya existía y se actualiza, se recarga una vez
+  // para mostrar la versión nueva sin que Alina tenga que hacer nada.
+  const yaHabiaUno = Boolean(navigator.serviceWorker.controller);
+  let recargando = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!yaHabiaUno || recargando) return;
+    recargando = true;
+    location.reload();
+  });
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
+
+// Si se publicó una versión nueva mientras la app estaba abierta (o guardada en el navegador),
+// se recarga sola al abrirla o al volver a ella. Solo una vez por versión, para no quedar en bucle.
+const versionCargada = document.querySelector('meta[name="version"]').content;
+
+async function revisarVersion() {
+  if (versionCargada === 'dev') return;
+  try {
+    const { version } = await (await fetch('version.json', { cache: 'no-store' })).json();
+    if (version === versionCargada || sessionStorage.getItem('recargadoPara') === version) return;
+    sessionStorage.setItem('recargadoPara', version);
+    location.reload();
+  } catch {
+    // Sin internet o sin sessionStorage: se sigue con la versión que hay.
+  }
+}
+
+revisarVersion();
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) revisarVersion();
+});
 
 let pantallaVisible = null;
 let navegoDentroDeLaApp = false;
