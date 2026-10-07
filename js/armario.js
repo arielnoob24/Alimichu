@@ -1,9 +1,11 @@
-// Guarda las prendas en IndexedDB, dentro del navegador de Alina. No hay servidor.
+// Guarda las prendas y los outfits favoritos en IndexedDB, dentro del navegador de Alina. No hay servidor.
 // Cada prenda: { id, foto (Blob), categoria, estilos[], color, conjunto, creada }
+// Cada favorito: { id, prendas: { lugar: idDePrenda }, origen: 'alina' | 'propio', creado }
 
 const BASE = 'alimichu';
-const VERSION = 1;
+const VERSION = 2;
 const PRENDAS = 'prendas';
+const FAVORITOS = 'favoritos';
 
 let conexion = null;
 
@@ -15,8 +17,18 @@ function abrirBase() {
       if (!base.objectStoreNames.contains(PRENDAS)) {
         base.createObjectStore(PRENDAS, { keyPath: 'id' }).createIndex('categoria', 'categoria');
       }
+      if (!base.objectStoreNames.contains(FAVORITOS)) {
+        base.createObjectStore(FAVORITOS, { keyPath: 'id' });
+      }
     };
-    pedido.onsuccess = () => resolver(pedido.result);
+    pedido.onsuccess = () => {
+      // Si otra pestaña con una versión nueva necesita actualizar la base, esta la suelta.
+      pedido.result.onversionchange = () => {
+        pedido.result.close();
+        conexion = null;
+      };
+      resolver(pedido.result);
+    };
     pedido.onerror = () => {
       conexion = null;
       rechazar(pedido.error);
@@ -25,12 +37,12 @@ function abrirBase() {
   return conexion;
 }
 
-// Ejecuta una operación sobre el almacén de prendas y espera a que termine.
-async function conPrendas(modo, operacion) {
+// Ejecuta una operación sobre un almacén y espera a que termine.
+async function con(almacen, modo, operacion) {
   const base = await abrirBase();
   return new Promise((resolver, rechazar) => {
-    const transaccion = base.transaction(PRENDAS, modo);
-    const pedido = operacion(transaccion.objectStore(PRENDAS));
+    const transaccion = base.transaction(almacen, modo);
+    const pedido = operacion(transaccion.objectStore(almacen));
     transaccion.oncomplete = () => resolver(pedido?.result);
     transaccion.onerror = () => rechazar(transaccion.error);
     transaccion.onabort = () => rechazar(transaccion.error);
@@ -39,21 +51,36 @@ async function conPrendas(modo, operacion) {
 
 export async function guardarPrenda(datos) {
   const prenda = { ...datos, id: crypto.randomUUID(), creada: Date.now() };
-  await conPrendas('readwrite', (almacen) => almacen.add(prenda));
+  await con(PRENDAS, 'readwrite', (almacen) => almacen.add(prenda));
   pedirAlmacenamientoPersistente();
   return prenda;
 }
 
 export function listarPrendas() {
-  return conPrendas('readonly', (almacen) => almacen.getAll());
+  return con(PRENDAS, 'readonly', (almacen) => almacen.getAll());
 }
 
 export function obtenerPrenda(id) {
-  return conPrendas('readonly', (almacen) => almacen.get(id));
+  return con(PRENDAS, 'readonly', (almacen) => almacen.get(id));
 }
 
 export function borrarPrenda(id) {
-  return conPrendas('readwrite', (almacen) => almacen.delete(id));
+  return con(PRENDAS, 'readwrite', (almacen) => almacen.delete(id));
+}
+
+export async function guardarFavorito(prendas, origen) {
+  const favorito = { id: crypto.randomUUID(), prendas, origen, creado: Date.now() };
+  await con(FAVORITOS, 'readwrite', (almacen) => almacen.add(favorito));
+  pedirAlmacenamientoPersistente();
+  return favorito;
+}
+
+export function listarFavoritos() {
+  return con(FAVORITOS, 'readonly', (almacen) => almacen.getAll());
+}
+
+export function borrarFavorito(id) {
+  return con(FAVORITOS, 'readwrite', (almacen) => almacen.delete(id));
 }
 
 // Le pide al navegador que no borre el armario cuando necesite espacio.

@@ -256,12 +256,14 @@ Es la parte técnicamente más difícil.
 - [ ] Mensaje de "procesando…" mientras trabaja
 
 ### Fase 5: Generador de outfits
-- [ ] Motor de combinación (`js/outfits.js`, con tests)
-- [ ] Conjuntos
-- [ ] Botón Alina conectado y animación de entrada del outfit
-- [ ] Guardar outfit en Favoritos
-- [ ] Crear combinación a mano: elegir una prenda de cada parte entre las del armario y guardarla en Favoritos (la vista "Nuevo outfit" ya está maquetada)
-- [ ] Candado para dejar fija una prenda
+- [x] Motor de combinación (`js/outfits.js`, con tests)
+- [x] Conjuntos
+- [x] Botón Alina conectado y animación de entrada del outfit
+- [x] Guardar outfit en Favoritos
+- [x] Crear combinación a mano: elegir una prenda de cada parte entre las del armario y guardarla en Favoritos
+- [x] Candado para dejar fija una prenda
+- [x] Lista de favoritos (collage de cada outfit, abrirlo en "Tu outfit" y quitarlo)
+- [ ] Probar con el armario real de Alina y ajustar las reglas de combinación si algo no le convence
 
 ### Fase 6: Pulido
 - [x] Ícono de la app: mariposa de cromo rosa (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)

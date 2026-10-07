@@ -1,6 +1,35 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { colorPrincipal, rgbAHex } from '../js/colores.js';
+import { armoniaColores, colorPrincipal, esNeutro, hexAHsl, rgbAHex } from '../js/colores.js';
+
+test('convierte hex a tono, saturación y luminosidad', () => {
+  const rojo = hexAHsl('#ff0000');
+  assert.equal(Math.round(rojo.h), 0);
+  assert.equal(rojo.s, 1);
+  assert.equal(rojo.l, 0.5);
+  assert.equal(Math.round(hexAHsl('#0000ff').h), 240);
+  assert.equal(hexAHsl('#808080').s, 0);
+});
+
+test('reconoce los colores neutros', () => {
+  for (const neutro of ['#ffffff', '#000000', '#808080', '#d9c7a8', '#6b4a2b', '#2a4f9e']) {
+    assert.equal(esNeutro(neutro), true, `${neutro} debería ser neutro`);
+  }
+  for (const fuerte of ['#ff2fa8', '#c8102e', '#ffd400', '#00b050']) {
+    assert.equal(esNeutro(fuerte), false, `${fuerte} no debería ser neutro`);
+  }
+});
+
+test('los neutros combinan con todo', () => {
+  assert.equal(armoniaColores('#000000', '#ff2fa8'), 2);
+  assert.equal(armoniaColores('#2a4f9e', '#ffd400'), 2);
+});
+
+test('colores del mismo tono combinan y los que chocan restan', () => {
+  assert.ok(armoniaColores('#ff2fa8', '#ff86c8') > 0, 'rosa con rosa');
+  assert.ok(armoniaColores('#ff2fa8', '#00b050') > 0, 'complementarios');
+  assert.ok(armoniaColores('#ff2fa8', '#ffd400') < 0, 'rosa fuerte con amarillo choca');
+});
 
 // Arma una imagen falsa con una función que da el color de cada pixel.
 function imagen(ancho, alto, colorDe) {

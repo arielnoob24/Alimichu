@@ -13,10 +13,12 @@ El plan del proyecto está en [PLAN.md](PLAN.md). Léelo antes de empezar una ta
 - Módulos de `js/`:
   - `app.js`: navegación y conexión de todo
   - `vista-armario.js`: pantallas del armario
-  - `armario.js`: IndexedDB
+  - `vista-outfit.js`: "Tu outfit" (generar, candados, favorito)
+  - `vista-favoritos.js`: lista de favoritos y "Nuevo outfit"
+  - `armario.js`: IndexedDB (prendas y favoritos)
   - `fotos.js`: achicar la foto y detectar el color
   - `aviso.js`: aviso flotante
-  - lógica pura con tests: `prendas.js`, `colores.js`, `navegacion.js` y `destellos.js`
+  - lógica pura con tests: `outfits.js` (motor de combinaciones), `prendas.js`, `colores.js`, `navegacion.js` y `destellos.js`
 - `tests/` pruebas con el test runner de Node (`node --test`) para la lógica de `js/`.
 - `package.json` solo contiene herramientas de validación; el sitio no depende de nada.
 

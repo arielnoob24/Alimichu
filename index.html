@@ -128,11 +128,10 @@
 
       <!-- Favoritos: se ven los outfits guardados directamente y un botón flotante para crear uno -->
       <section id="pantalla-favoritos" class="pantalla" aria-label="Favoritos" hidden>
-        <div class="lista" id="lista-favoritos">
-          <div class="vacio">
-            <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
-            <p>Todavía no tienes outfits favoritos.<br>Guarda los que te gusten del botón Alina o arma uno tú 💖</p>
-          </div>
+        <div class="lista-favoritos" id="lista-favoritos"></div>
+        <div class="vacio" id="favoritos-vacio" hidden>
+          <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
+          <p>Todavía no tienes outfits favoritos.<br>Guarda los que te gusten del botón Alina o arma uno tú 💖</p>
         </div>
         <a class="boton-portada boton-flotante" href="#crear">
           <span class="cromo cromo-boton" data-texto="Crear combinación"><span>Crear combinación</span></span>
@@ -145,33 +144,23 @@
         <div class="barra-nav">
           <button class="volver" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
-            Inicio
+            <span id="volver-outfit-texto">Inicio</span>
           </button>
           <h2 id="titulo-outfit" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Tu outfit"><span>Tu outfit</span></h2>
         </div>
         <div class="outfit" id="cuadro-outfit">
-          <div class="prendas" id="prendas-outfit">
-            <figure class="prenda prenda-arriba">
-              <span class="prenda-icono" aria-hidden="true">👚</span>
-              <figcaption>Arriba</figcaption>
-            </figure>
-            <figure class="prenda prenda-extra">
-              <span class="prenda-icono" aria-hidden="true">👜</span>
-              <figcaption>Extra</figcaption>
-            </figure>
-            <figure class="prenda prenda-abajo">
-              <span class="prenda-icono" aria-hidden="true">👖</span>
-              <figcaption>Abajo</figcaption>
-            </figure>
-            <figure class="prenda prenda-zapatos">
-              <span class="prenda-icono" aria-hidden="true">👟</span>
-              <figcaption>Zapatos</figcaption>
-            </figure>
-          </div>
+          <!-- Los lugares del outfit los dibuja js/vista-outfit.js -->
+          <div class="prendas" id="prendas-outfit"></div>
           <p class="outfit-pista" id="outfit-pista" aria-live="polite"></p>
           <a class="boton boton-secundario" id="outfit-agregar" href="#agregar" hidden>+ Agregar prendas</a>
         </div>
-        <button class="boton boton-otra" id="otra-combinacion" type="button">Otra combinación</button>
+        <div class="outfit-acciones">
+          <button class="boton boton-secundario boton-favorito" id="guardar-favorito" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>
+            <span id="guardar-favorito-texto">Guardar</span>
+          </button>
+          <button class="boton boton-otra" id="otra-combinacion" type="button">Otra combinación</button>
+        </div>
       </section>
 
       <section id="pantalla-agregar" class="pantalla vista" aria-labelledby="titulo-agregar" hidden>
@@ -256,29 +245,29 @@
         <p class="ayuda">Elige una prenda de cada parte. Desliza hacia el lado para ver todas.</p>
 
         <section class="selector" aria-labelledby="selector-arriba">
-          <h3 class="selector-titulo" id="selector-arriba"><span aria-hidden="true">👚</span> Arriba</h3>
-          <div class="selector-prendas" data-categoria="arriba">
+          <h3 class="selector-titulo" id="selector-arriba"><span aria-hidden="true">👚</span> Arriba o vestido</h3>
+          <div class="selector-prendas" data-fila="arriba">
             <p class="selector-vacio">Todavía no hay prendas de esta parte</p>
           </div>
         </section>
 
         <section class="selector" aria-labelledby="selector-abajo">
           <h3 class="selector-titulo" id="selector-abajo"><span aria-hidden="true">👖</span> Abajo</h3>
-          <div class="selector-prendas" data-categoria="abajo">
+          <div class="selector-prendas" data-fila="abajo">
             <p class="selector-vacio">Todavía no hay prendas de esta parte</p>
           </div>
         </section>
 
         <section class="selector" aria-labelledby="selector-zapatos">
           <h3 class="selector-titulo" id="selector-zapatos"><span aria-hidden="true">👟</span> Zapatos</h3>
-          <div class="selector-prendas" data-categoria="zapatos">
+          <div class="selector-prendas" data-fila="zapatos">
             <p class="selector-vacio">Todavía no hay prendas de esta parte</p>
           </div>
         </section>
 
         <section class="selector" aria-labelledby="selector-extra">
           <h3 class="selector-titulo" id="selector-extra"><span aria-hidden="true">👜</span> Extra <span class="opcional">(opcional)</span></h3>
-          <div class="selector-prendas" data-categoria="extra">
+          <div class="selector-prendas" data-fila="extra">
             <p class="selector-vacio">Todavía no hay prendas de esta parte</p>
           </div>
         </section>
