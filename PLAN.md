@@ -133,7 +133,7 @@ Referencias:
 - **Decoración:**
   - grupos de mariposas Y2K de cromo rosa con contorno, que flotan en las esquinas del encabezado
   - mariposas plateadas pequeñas que titilan alrededor del nombre
-- **Botón Alina:** píldora de cromo rosa con borde plateado y brillo arriba, con "Alina" en cromo. Tiene dos mariposas de cromo posadas que aletean.
+- **Botones de píldora** (Alina, Agregar prenda, Crear combinación): fondo en degradado rosado pastel, sin metal, con brillo de vidrio arriba. El texto va en letras vino con borde blanco, para que se lea bien. Lo eligió Alina. El botón Alina tiene además dos mariposas de cromo posadas que aletean.
   - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas rosadas y plateadas hacia todos lados.
 - **Marcos:** bordes finos de cromo rosa sobre fondo negro.
 - **Mezcla con Apple (iOS 26):** la estructura y la forma de interactuar son de Apple; la decoración sigue siendo Y2K. Se sigue la skill `apple-design`, instalada en `.claude/skills/`.

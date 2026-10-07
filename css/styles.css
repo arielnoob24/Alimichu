@@ -22,6 +22,16 @@
   --cromo-plata: linear-gradient(180deg, #fff 0%, #f0f0f6 30%, #a5a5b2 46%, #34343e 54%, #8d8d99 60%, #e9e9f0 78%, #fff 100%);
   --brillo-luz: linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%);
 
+  /* Botones de píldora (Alina, Agregar prenda, Crear combinación): rosado pastel, sin metal.
+     Lo eligió Alina: degradado suave y pálido, con brillo de vidrio arriba. */
+  --fondo-pastel:
+    radial-gradient(ellipse 75% 45% at 50% 14%, rgb(255 255 255 / 0.85), transparent 70%) padding-box,
+    linear-gradient(180deg, #fff2f8 0%, #ffd9eb 45%, #ffbedd 100%) padding-box,
+    linear-gradient(180deg, #fff 0%, #ffe3f1 60%, #ffc4e1 100%) border-box;
+  --sombra-pastel:
+    0 5px 0 #e591bb,
+    0 0 26px 3px rgb(255 134 200 / 0.45);
+
   --ancho-max: 440px;
   --alto-barra: 62px;
   --alto-boton-alina: 84px;
@@ -760,13 +770,8 @@ body[data-tipo='vista'] .barra {
   padding: 0 0 6px;
   border: 4px solid transparent;
   border-radius: 999px;
-  background:
-    radial-gradient(ellipse 75% 42% at 50% 16%, rgb(255 255 255 / 0.75), transparent 70%) padding-box,
-    var(--cromo-rosa) padding-box,
-    var(--cromo-plata) border-box;
-  box-shadow:
-    0 6px 0 var(--vino),
-    0 0 26px 3px rgb(255 47 168 / 0.45);
+  background: var(--fondo-pastel);
+  box-shadow: var(--sombra-pastel);
   text-decoration: none;
   transition: scale var(--toque);
 }
@@ -788,7 +793,7 @@ body[data-tipo='vista'] .barra {
   font-size: 1.45rem;
 }
 
-/* Píldora de cromo con mariposas */
+/* Píldora rosada pastel con mariposas */
 .boton-alina {
   position: relative;
   display: grid;
@@ -799,13 +804,8 @@ body[data-tipo='vista'] .barra {
   padding: 0 0 6px;
   border: 4px solid transparent;
   border-radius: 999px;
-  background:
-    radial-gradient(ellipse 75% 42% at 50% 16%, rgb(255 255 255 / 0.75), transparent 70%) padding-box,
-    var(--cromo-rosa) padding-box,
-    var(--cromo-plata) border-box;
-  box-shadow:
-    0 6px 0 var(--vino),
-    0 0 30px 4px rgb(255 47 168 / 0.55);
+  background: var(--fondo-pastel);
+  box-shadow: var(--sombra-pastel);
   cursor: pointer;
   animation: latido 2.8s ease-in-out infinite;
 }
@@ -848,14 +848,23 @@ body[data-tipo='vista'] .barra {
   line-height: 1.3;
 }
 
+/* Sobre el rosado pastel: letras vino con borde blanco, para que se lean bien */
 .cromo-boton::before {
-  color: var(--vino);
-  -webkit-text-stroke-color: var(--vino);
-  text-shadow: 0 0 0.3em rgb(255 255 255 / 0.35);
+  color: var(--blanco);
+  -webkit-text-stroke: 0.16em var(--blanco);
+  text-shadow: 0 0.06em 0.12em rgb(214 90 150 / 0.55);
 }
 
 .cromo-boton::after {
-  -webkit-text-stroke: 0.08em var(--rosa-chicle);
+  -webkit-text-stroke: 0;
+}
+
+.cromo-boton > span {
+  background-image: linear-gradient(180deg, #8a0d50 0%, var(--vino) 100%);
+  background-size: 100% 100%;
+  background-position: 0 0;
+  -webkit-text-stroke: 0;
+  animation: none;
 }
 
 @keyframes latido {
