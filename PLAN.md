@@ -262,7 +262,8 @@ Es la parte técnicamente más difícil.
 - [ ] Candado para dejar fija una prenda
 
 ### Fase 6: Pulido
-- [ ] Instalable en la pantalla de inicio del iPhone (manifest, `apple-touch-icon`, barra de estado)
+- [x] Ícono de la app: mariposa de cromo rosa (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)
+- [ ] Instalable en la pantalla de inicio del iPhone (manifest y barra de estado)
 - [ ] Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio
 - [ ] `navigator.storage.persist()` para que iOS no borre el armario
 - [x] Service worker (`sw.js`): siempre carga la versión más nueva sin mezclar archivos y guarda copias para usar sin conexión
