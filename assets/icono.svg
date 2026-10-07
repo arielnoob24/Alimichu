@@ -1,21 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -38 212 212">
-  <!-- Ícono de la app: la mariposa de cromo rosa del proyecto -->
+  <!-- Ícono de la app: la mariposa rosado pastel del proyecto -->
   <defs>
-    <linearGradient id="cromo-rosa" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffe0f1"/>
-      <stop offset="0.28" stop-color="#ff86c8"/>
-      <stop offset="0.5" stop-color="#e0157f"/>
-      <stop offset="0.56" stop-color="#7d0845"/>
-      <stop offset="0.78" stop-color="#ff5cb2"/>
-      <stop offset="1" stop-color="#ffd0ea"/>
+    <linearGradient id="pastel-ala" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff2f8"/>
+      <stop offset="0.45" stop-color="#ffd2e8"/>
+      <stop offset="1" stop-color="#ffaed4"/>
     </linearGradient>
-    <linearGradient id="cromo-plata" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff"/>
-      <stop offset="0.4" stop-color="#e6e6ee"/>
-      <stop offset="0.5" stop-color="#6f6f7c"/>
-      <stop offset="0.58" stop-color="#2c2c35"/>
-      <stop offset="0.75" stop-color="#d9d9e2"/>
-      <stop offset="1" stop-color="#fff"/>
+    <linearGradient id="pastel-cuerpo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7a8cf"/>
+      <stop offset="1" stop-color="#c94d8a"/>
     </linearGradient>
     <g id="alas">
       <path d="M100 68C82 22 30-2 14 22 0 44 34 72 100 72Z"/>
@@ -24,7 +17,7 @@
       <path d="M100 76C66 76 28 92 34 118c6 22 48 12 66-38Z" transform="translate(200 0) scale(-1 1)"/>
     </g>
   </defs>
-  <use href="#alas" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="9" stroke-linejoin="round"/>
-  <path d="M97 40c-4-14-10-22-18-26M103 40c4-14 10-22 18-26" fill="none" stroke="#e6e6ee" stroke-width="5" stroke-linecap="round"/>
-  <ellipse cx="100" cy="76" rx="8" ry="38" fill="url(#cromo-plata)" stroke="#7d0845" stroke-width="2.5"/>
+  <use href="#alas" fill="url(#pastel-ala)" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M97 40c-4-14-10-22-18-26M103 40c4-14 10-22 18-26" fill="none" stroke="#ffc4e1" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="100" cy="76" rx="8" ry="38" fill="url(#pastel-cuerpo)" stroke="#fff" stroke-width="2.5"/>
 </svg>

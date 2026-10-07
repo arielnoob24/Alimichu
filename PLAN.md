@@ -123,7 +123,7 @@ Referencias:
 - [docs/referencia-estilo.png](docs/referencia-estilo.png): la primera referencia
 
 **Lo que va y lo que no:**
-- **Sin puntitos de glitter.** El brillo viene de los reflejos del cromo y de las mariposas plateadas.
+- **Sin puntitos de glitter.** El brillo viene de los reflejos del cromo; las mariposas van en rosado pastel, sin plateado (lo pidió Alina).
 - **Colores:**
   - cromo rosa: degradado de `#ffe0f1` a `#ff86c8`, `#e0157f` y `#7d0845`
   - cromo plata: degradado de blanco a gris oscuro y de vuelta a blanco
@@ -132,9 +132,9 @@ Referencias:
 - **Texto de cromo** (clase `.cromo`): relleno plateado, borde rosa grueso con relieve oscuro, un filo claro y un reflejo de luz que lo recorre cada pocos segundos.
 - **Decoración:**
   - grupos de mariposas Y2K de cromo rosa con contorno, que flotan en las esquinas del encabezado
-  - mariposas plateadas pequeñas que titilan alrededor del nombre
-- **Botones de píldora** (Alina, Agregar prenda, Crear combinación): fondo en degradado rosado pastel, sin metal, con brillo de vidrio arriba. El texto va en letras vino con borde blanco, para que se lea bien. Lo eligió Alina. El botón Alina tiene además dos mariposas de cromo posadas que aletean.
-  - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas rosadas y plateadas hacia todos lados.
+  - mariposas pequeñas rosado pastel que titilan alrededor del nombre
+- **Botones de píldora** (Alina, Agregar prenda, Crear combinación): fondo en degradado rosado pastel, sin metal, con brillo de vidrio arriba. El texto va en letras vino con borde blanco, para que se lea bien. Lo eligió Alina. El botón Alina tiene además dos mariposas rosado pastel posadas que aletean.
+  - Al apretarlo, las mariposas salen volando y vuelven, y salen mariposas en dos tonos de rosado pastel hacia todos lados.
 - **Marcos:** bordes finos de cromo rosa sobre fondo negro.
 - **Mezcla con Apple (iOS 26):** la estructura y la forma de interactuar son de Apple; la decoración sigue siendo Y2K. Se sigue la skill `apple-design`, instalada en `.claude/skills/`.
   - **Barra de abajo:** cápsula de vidrio flotante con borde de cromo rosa y una burbuja que se desliza a la pestaña activa.
@@ -266,7 +266,7 @@ Es la parte técnicamente más difícil.
 - [ ] Probar con el armario real de Alina y ajustar las reglas de combinación si algo no le convence
 
 ### Fase 6: Pulido
-- [x] Ícono de la app: mariposa de cromo rosa (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)
+- [x] Ícono de la app: mariposa rosado pastel (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)
 - [ ] Instalable en la pantalla de inicio del iPhone (manifest y barra de estado)
 - [ ] Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio
 - [ ] `navigator.storage.persist()` para que iOS no borre el armario

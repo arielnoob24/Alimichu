@@ -37,11 +37,25 @@
           <stop offset="0.75" stop-color="#d9d9e2"/>
           <stop offset="1" stop-color="#fff"/>
         </linearGradient>
+        <!-- Mariposas en rosado pastel, como el botón Alina (Alina no quiere plateado) -->
+        <linearGradient id="pastel-ala" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff2f8"/>
+          <stop offset="0.45" stop-color="#ffd2e8"/>
+          <stop offset="1" stop-color="#ffaed4"/>
+        </linearGradient>
+        <linearGradient id="pastel-contorno" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffd9eb"/>
+          <stop offset="1" stop-color="#ff9fcd"/>
+        </linearGradient>
+        <linearGradient id="pastel-cuerpo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f7a8cf"/>
+          <stop offset="1" stop-color="#c94d8a"/>
+        </linearGradient>
         <path id="ala-arriba" d="M100 68C82 22 30-2 14 22 0 44 34 72 100 72Z"/>
         <path id="ala-abajo" d="M100 76C66 76 28 92 34 118c6 22 48 12 66-38Z"/>
         <g id="alas-izquierdas">
-          <use href="#ala-arriba" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="7"/>
-          <use href="#ala-abajo" fill="url(#cromo-rosa)" stroke="url(#cromo-plata)" stroke-width="7"/>
+          <use href="#ala-arriba" fill="url(#pastel-ala)" stroke="#fff" stroke-width="7"/>
+          <use href="#ala-abajo" fill="url(#pastel-ala)" stroke="#fff" stroke-width="7"/>
         </g>
         <!-- Las cuatro alas sin color: el color lo pone quien las usa -->
         <g id="alas-forma">
@@ -51,13 +65,13 @@
           <use href="#ala-abajo" transform="translate(200 0) scale(-1 1)"/>
         </g>
         <g id="cuerpo-mariposa">
-          <path d="M97 40c-4-14-10-22-18-26M103 40c4-14 10-22 18-26" fill="none" stroke="#e6e6ee" stroke-width="4" stroke-linecap="round"/>
-          <ellipse cx="100" cy="76" rx="7" ry="36" fill="url(#cromo-plata)" stroke="#7d0845" stroke-width="2"/>
+          <path d="M97 40c-4-14-10-22-18-26M103 40c4-14 10-22 18-26" fill="none" stroke="#ffc4e1" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="100" cy="76" rx="7" ry="36" fill="url(#pastel-cuerpo)" stroke="#fff" stroke-width="2"/>
         </g>
         <!-- Mariposa Y2K: contorno de cromo rosa y mariposa rellena adentro -->
         <g id="mariposa-doble">
-          <use href="#alas-forma" fill="none" stroke="url(#cromo-rosa)" stroke-width="6" transform="translate(100 72) scale(1.16) translate(-100 -72)"/>
-          <use href="#alas-forma" fill="url(#cromo-rosa)" stroke="#ffd0ea" stroke-width="3" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
+          <use href="#alas-forma" fill="none" stroke="url(#pastel-contorno)" stroke-width="6" transform="translate(100 72) scale(1.16) translate(-100 -72)"/>
+          <use href="#alas-forma" fill="url(#pastel-ala)" stroke="#fff" stroke-width="3" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
           <use href="#cuerpo-mariposa" transform="translate(100 74) scale(0.74) translate(-100 -72)"/>
         </g>
         <symbol id="mariposas-y2k" viewBox="-24 -20 250 230">
@@ -68,7 +82,7 @@
           <use href="#mariposa-doble"/>
         </symbol>
         <symbol id="mariposa-plata" viewBox="0 0 200 140">
-          <use href="#alas-forma" fill="url(#cromo-plata)" stroke="#ff86c8" stroke-width="8"/>
+          <use href="#alas-forma" fill="url(#pastel-ala)" stroke="#ff9fcd" stroke-width="8"/>
           <use href="#cuerpo-mariposa"/>
         </symbol>
       </defs>

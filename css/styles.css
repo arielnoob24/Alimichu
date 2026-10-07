@@ -950,15 +950,16 @@ body[data-tipo='vista'] .barra {
   aspect-ratio: 1;
   opacity: 0;
   pointer-events: none;
-  background: var(--cromo-rosa);
+  background: linear-gradient(180deg, #ffd9eb, #ff9fcd);
   -webkit-mask: var(--forma) center / contain no-repeat;
   mask: var(--forma) center / contain no-repeat;
   animation: chispa 1.1s ease-out forwards;
   animation-delay: var(--retraso);
 }
 
+/* Mariposas más claras, para que la lluvia tenga dos tonos de rosado pastel */
 .chispa-plata {
-  background: var(--cromo-plata);
+  background: linear-gradient(180deg, #fff2f8, #ffc4e1);
 }
 
 @keyframes chispa {
