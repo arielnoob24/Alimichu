@@ -125,8 +125,10 @@ Referencias:
 **Lo que va y lo que no:**
 - **Sin puntitos de glitter.** El brillo viene de los reflejos del cromo; las mariposas van en rosado pastel, sin plateado (lo pidió Alina).
 - **Colores:**
-  - cromo rosa: degradado de `#ffe0f1` a `#ff86c8`, `#e0157f` y `#7d0845`
-  - cromo plata: degradado de blanco a gris oscuro y de vuelta a blanco
+  - **rosado pastel en toda la app** (lo eligió Alina; nada de plateado ni rosa tan fuerte): degradados de `#fff2f8` a `#ffd9eb` y `#ffbedd`, bordes de blanco a `#ffaed4`
+  - texto sobre pastel en vino (`#3d0421`); títulos sobre fondo oscuro en letras pastel con borde rosa `#d6408a`
+  - mariposas del botón Alina en un rosa más intenso (`#ff5fae`) para que resalten
+  - destellos blancos y un brillo que recorre "Alina" en el botón
   - fondo negro (`#050006`) con un resplandor rosa arriba
 - **Tipografía:** Shrikhand, gruesa, inclinada y retro, para los textos de cromo (el botón "Alina", los botones de píldora y los títulos de las vistas). Rubik o la letra del sistema para el resto. La eligió la dueña; Pacifico no le gustó.
 - **Texto de cromo** (clase `.cromo`): relleno plateado, borde rosa grueso con relieve oscuro, un filo claro y un reflejo de luz que lo recorre cada pocos segundos.

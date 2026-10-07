@@ -21,22 +21,6 @@
     <!-- Dibujos compartidos: degradados de cromo, estrella Y2K, destello y mariposa -->
     <svg class="definiciones" aria-hidden="true">
       <defs>
-        <linearGradient id="cromo-rosa" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#ffe0f1"/>
-          <stop offset="0.28" stop-color="#ff86c8"/>
-          <stop offset="0.5" stop-color="#e0157f"/>
-          <stop offset="0.56" stop-color="#7d0845"/>
-          <stop offset="0.78" stop-color="#ff5cb2"/>
-          <stop offset="1" stop-color="#ffd0ea"/>
-        </linearGradient>
-        <linearGradient id="cromo-plata" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#fff"/>
-          <stop offset="0.4" stop-color="#e6e6ee"/>
-          <stop offset="0.5" stop-color="#6f6f7c"/>
-          <stop offset="0.58" stop-color="#2c2c35"/>
-          <stop offset="0.75" stop-color="#d9d9e2"/>
-          <stop offset="1" stop-color="#fff"/>
-        </linearGradient>
         <!-- Mariposas en rosado pastel, como el botón Alina (Alina no quiere plateado) -->
         <linearGradient id="pastel-ala" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#fff2f8"/>
@@ -53,9 +37,15 @@
         </linearGradient>
         <path id="ala-arriba" d="M100 68C82 22 30-2 14 22 0 44 34 72 100 72Z"/>
         <path id="ala-abajo" d="M100 76C66 76 28 92 34 118c6 22 48 12 66-38Z"/>
+        <!-- Mariposas posadas en el botón Alina: rosa más intenso para que resalten sobre el pastel -->
+        <linearGradient id="rosa-intenso" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ff9fcd"/>
+          <stop offset="0.5" stop-color="#ff5fae"/>
+          <stop offset="1" stop-color="#e0388c"/>
+        </linearGradient>
         <g id="alas-izquierdas">
-          <use href="#ala-arriba" fill="url(#pastel-ala)" stroke="#fff" stroke-width="7"/>
-          <use href="#ala-abajo" fill="url(#pastel-ala)" stroke="#fff" stroke-width="7"/>
+          <use href="#ala-arriba" fill="url(#rosa-intenso)" stroke="#fff" stroke-width="8"/>
+          <use href="#ala-abajo" fill="url(#rosa-intenso)" stroke="#fff" stroke-width="8"/>
         </g>
         <!-- Las cuatro alas sin color: el color lo pone quien las usa -->
         <g id="alas-forma">
@@ -106,6 +96,11 @@
       <section id="pantalla-inicio" class="pantalla portada" aria-label="Inicio">
         <button class="boton-alina" id="boton-alina" type="button" aria-describedby="invitacion">
           <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
+          <span class="destellos-nombre" aria-hidden="true">
+            <span class="destello"></span>
+            <span class="destello"></span>
+            <span class="destello"></span>
+          </span>
           <svg class="posada posada-1" viewBox="0 0 200 140" aria-hidden="true">
             <g class="ala"><use href="#alas-izquierdas"/></g>
             <g class="ala"><use href="#alas-izquierdas" transform="translate(200 0) scale(-1 1)"/></g>

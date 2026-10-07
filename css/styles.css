@@ -3,9 +3,11 @@
    Estética Y2K / Bratz: cromo rosa y plata sobre negro. */
 
 :root {
-  --rosa-fuerte: #ff2fa8;
-  --rosa-chicle: #ff86c8;
-  --rosa-palido: #ffd0ea;
+  /* Paleta rosado pastel (la eligió Alina: nada de plateado ni rosa tan fuerte) */
+  --rosa-fuerte: #f06aac;
+  --rosa-chicle: #ffb0d5;
+  --rosa-palido: #ffe0ef;
+  --rosa-borde-texto: #d6408a;
   --rosa-oscuro: #7d0845;
   --vino: #3d0421;
   --negro: #050006;
@@ -18,8 +20,12 @@
   --fuente-titulo: 'Rubik', system-ui, sans-serif;
   --fuente-texto: system-ui, -apple-system, sans-serif;
 
-  --cromo-rosa: linear-gradient(180deg, #ffe0f1 0%, var(--rosa-chicle) 28%, #e0157f 50%, var(--rosa-oscuro) 56%, #ff5cb2 78%, var(--rosa-palido) 100%);
-  --cromo-plata: linear-gradient(180deg, #fff 0%, #f0f0f6 30%, #a5a5b2 46%, #34343e 54%, #8d8d99 60%, #e9e9f0 78%, #fff 100%);
+  /* Bordes de tarjetas, marcos y campos */
+  --borde-pastel: linear-gradient(180deg, #fff 0%, #ffd9eb 45%, #ffaed4 100%);
+  /* Relleno de chips elegidos y otros fondos claros */
+  --relleno-pastel: linear-gradient(180deg, #fff2f8 0%, #ffd9eb 45%, #ffbedd 100%);
+  /* Letras de los títulos sobre fondo oscuro */
+  --texto-pastel: linear-gradient(180deg, #fff 0%, #ffeef6 40%, #ffc4e1 75%, #ffdcec 100%);
   --brillo-luz: linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 0.95) 50%, transparent 58%);
 
   /* Botones de píldora (Alina, Agregar prenda, Crear combinación): rosado pastel, sin metal.
@@ -76,8 +82,8 @@ body {
   color: var(--texto);
   background-color: var(--negro);
   background-image:
-    radial-gradient(ellipse 90% 45% at 50% -8%, rgb(255 47 168 / 0.32), transparent 70%),
-    radial-gradient(ellipse 70% 40% at 50% 108%, rgb(255 47 168 / 0.18), transparent 70%);
+    radial-gradient(ellipse 90% 45% at 50% -8%, rgb(255 120 190 / 0.32), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 50% 108%, rgb(255 120 190 / 0.18), transparent 70%);
   background-attachment: fixed;
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
@@ -173,31 +179,30 @@ select {
 }
 
 .cromo::before {
-  color: var(--rosa-fuerte);
-  -webkit-text-stroke: 0.22em var(--rosa-fuerte);
+  color: var(--rosa-borde-texto);
+  -webkit-text-stroke: 0.22em var(--rosa-borde-texto);
   text-shadow:
-    0 0.05em 0 #c0106c,
-    0 0.1em 0 var(--rosa-oscuro),
-    0 0.14em 0 var(--vino),
-    0 0 0.4em rgb(255 47 168 / 0.8);
+    0 0.05em 0 #b02a6f,
+    0 0.1em 0 #7d1a4c,
+    0 0 0.4em rgb(255 150 200 / 0.7);
 }
 
 .cromo::after {
   color: transparent;
-  -webkit-text-stroke: 0.1em var(--rosa-palido);
+  -webkit-text-stroke: 0.08em var(--blanco);
 }
 
 .cromo > span {
   position: relative;
   z-index: 1;
   color: transparent;
-  background-image: var(--brillo-luz), var(--cromo-plata);
+  background-image: var(--brillo-luz), var(--texto-pastel);
   background-size: 300% 100%, 100% 100%;
   background-position: 120% 0, 0 0;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-stroke: 0.02em var(--vino);
+  -webkit-text-stroke: 0.02em #b02a6f;
   animation: reflejo 5s ease-in-out infinite;
 }
 
@@ -258,7 +263,7 @@ select {
   position: absolute;
   pointer-events: none;
   overflow: visible;
-  filter: drop-shadow(0 0 10px rgb(255 47 168 / 0.5));
+  filter: drop-shadow(0 0 10px rgb(255 120 190 / 0.5));
   animation: flotar 4s ease-in-out infinite;
 }
 
@@ -379,7 +384,7 @@ body[data-pantalla='favoritos']::after {
   border: 2px solid transparent;
   background:
     linear-gradient(var(--fondo-marco, var(--negro-claro)), var(--fondo-marco, var(--negro-claro))) padding-box,
-    var(--cromo-rosa) border-box;
+    var(--borde-pastel) border-box;
 }
 
 /* Espacio donde se arma el outfit al apretar Alina */
@@ -389,7 +394,7 @@ body[data-pantalla='favoritos']::after {
   gap: 14px;
   padding: 14px;
   border-radius: 28px;
-  box-shadow: 0 0 24px rgb(255 47 168 / 0.25);
+  box-shadow: 0 0 24px rgb(255 120 190 / 0.25);
   text-align: center;
 }
 
@@ -419,7 +424,7 @@ body[data-pantalla='favoritos']::after {
 .boton-favorito[aria-pressed='true'] svg {
   fill: var(--rosa-fuerte);
   stroke: var(--rosa-palido);
-  filter: drop-shadow(0 0 6px rgb(255 47 168 / 0.8));
+  filter: drop-shadow(0 0 6px rgb(255 120 190 / 0.8));
 }
 
 /* ---------- Navegación como app de iPhone ----------
@@ -572,7 +577,7 @@ body[data-tipo='vista'] .barra {
   border: 2px solid transparent;
   background:
     linear-gradient(var(--blanco), var(--blanco)) padding-box,
-    var(--cromo-rosa) border-box;
+    var(--borde-pastel) border-box;
 }
 
 .prenda.llena img {
@@ -596,12 +601,11 @@ body[data-tipo='vista'] .barra {
   width: 36px;
   height: 36px;
   padding: 0;
-  border: 1.5px solid rgb(255 134 200 / 0.6);
+  border: 1.5px solid #ffbedd;
   border-radius: 50%;
-  background: rgb(30 6 22 / 0.7);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  color: var(--rosa-palido);
+  background: rgb(255 242 248 / 0.92);
+  box-shadow: 0 2px 6px rgb(61 4 33 / 0.25);
+  color: var(--vino);
   cursor: pointer;
   transition: scale var(--toque), background-color var(--toque);
 }
@@ -628,8 +632,8 @@ body[data-tipo='vista'] .barra {
 
 .candado[aria-pressed='true'] {
   border-color: var(--blanco);
-  background: var(--rosa-fuerte);
-  color: var(--blanco);
+  background: #ff9fcd;
+  color: var(--vino);
 }
 
 .candado[aria-pressed='true'] svg rect {
@@ -679,15 +683,12 @@ body[data-tipo='vista'] .barra {
   padding: 12px 20px;
   border: 3px solid transparent;
   border-radius: 999px;
-  background:
-    radial-gradient(ellipse 80% 45% at 50% 15%, rgb(255 255 255 / 0.6), transparent 70%) padding-box,
-    var(--cromo-rosa) padding-box,
-    var(--cromo-plata) border-box;
-  box-shadow: 0 4px 0 var(--vino), 0 0 16px rgb(255 47 168 / 0.35);
-  color: var(--blanco);
+  background: var(--fondo-pastel);
+  box-shadow: 0 4px 0 #e591bb, 0 0 16px rgb(255 134 200 / 0.35);
+  color: var(--vino);
   font: 700 1.05rem var(--fuente-titulo);
   text-decoration: none;
-  text-shadow: 0 1px 0 var(--vino), 0 0 6px var(--rosa-oscuro);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.6);
   cursor: pointer;
 }
 
@@ -705,9 +706,9 @@ body[data-tipo='vista'] .barra {
   border-width: 2px;
   background:
     linear-gradient(var(--negro-claro), var(--negro-claro)) padding-box,
-    var(--cromo-rosa) border-box;
+    var(--borde-pastel) border-box;
   box-shadow: none;
-  color: var(--rosa-chicle);
+  color: #ffc4e1;
   text-shadow: none;
 }
 
@@ -718,20 +719,21 @@ body[data-tipo='vista'] .barra {
 .chip {
   min-height: 44px;
   padding: 8px 16px;
-  border: 1.5px solid var(--rosa-chicle);
+  border: 1.5px solid #ffbedd;
   border-radius: 999px;
   background: transparent;
-  color: var(--rosa-chicle);
+  color: #ffd9eb;
   font: 500 0.95rem var(--fuente-titulo);
   white-space: nowrap;
   cursor: pointer;
 }
 
 .chip[aria-pressed='true'] {
-  border-color: var(--rosa-palido);
-  background: var(--cromo-rosa);
-  color: var(--blanco);
-  text-shadow: 0 1px 0 var(--vino);
+  border-color: var(--blanco);
+  background: var(--relleno-pastel);
+  color: var(--vino);
+  font-weight: 700;
+  box-shadow: 0 0 12px rgb(255 134 200 / 0.45);
 }
 
 .filtros {
@@ -820,7 +822,7 @@ body[data-tipo='vista'] .barra {
   font-weight: 500;
   line-height: 1.35;
   text-align: center;
-  text-shadow: 0 0 12px rgb(255 47 168 / 0.6);
+  text-shadow: 0 0 12px rgb(255 120 190 / 0.6);
   animation: respirar 2.8s ease-in-out infinite;
 }
 
@@ -882,10 +884,66 @@ body[data-tipo='vista'] .barra {
 /* Mariposas posadas en la píldora */
 .posada {
   position: absolute;
-  width: 58px;
-  height: 41px;
+  width: 64px;
+  height: 45px;
   overflow: visible;
-  filter: drop-shadow(2px 3px 0 var(--vino)) drop-shadow(0 0 6px rgb(255 47 168 / 0.6));
+  /* Sombra vino marcada para que resalten sobre el botón pastel */
+  filter: drop-shadow(2px 3px 0 var(--vino)) drop-shadow(0 0 4px rgb(61 4 33 / 0.5));
+}
+
+/* ---------- Destellos en "Alina" ---------- */
+
+/* Un brillo blanco recorre las letras cada pocos segundos */
+.boton-alina .cromo-boton::after {
+  z-index: 2;
+  color: transparent;
+  background-image: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.95) 50%, transparent 60%);
+  background-size: 300% 100%;
+  background-position: 120% 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: brillo-nombre 3.5s ease-in-out infinite;
+}
+
+@keyframes brillo-nombre {
+  0%,
+  50% { background-position: 120% 0; }
+  80%,
+  100% { background-position: -20% 0; }
+}
+
+/* Destellos de cuatro puntas que titilan sobre el nombre */
+.destellos-nombre {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.destello {
+  position: absolute;
+  width: 16px;
+  aspect-ratio: 1;
+  background: var(--blanco);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  animation: destellar 2.4s ease-in-out infinite;
+}
+
+.destello:nth-child(1) { top: 16%; left: 27%; }
+.destello:nth-child(2) { top: 26%; right: 23%; width: 12px; animation-delay: 0.8s; }
+.destello:nth-child(3) { bottom: 22%; left: 50%; width: 10px; animation-delay: 1.6s; }
+
+@keyframes destellar {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.2) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
 }
 
 .posada .ala {
@@ -1109,7 +1167,7 @@ body[data-tipo='vista'] .barra {
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.2),
     0 12px 30px rgb(0 0 0 / 0.55),
-    0 0 22px rgb(255 47 168 / 0.22);
+    0 0 22px rgb(255 120 190 / 0.22);
   transition: translate 0.4s var(--resorte), opacity 0.3s var(--resorte);
 }
 
@@ -1120,7 +1178,7 @@ body[data-tipo='vista'] .barra {
   inset: 0;
   padding: 1.5px;
   border-radius: inherit;
-  background: linear-gradient(180deg, var(--rosa-palido), var(--rosa-chicle) 35%, var(--rosa-oscuro) 60%, var(--rosa-chicle));
+  background: linear-gradient(180deg, #fff, #ffd9eb 40%, #ffaed4);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -1135,11 +1193,11 @@ body[data-tipo='vista'] .barra {
   left: 5px;
   width: calc((100% - 10px) / 3);
   border-radius: 999px;
-  background: linear-gradient(180deg, rgb(255 134 200 / 0.34), rgb(255 47 168 / 0.12));
+  background: linear-gradient(180deg, rgb(255 134 200 / 0.34), rgb(255 120 190 / 0.12));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.4),
     inset 0 -1px 0 rgb(255 255 255 / 0.1),
-    0 0 14px rgb(255 47 168 / 0.35);
+    0 0 14px rgb(255 120 190 / 0.35);
   transform: translateX(calc(var(--indice, 1) * 100%));
   transition: transform 0.45s var(--resorte);
 }
@@ -1181,7 +1239,7 @@ body[data-tipo='vista'] .barra {
 
 .barra-enlace[aria-current='page'] svg {
   fill: rgb(255 134 200 / 0.35);
-  filter: drop-shadow(0 0 6px rgb(255 47 168 / 0.8));
+  filter: drop-shadow(0 0 6px rgb(255 120 190 / 0.8));
 }
 
 /* ---------- Contenido de las vistas ---------- */
@@ -1221,8 +1279,8 @@ body[data-tipo='vista'] .barra {
   border-radius: 20px;
   background:
     linear-gradient(var(--fondo-marco), var(--fondo-marco)) padding-box,
-    var(--cromo-rosa) border-box;
-  box-shadow: 0 0 14px rgb(255 47 168 / 0.2);
+    var(--borde-pastel) border-box;
+  box-shadow: 0 0 14px rgb(255 120 190 / 0.2);
   cursor: pointer;
   transition: scale var(--toque);
 }
@@ -1263,7 +1321,7 @@ body[data-tipo='vista'] .barra {
   border-radius: 26px;
   background:
     linear-gradient(var(--fondo-marco), var(--fondo-marco)) padding-box,
-    var(--cromo-rosa) border-box;
+    var(--borde-pastel) border-box;
 }
 
 .detalle-foto img {
@@ -1405,7 +1463,7 @@ body[data-tipo='vista'] .barra {
   border-radius: 18px;
   background:
     linear-gradient(var(--blanco), var(--blanco)) padding-box,
-    linear-gradient(rgb(255 134 200 / 0.5), rgb(255 134 200 / 0.5)) border-box;
+    linear-gradient(#ffd9eb, #ffbedd) border-box;
   scroll-snap-align: start;
   cursor: pointer;
   transition: scale var(--toque), box-shadow var(--toque);
@@ -1425,8 +1483,8 @@ body[data-tipo='vista'] .barra {
   border-width: 3px;
   background:
     linear-gradient(var(--blanco), var(--blanco)) padding-box,
-    var(--cromo-rosa) border-box;
-  box-shadow: 0 0 0 3px var(--rosa-fuerte), 0 0 18px rgb(255 47 168 / 0.7);
+    var(--borde-pastel) border-box;
+  box-shadow: 0 0 0 3px var(--rosa-fuerte), 0 0 18px rgb(255 120 190 / 0.7);
 }
 
 /* Con un vestido elegido no hace falta parte de abajo */
@@ -1455,7 +1513,7 @@ body[data-tipo='vista'] .barra {
   border: 1.5px solid rgb(255 134 200 / 0.45);
   border-radius: 22px;
   background: rgb(20 0 13 / 0.85);
-  box-shadow: 0 0 16px rgb(255 47 168 / 0.18);
+  box-shadow: 0 0 16px rgb(255 120 190 / 0.18);
 }
 
 .favorito-abrir {
