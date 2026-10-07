@@ -14,7 +14,7 @@
   --texto: #fff0f8;
   --texto-suave: #e9b9d6;
 
-  --fuente-cromo: 'Pacifico', cursive;
+  --fuente-cromo: 'Shrikhand', cursive;
   --fuente-titulo: 'Rubik', system-ui, sans-serif;
   --fuente-texto: system-ui, -apple-system, sans-serif;
 
@@ -33,20 +33,6 @@
   /* Movimiento estilo Apple: resorte sin rebote para lo que no lleva impulso */
   --resorte: cubic-bezier(0.22, 1, 0.36, 1);
   --toque: 120ms ease-out;
-}
-
-/* Vista previa temporal de letras: abrir la app con ?letra=bagel o ?letra=shrikhand */
-:root[data-letra='bagel'] {
-  --fuente-cromo: 'Bagel Fat One', cursive;
-}
-
-/* Shrikhand es más ancha: un poco más chica para que entre en los botones */
-:root[data-letra='shrikhand'] .boton-portada .cromo-boton {
-  font-size: 1.45rem;
-}
-
-:root[data-letra='shrikhand'] {
-  --fuente-cromo: 'Shrikhand', cursive;
 }
 
 *,
@@ -443,7 +429,8 @@ body[data-tipo='vista'] .barra {
 .titulo-nav {
   grid-column: 2;
   margin: 0;
-  font-size: 1.45rem;
+  /* Shrikhand es ancha: así "Agregar prenda" entra entre "‹ Volver" y el borde */
+  font-size: 1.2rem;
 }
 
 /* Botón para volver, como el "‹ Atrás" de iOS */
@@ -692,7 +679,8 @@ body[data-tipo='vista'] .barra {
 }
 
 .boton-portada .cromo-boton {
-  font-size: 1.75rem;
+  /* Shrikhand es ancha: este tamaño hace que "Crear combinación" entre en la píldora */
+  font-size: 1.45rem;
 }
 
 /* Píldora de cromo con mariposas */
