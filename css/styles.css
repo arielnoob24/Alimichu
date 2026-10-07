@@ -40,6 +40,11 @@
   --fuente-cromo: 'Bagel Fat One', cursive;
 }
 
+/* Shrikhand es más ancha: un poco más chica para que entre en los botones */
+:root[data-letra='shrikhand'] .boton-portada .cromo-boton {
+  font-size: 1.45rem;
+}
+
 :root[data-letra='shrikhand'] {
   --fuente-cromo: 'Shrikhand', cursive;
 }
