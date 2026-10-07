@@ -1,5 +1,7 @@
 import { PANTALLAS, PESTANAS, esVista, pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
+import { listarPrendas } from './armario.js';
+import { iniciarArmario, pintarArmario, pintarDetalle } from './vista-armario.js';
 
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 const TITULOS = { inicio: 'Inicio', armario: 'Mi armario', favoritos: 'Favoritos' };
@@ -47,6 +49,12 @@ function mostrarPantalla({ enfocar = true } = {}) {
     window.scrollTo(0, 0);
     pantallaVisible = actual;
     if (actual === 'outfit') generarOutfit();
+    if (actual === 'armario') pintarArmario();
+    if (actual === 'prenda') {
+      pintarDetalle().then((hayPrenda) => {
+        if (!hayPrenda) location.replace('#armario');
+      });
+    }
     if (enfocar && esVista(actual)) document.querySelector(`#pantalla-${actual} .titulo`)?.focus();
   }
 }
@@ -107,12 +115,15 @@ function reiniciarAnimacion(elemento, clase) {
   elemento.classList.add(clase);
 }
 
-function generarOutfit() {
+async function generarOutfit() {
   reiniciarAnimacion(document.getElementById('prendas-outfit'), 'barajando');
-  // Hasta que exista el armario (fase 3) no hay prendas con qué armar el outfit.
-  document.getElementById('outfit-pista').textContent =
-    'Todavía no hay prendas en tu armario. ¡Agrega algunas y vuelve a apretar Alina!';
-  document.getElementById('outfit-agregar').hidden = false;
+  const total = (await listarPrendas().catch(() => [])).length;
+  const pista = document.getElementById('outfit-pista');
+  // El generador de combinaciones llega en la fase 5; por ahora se avisa cuántas prendas hay.
+  pista.textContent = total
+    ? `Ya tienes ${total} ${total === 1 ? 'prenda' : 'prendas'} en tu armario 💖 Muy pronto Alina va a armar outfits con ellas.`
+    : 'Todavía no hay prendas en tu armario. ¡Agrega algunas y vuelve a apretar Alina!';
+  document.getElementById('outfit-agregar').hidden = total > 0;
 }
 
 const botonAlina = document.getElementById('boton-alina');
@@ -131,22 +142,7 @@ botonAlina.addEventListener('click', () => {
 
 document.getElementById('otra-combinacion').addEventListener('click', generarOutfit);
 
-const inputFoto = document.getElementById('foto-prenda');
-const vistaFoto = document.createElement('img');
-vistaFoto.className = 'foto-vista';
-vistaFoto.alt = 'Vista previa de la prenda';
-inputFoto.addEventListener('change', () => {
-  const [archivo] = inputFoto.files;
-  if (!archivo) return;
-  if (vistaFoto.src) URL.revokeObjectURL(vistaFoto.src);
-  vistaFoto.src = URL.createObjectURL(archivo);
-  document.getElementById('foto').replaceChildren(vistaFoto);
-});
-
-document.getElementById('form-prenda').addEventListener('submit', (evento) => {
-  evento.preventDefault();
-  document.getElementById('aviso-prenda').textContent = 'Muy pronto vas a poder guardar tus prendas 💖';
-});
+iniciarArmario({ volver });
 
 window.addEventListener('hashchange', () => {
   navegoDentroDeLaApp = true;

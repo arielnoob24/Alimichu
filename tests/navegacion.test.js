@@ -18,6 +18,7 @@ test('vuelve a inicio con un hash vacío o desconocido', () => {
 test('cada vista pertenece a su pestaña', () => {
   assert.equal(pestanaDe('outfit'), 'inicio');
   assert.equal(pestanaDe('agregar'), 'armario');
+  assert.equal(pestanaDe('prenda'), 'armario');
   assert.equal(pestanaDe('crear'), 'favoritos');
   assert.equal(pestanaDe('favoritos'), 'favoritos');
 });

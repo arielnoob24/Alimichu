@@ -4,6 +4,7 @@ export const PESTANAS = ['armario', 'inicio', 'favoritos'];
 export const VISTAS = {
   outfit: 'inicio',
   agregar: 'armario',
+  prenda: 'armario',
   crear: 'favoritos',
 };
 

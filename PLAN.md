@@ -243,10 +243,12 @@ Es la parte técnicamente más difícil.
 - [ ] Probar en el iPhone de Alina por primera vez
 
 ### Fase 3: Armario (sin quitar fondo todavía)
-- [ ] Guardar y leer prendas en IndexedDB (`js/armario.js`)
-- [ ] Agregar prenda: foto, categoría, estilo y color
-- [ ] Detectar el color principal de la foto (`js/colores.js`, con tests)
-- [ ] Ver, filtrar y borrar prendas
+- [x] Guardar y leer prendas en IndexedDB (`js/armario.js`)
+- [x] Agregar prenda: foto, categoría, estilo y color
+- [x] Detectar el color principal de la foto (`js/colores.js`, con tests)
+- [x] Ver, filtrar y borrar prendas (detalle de cada prenda con "Eliminar")
+- [x] La foto se achica a 800 px apenas se elige (`js/fotos.js`) y se pide almacenamiento persistente al guardar
+- [ ] Probar en el iPhone: cámara, fotos de 48 MP y que el armario siga ahí al cerrar y abrir la app
 
 ### Fase 4: Fondo blanco
 - [ ] Prueba técnica de los candidatos de la sección 5 y elección

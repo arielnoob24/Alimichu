@@ -106,21 +106,21 @@
 
       <!-- Armario: se ven las prendas directamente y un botón flotante para agregar -->
       <section id="pantalla-armario" class="pantalla" aria-label="Armario" hidden>
-        <div class="filtros" role="group" aria-label="Filtrar por categoría">
-          <button class="chip" type="button" aria-pressed="true">Todo</button>
-          <button class="chip" type="button" aria-pressed="false">Arriba</button>
-          <button class="chip" type="button" aria-pressed="false">Abajo</button>
-          <button class="chip" type="button" aria-pressed="false">Vestidos</button>
-          <button class="chip" type="button" aria-pressed="false">Zapatos</button>
-          <button class="chip" type="button" aria-pressed="false">Abrigos</button>
-          <button class="chip" type="button" aria-pressed="false">Accesorios</button>
+        <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoría">
+          <button class="chip" type="button" data-categoria="" aria-pressed="true">Todo</button>
+          <button class="chip" type="button" data-categoria="arriba" aria-pressed="false">Arriba</button>
+          <button class="chip" type="button" data-categoria="abajo" aria-pressed="false">Abajo</button>
+          <button class="chip" type="button" data-categoria="vestido" aria-pressed="false">Vestidos</button>
+          <button class="chip" type="button" data-categoria="zapatos" aria-pressed="false">Zapatos</button>
+          <button class="chip" type="button" data-categoria="abrigo" aria-pressed="false">Abrigos</button>
+          <button class="chip" type="button" data-categoria="accesorio" aria-pressed="false">Accesorios</button>
         </div>
-        <div class="lista" id="lista-prendas">
-          <div class="vacio">
-            <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
-            <p>Todavía no hay prendas en tu armario.<br>¡Agrega la primera!</p>
-          </div>
+        <div class="cuadricula" id="lista-prendas"></div>
+        <div class="vacio" id="armario-vacio" hidden>
+          <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
+          <p>Todavía no hay prendas en tu armario.<br>¡Agrega la primera!</p>
         </div>
+        <p class="vacio" id="filtro-vacio" hidden>No hay prendas en esta categoría.</p>
         <a class="boton-portada boton-flotante" href="#agregar">
           <span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span>
         </a>
@@ -182,7 +182,7 @@
           </button>
           <h2 id="titulo-agregar" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Agregar prenda"><span>Agregar prenda</span></h2>
         </div>
-        <form class="formulario" id="form-prenda">
+        <form class="formulario" id="form-prenda" novalidate>
           <label class="foto" id="foto" for="foto-prenda">
             <span class="foto-texto">Tocar para tomar una foto</span>
           </label>
@@ -224,6 +224,25 @@
           <p class="aviso" id="aviso-prenda" role="status"></p>
           <button class="boton" type="submit">Guardar prenda</button>
         </form>
+      </section>
+
+      <!-- Detalle de una prenda del armario -->
+      <section id="pantalla-prenda" class="pantalla vista" aria-labelledby="titulo-prenda" hidden>
+        <div class="barra-nav">
+          <button class="volver" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
+            Armario
+          </button>
+          <h2 id="titulo-prenda" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Prenda"><span>Prenda</span></h2>
+        </div>
+        <div class="detalle-foto" id="detalle-foto"></div>
+        <dl class="detalle-datos">
+          <div><dt>Categoría</dt><dd id="detalle-categoria"></dd></div>
+          <div><dt>Estilo</dt><dd id="detalle-estilos"></dd></div>
+          <div><dt>Color</dt><dd><span class="punto-color" id="detalle-color"></span></dd></div>
+          <div id="detalle-conjunto-fila"><dt>Conjunto</dt><dd id="detalle-conjunto"></dd></div>
+        </dl>
+        <button class="boton boton-peligro" id="eliminar-prenda" type="button">Eliminar prenda</button>
       </section>
 
       <section id="pantalla-crear" class="pantalla vista" aria-labelledby="titulo-crear" hidden>
@@ -286,5 +305,6 @@
         Favoritos
       </a>
     </nav>
+    <p class="aviso-flotante" id="aviso-flotante" role="status" aria-live="polite"></p>
   </body>
 </html>
