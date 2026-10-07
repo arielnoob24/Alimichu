@@ -48,45 +48,49 @@
   font-size: 2.6rem;
 }
 
-/* B. Texto casi blanco (cromo brillante) con borde vino grueso */
-.variante-b .cromo-boton::before {
+/* Fondo pastel: degradado rosado suave, sin metal, con brillo de vidrio arriba */
+.pastel .boton-portada {
+  border-color: transparent;
+  background:
+    radial-gradient(ellipse 75% 45% at 50% 14%, rgb(255 255 255 / 0.85), transparent 70%) padding-box,
+    linear-gradient(180deg, #fff2f8 0%, #ffd9eb 45%, #ffbedd 100%) padding-box,
+    linear-gradient(180deg, #fff 0%, #ffe3f1 60%, #ffc4e1 100%) border-box;
+  box-shadow:
+    0 5px 0 #e591bb,
+    0 0 26px 3px rgb(255 134 200 / 0.45);
+}
+
+/* 1. Letras de cromo blanco con borde vino grueso */
+.letras-blancas .cromo-boton::before {
   -webkit-text-stroke-width: 0.26em;
   text-shadow:
     0 0.05em 0 #200110,
-    0 0 0.25em rgb(61 4 33 / 0.6);
+    0 0 0.2em rgb(61 4 33 / 0.45);
 }
 
-.variante-b .cromo-boton::after {
+.letras-blancas .cromo-boton::after {
   -webkit-text-stroke: 0.05em rgb(255 255 255 / 0.35);
 }
 
-.variante-b .cromo-boton > span {
+.letras-blancas .cromo-boton > span {
   background-image:
     var(--brillo-luz),
     linear-gradient(180deg, #fff 0%, #fff 42%, #e7e3ee 52%, #fbf6ff 64%, #fff 100%);
 }
 
-/* C. Píldora fucsia profundo para que el plateado resalte */
-.variante-c .boton-portada {
-  background:
-    radial-gradient(ellipse 75% 42% at 50% 16%, rgb(255 255 255 / 0.45), transparent 70%) padding-box,
-    linear-gradient(180deg, #ff7cc0 0%, #d4127a 30%, #8a0a4c 52%, #4a0428 58%, #b8106b 80%, #ff6fb8 100%) padding-box,
-    var(--cromo-plata) border-box;
-}
-
-/* D. Texto vino con borde blanco */
-.variante-d .cromo-boton::before {
+/* 2. Letras vino con borde blanco */
+.letras-vino .cromo-boton::before {
   color: var(--blanco);
   -webkit-text-stroke: 0.16em var(--blanco);
-  text-shadow: 0 0 0.35em rgb(255 47 168 / 0.7);
+  text-shadow: 0 0.06em 0.12em rgb(214 90 150 / 0.55);
 }
 
-.variante-d .cromo-boton::after {
+.letras-vino .cromo-boton::after {
   -webkit-text-stroke: 0;
 }
 
-.variante-d .cromo-boton > span {
-  background-image: linear-gradient(180deg, #7a0b45 0%, #3d0421 100%);
+.letras-vino .cromo-boton > span {
+  background-image: linear-gradient(180deg, #8a0d50 0%, #3d0421 100%);
   background-size: 100% 100%;
   background-position: 0 0;
   -webkit-text-stroke: 0;
