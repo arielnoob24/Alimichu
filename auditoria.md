@@ -412,3 +412,5 @@ Fuera del plan:
   - ✅ **Punto 8** resuelto: el texto de cromo se lee una sola vez (`content: … / ''` y `aria-label` en botones y títulos) y la barra escondida queda `inert`.
   - 🟡 **Punto 5** en parte: sin candados, la app ya no pide quitar candados; explica que el problema son los conjuntos. Falta el bono de los conjuntos y la regla de los dos extras.
   - ✅ `persist()` ahora también se pide al abrir la app y se revisa si ya está concedido (punto 1, parte de "Lo que está bien").
+- **8 de octubre de 2026:**
+  - 🟡 **Punto 2** en parte (opción A): `manifest.json` con `start_url` y `scope` en `./`, etiquetas `apple-mobile-web-app-*` con barra de estado `black-translucent`, íconos de 192, 512 y maskable, y el workflow lo publica. Falta la pantalla de bienvenida (opción B) y probarlo en el iPhone.

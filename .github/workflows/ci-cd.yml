@@ -34,7 +34,7 @@ jobs:
       - name: Preparar sitio
         run: |
           mkdir _site
-          cp *.html sw.js _site/
+          cp *.html sw.js manifest.json _site/
           cp -r css js assets _site/
           # Versión publicada: la app la compara al abrirse para recargarse sola si hay una nueva.
           sed -i "s#<meta name=\"version\" content=\"dev\">#<meta name=\"version\" content=\"$GITHUB_SHA\">#" _site/index.html

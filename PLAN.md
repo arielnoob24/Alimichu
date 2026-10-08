@@ -269,7 +269,8 @@ Es la parte técnicamente más difícil.
 
 ### Fase 6: Pulido
 - [x] Ícono de la app: mariposa rosado pastel (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)
-- [ ] Instalable en la pantalla de inicio del iPhone (manifest y barra de estado)
+- [x] Instalable en la pantalla de inicio del iPhone (manifest y barra de estado): `manifest.json`, etiquetas `apple-mobile-web-app-*` e íconos de 192 y 512 px. Safari y la app instalada guardan los datos por separado, así que Alina tiene que instalarla **antes** de cargar su ropa
+- [ ] Probar en el iPhone que se abre a pantalla completa y que nada queda bajo la Dynamic Island
 - [ ] Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio
 - [x] `navigator.storage.persist()` para que iOS no borre el armario: se pide al abrir la app y al guardar (`js/armario.js`)
 - [x] Service worker (`sw.js`): siempre carga la versión más nueva sin mezclar archivos y guarda copias para usar sin conexión
