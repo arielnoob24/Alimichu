@@ -28,7 +28,7 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 
 **Reglas de diseño:**
 
-- **CSS:** los estilos base son los del iPhone (390 px). Las pantallas más grandes se agregan con `@media (min-width: …)`, nunca al revés con `max-width`. En computadora la app se muestra centrada con un ancho máximo de unos 440 px, como un iPhone grande.
+- **CSS:** los estilos base son los del iPhone (390 px). Las pantallas más grandes se agregan con `@media (min-width: …)`, nunca al revés con `max-width`. La app ocupa siempre todo el ancho (sin franjas vacías a los lados, también en Android, plegables y tablets); en pantallas anchas el contenido se centra en una columna más ancha y Armario y Favoritos agregan columnas.
 - **Bordes seguros:**
   - `viewport-fit=cover` en el `<meta viewport>`
   - `env(safe-area-inset-top)` para no quedar debajo de la Dynamic Island

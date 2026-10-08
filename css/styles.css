@@ -38,7 +38,10 @@
     0 5px 0 #e591bb,
     0 0 26px 3px rgb(255 134 200 / 0.45);
 
+  /* La barra de abajo no se estira más que en un iPhone grande */
   --ancho-max: 440px;
+  /* Ancho del contenido en pantallas anchas (Android grandes, plegables, tablets) */
+  --ancho-contenido: 640px;
   --alto-barra: 62px;
   --alto-boton-alina: 84px;
   --seguro-arriba: env(safe-area-inset-top, 0px);
@@ -71,9 +74,8 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
+  /* Ocupa todo el ancho de cualquier celular: nada de franjas vacías a los lados */
   min-height: 100dvh;
-  max-width: var(--ancho-max);
-  margin-inline: auto;
   padding-top: var(--seguro-arriba);
   padding-bottom: calc(var(--abajo-barra) + var(--alto-barra) + 32px);
   font-family: var(--fuente-texto);
@@ -326,6 +328,13 @@ select {
 
 /* ---------- Contenido y pantallas ---------- */
 
+/* En un celular cada pantalla usa todo el ancho; en pantallas anchas se centra */
+.pantalla {
+  width: 100%;
+  max-width: var(--ancho-contenido);
+  margin-inline: auto;
+}
+
 /* El contenido llena el alto disponible para que Inicio pueda centrar su bloque */
 .contenido {
   display: flex;
@@ -458,8 +467,9 @@ body[data-tipo='vista'] .barra {
   /* Columnas laterales iguales: el título queda en el centro exacto, como en iOS */
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  margin: calc(-4px - var(--seguro-arriba)) -16px 14px;
-  padding: calc(var(--seguro-arriba) + 6px) 8px 6px;
+  /* Llega de borde a borde de la pantalla aunque el contenido esté centrado */
+  margin: calc(-4px - var(--seguro-arriba)) calc(50% - 50vw) 14px;
+  padding: calc(var(--seguro-arriba) + 6px) calc(50vw - 50% - 8px) 6px;
   background: rgb(5 0 6 / 0.72);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
@@ -1605,8 +1615,71 @@ body[data-tipo='vista'] .barra {
 
 /* ---------- Pantallas más grandes ---------- */
 
+/* Celulares anchos, plegables y tablets: todo un poco más grande y más columnas */
 @media (min-width: 600px) {
-  body {
-    border-inline: 1px solid rgb(255 134 200 / 0.2);
+  :root {
+    --alto-boton-alina: 104px;
+  }
+
+  .encabezado {
+    min-height: 150px;
+  }
+
+  .grupo-grande {
+    right: 4%;
+    width: 170px;
+    height: 156px;
+  }
+
+  .grupo-chico {
+    left: 4%;
+    width: 104px;
+    height: 95px;
+  }
+
+  .mariposa-central {
+    width: 160px;
+    height: 117px;
+    margin: -54px 0 0 -80px;
+  }
+
+  .boton-alina {
+    width: 310px;
+  }
+
+  .boton-alina .cromo-boton {
+    font-size: 3.2rem;
+  }
+
+  .invitacion {
+    max-width: 340px;
+    font-size: 1.2rem;
+  }
+
+  /* Armario y Favoritos aprovechan el ancho con más columnas */
+  #pantalla-armario,
+  #pantalla-favoritos {
+    max-width: 960px;
+  }
+
+  .lista-favoritos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .prendas.collage {
+    grid-template-rows: repeat(2, 88px);
+  }
+
+  /* La foto cuadrada no crece tanto que tape todo el formulario */
+  .foto,
+  .detalle-foto {
+    width: min(100%, 420px);
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .cuadricula {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
