@@ -413,4 +413,202 @@ Fuera del plan:
   - 🟡 **Punto 5** en parte: sin candados, la app ya no pide quitar candados; explica que el problema son los conjuntos. Falta el bono de los conjuntos y la regla de los dos extras.
   - ✅ `persist()` ahora también se pide al abrir la app y se revisa si ya está concedido (punto 1, parte de "Lo que está bien").
 - **8 de octubre de 2026:**
-  - 🟡 **Punto 2** en parte (opción A): `manifest.json` con `start_url` y `scope` en `./`, etiquetas `apple-mobile-web-app-*` con barra de estado `black-translucent`, íconos de 192, 512 y maskable, y el workflow lo publica. Falta la pantalla de bienvenida (opción B) y probarlo en el iPhone.
+  - 🟡 **Punto 2** en parte (opción A): `manifest.json` con `start_url` y `scope` en `./`, etiquetas `apple-mobile-web-app-*` con barra de estado `black-translucent`, íconos de 192, 512 y maskable, y el workflow lo publica. Falta probarlo en el iPhone. La pantalla de bienvenida (opción B) se descartó por decisión del dueño.
+
+---
+
+# Revisión de lanzamiento (Fase 7)
+
+- **Fecha:** 8 de octubre de 2026
+- **Commit revisado:** `e80b07e` (rama `main`, lo publicado)
+- **Hecha por:** el agente `auditor`, que solo leyó el código y no modificó archivos
+
+## Veredicto: ✅ Se puede entregar, con condiciones
+
+No hay nada en el código que impida entregarla: no hay fallas de seguridad, nada que borre datos y ningún error que rompa la app. Los cambios de la Fase 6 y de la instalación funcionan:
+
+- la reconexión de la base de datos no puede quedar en bucle;
+- `inert` funciona en iOS 17;
+- el texto de cromo tiene respaldo para navegadores viejos;
+- el manifest es válido bajo `/Alimichu/`.
+
+**Condiciones antes de dársela a Alina:**
+
+1. Hacer la prueba completa en un iPhone real (lista al final).
+2. Arreglar los conjuntos (A1): hoy un conjunto sale el 100 % de las veces.
+3. Decidir si se entrega sin el fondo blanco (A3).
+
+**Conviene arreglar antes, porque son rápidos:** M5 (doble guardado), M4 (galería) y M1 (hora sobre las fotos).
+
+**Riesgo aceptado por decisión del dueño:** no habrá pantalla de bienvenida ni copia de seguridad. Si Alina carga ropa en Safari antes de instalar la app, borra la app o cambia de iPhone, pierde lo que tenía.
+
+**Validaciones:** `npm run check` pasa con 42 pruebas, las 3 últimas publicaciones terminaron bien y `manifest.json`, `version.json` y las etiquetas `apple-mobile-web-app-*` están en línea.
+
+## 🔴 Gravedad alta
+
+### A1. Un conjunto sale siempre (punto 5, parte que falta)
+
+- **Dónde:** `js/outfits.js:76-80` suma +1,5 por cada prenda del conjunto, y `:172` solo sortea entre los outfits que están a 1,5 puntos del mejor.
+- **Qué pasa:** con 43 prendas y un conjunto de dos piezas, el conjunto salió 100 de 100 veces. Un conjunto de dos extras (chaqueta y cartera) nunca puede salir completo.
+
+| | Solución | A favor | En contra |
+|---|---|---|---|
+| **A** | Bono fijo pequeño (+0,5 por conjunto completo, no por prenda) | Una línea | No resuelve los conjuntos de dos extras |
+| **B** | Lo de A, y además que la regla de conjuntos pida solo las piezas que caben | Arregla los dos problemas | Más pruebas |
+| **C** | Sacar el bono y solo garantizar que el conjunto salga completo cuando sale | Lo más simple | El conjunto podría salir muy poco |
+
+👉 **Recomendado: B**, o A si no hay tiempo.
+
+### A2. El motor de outfits se pone lento con un armario grande (punto 4)
+
+- **Dónde:** `js/outfits.js:117-148` y `:155`.
+- **Medido en el PC:** con 43 prendas tarda 0,11 s, con 83 tarda 0,66 s y con 107 tarda 1,75 s. En el iPhone puede ser más lento.
+
+| | Solución | A favor | En contra |
+|---|---|---|---|
+| **A** | Sortear unas 2.000 combinaciones al azar | Tiempo fijo y bajo | Podría no encontrar la mejor absoluta |
+| **B** | Elegir por partes | Muy rápido | Hay que reescribir el puntaje y las pruebas |
+| **C** | Web Worker | La pantalla no se congela | Igual tarda y agrega complejidad |
+
+👉 **Recomendado: A**, antes de que el armario pase de unas 60 prendas.
+
+### A3. Todavía no está la foto con fondo blanco (pedido 4 de Alina)
+
+- **Dónde:** la fase 4 está sin hacer (`PLAN.md:256-258`). `js/fotos.js` solo achica la foto y el color se detecta con el fondo incluido.
+
+| | Solución | A favor | En contra |
+|---|---|---|---|
+| **A** | Entregar la 1.0 así y pedirle que fotografíe sobre un fondo liso y claro | Se entrega ya | No cumple el pedido 4 |
+| **B** | "Plan B" de `PLAN.md:187`: aclarar el fondo hasta dejarlo blanco | Más liviano | Falla con fondos con dibujos |
+| **C** | Hacer la fase 4 completa, con un modelo que quita el fondo | Cumple el pedido | Es lo más difícil; hay que probarlo en el iPhone |
+
+👉 **Recomendado: A ahora y C como versión 1.1.** La decisión es del dueño.
+
+## 🟡 Gravedad media
+
+### M1. (Nuevo) En la app instalada, las fotos pasan detrás de la hora y la batería al bajar
+
+- **Dónde:** `index.html:20` (barra de estado `black-translucent`), `css/styles.css:79` y `.encabezado` (`:227-232`), que no se queda arriba. En las vistas no pasa, porque `.barra-nav` tapa esa zona.
+
+| | Solución | A favor | En contra |
+|---|---|---|---|
+| **A** | Franja fija del alto de `env(safe-area-inset-top)`, con degradado negro o vidrio | Pocas líneas | Hay que probarlo en el iPhone |
+| **B** | Encabezado fijo con vidrio, como el título grande de iOS | Muy "Apple" | Más trabajo |
+| **C** | Barra de estado `black` (opaca) | Una palabra | Se pierde la pantalla completa |
+
+👉 **Recomendado: A.**
+
+### M2. (Nuevo, hay que confirmarlo en el iPhone) "Reintentar" podría no recuperar nada y no muestra que lo intentó
+
+- **Dónde:** `js/vista-armario.js:184`, `js/vista-favoritos.js:156` y `js/vista-outfit.js:79` y `:148` vuelven a llamar al mismo código sin ningún cambio visible.
+
+| | Solución | A favor | En contra |
+|---|---|---|---|
+| **A** | Si el reintento también falla, recargar la página | Recargar siempre arregla la conexión | La app parpadea al recargar |
+| **B** | "Abriendo…" en el botón y un aviso si vuelve a fallar | Alina ve que la app hizo algo | Solo, no arregla el caso de fondo |
+| **C** | Recargar sola una vez apenas falle | Ni siquiera tiene que tocar el botón | Es una recarga sorpresa |
+
+👉 **Recomendado: A + B.**
+
+### M3. La actualización automática puede recargar la app a mitad de algo (punto 7)
+
+- **Dónde:** `js/app.js:32-47`.
+- **Opciones:**
+  - **A)** no recargar si está en una vista;
+  - **B)** revisar la versión solo al abrir la app;
+  - **C)** mostrar un aviso "Toca para actualizar".
+
+👉 **Recomendado: A.**
+
+### M4. No se puede elegir una foto de la galería (punto 6)
+
+- **Dónde:** `index.html:204` (`capture="environment"`).
+- **Opciones:**
+  - **A)** quitar `capture`, que es una línea;
+  - **B)** dos botones, "Tomar foto" y "Elegir de mis fotos".
+
+👉 **Recomendado: B**, o A si se quiere algo inmediato.
+
+### M5. Tocar dos veces "Guardar prenda" la guarda dos veces (punto 10)
+
+- **Dónde:** `js/vista-armario.js:135` espera la foto antes de desactivar el botón en `:151`.
+- **Opciones:**
+  - **A)** desactivar el botón al principio, con el texto "Guardando…";
+  - **B)** una variable `guardando` que ignore el segundo toque.
+
+👉 **Recomendado: A.**
+
+### M6. Las letras dependen de Google (punto 9)
+
+- **Dónde:** `index.html:23` y `sw.js:22`.
+- **Opciones:**
+  - **A)** guardar los `.woff2` en `assets/fonts/`;
+  - **B)** que el service worker guarde las letras de Google.
+
+👉 **Recomendado: A.**
+
+### M7. El título de la barra superior choca con "‹ Armario" a 390 px (punto 11)
+
+- **Dónde:** `css/styles.css:491-496` y `:499-515`. Pasa en el ancho del iPhone de Alina.
+- **Opciones:**
+  - **A)** título con `clamp(1rem, 4.6vw, 1.2rem)` y menos espacio en el botón Volver;
+  - **B)** dejar solo la flecha "‹".
+
+👉 **Recomendado: A.**
+
+## 🟢 Gravedad baja
+
+| # | Hallazgo | Opciones | Recomendado |
+|---|---|---|---|
+| B1 | Un outfit puede quedar varias veces en Favoritos (punto 12) | A) marcar el corazón si ya está guardado · B) solo evitar duplicar al guardar | A |
+| B2 | Se pierde el lugar y la selección, y Volver dice otra cosa (punto 13) | A) recordar el scroll y la selección · B) que Volver diga de dónde viene | A + B |
+| B3 | Fotos y animaciones pesadas (punto 14) | A) miniaturas de 300 px y `loading="lazy"` · B) pausar animaciones y quitar `drop-shadow` | A primero |
+| B4 | Fotos achicadas en un paso y sin calidad alta (punto 15) | A) `imageSmoothingQuality = 'high'` y achicar en dos pasos · B) `createImageBitmap` con `resizeWidth` | A |
+| B5 | En horizontal, la Dynamic Island tapa contenido; `"orientation"` no sirve en iOS (punto 16) | A) `env(safe-area-inset-left/right)` · B) aceptarlo | A, sin apuro |
+| B6 | Con mala señal tarda en abrir (punto 17) | A) tiempo límite de 3 s en `sw.js` · B) dejarlo así | A |
+| B7 | Una publicación puede cortarse a la mitad (punto 19) | A) grupo de concurrencia aparte con `cancel-in-progress: false` · B) dejarlo así | A |
+| B8 | (Nuevo) "Nuevo outfit" no tiene botón Reintentar (`js/vista-favoritos.js:89-104`) | A) el mismo bloque de error con Reintentar · B) texto "Vuelve atrás y entra de nuevo" | A |
+| B9 | (Nuevo) Con lector de pantalla, muchas prendas se leen igual porque falta el color | A) nombre aproximado del color en `colores.js` · B) número de la prenda | A, sin apuro |
+| B10 | La documentación no coincide con el código (punto 18) | A) actualizar PLAN.md y decidir sobre los puntitos del fondo · B) solo una nota de "Decisiones" | A |
+| B11 | Faltan pruebas para la comparación de versiones y para la reconexión | A) pasar la comparación de versiones a un módulo puro con prueba · B) probar la reconexión con una base falsa | A |
+
+## Estado de los puntos de la primera auditoría
+
+| # | Hallazgo | Estado |
+|---|---|---|
+| 1 | Sin copia de seguridad | ⛔ Descartado por decisión del dueño (riesgo aceptado) |
+| 2 | No se instala como app | 🟡 En parte: ya es instalable (A); la pantalla de bienvenida se descartó; falta probarlo en el iPhone |
+| 3 | Un error de la base de datos parecía "armario vacío" | ✅ Resuelto (queda M2 por confirmar en el iPhone) |
+| 4 | Motor lento | Abierto (A2) |
+| 5 | Conjuntos | 🟡 En parte (A1) |
+| 6 | Galería | Abierto (M4) |
+| 7 | Recarga a mitad de algo | Abierto (M3) |
+| 8 | VoiceOver lee todo tres veces | ✅ Resuelto |
+| 9 | Letras de Google | Abierto (M6) |
+| 10 | Doble guardado | Abierto (M5) |
+| 11 | Título pisado | Abierto (M7) |
+| 12 | Favoritos repetidos | Abierto (B1) |
+| 13 | Scroll y selección | Abierto (B2) |
+| 14 | Animaciones y fotos pesadas | Abierto (B3) |
+| 15 | Calidad de las fotos | Abierto (B4) |
+| 16 | Horizontal | Abierto (B5) |
+| 17 | Mala señal | Abierto (B6) |
+| 18 | Documentación | 🟡 En parte (B10) |
+| 19 | Publicación cortada | Abierto (B7) |
+| 20 | Pendientes del plan | 🟡 En parte: falta la fase 4 y las pruebas en el iPhone |
+
+## Qué probar sí o sí en el iPhone real
+
+1. **Instalación.** En Safari, toca Compartir → "Agregar a pantalla de inicio" estando en `#armario`. Revisa que:
+   - el ícono sea la mariposa y el nombre sea "Alina";
+   - abra sin la barra de Safari y en **Inicio**;
+   - no haya un destello blanco al abrir.
+2. **Dynamic Island y barra de inicio.** En Inicio, Armario bajado, Favoritos, Agregar, Tu outfit y Nuevo outfit, nada debe quedar bajo la hora o la isla (M1) ni chocar con la barra de inicio.
+3. **Cámara en la app instalada.** Toma 5 fotos, incluida una de 48 MP si es un Pro. La app no debe cerrarse ni recargarse al volver de la cámara (M3).
+4. **Datos.**
+   - Cierra la app desde el selector de apps y vuelve a abrirla: todo debe seguir ahí.
+   - Déjala en segundo plano un buen rato y vuelve: no debe aparecer "No pude abrir tu armario". Si aparece, Reintentar tiene que funcionar (M2).
+5. **Sin conexión.** En modo avión, la app abre y las letras son Shrikhand (M6).
+6. **Volver.** En la app instalada, el gesto de deslizar desde el borde puede no funcionar. Confirma que "‹ Volver" siempre funciona.
+7. **Botón Alina.** Genera varios outfits con un conjunto marcado (A1) y mira cuánto tarda con el armario real (A2).
+8. **Primera vez.** Alina instala la app **antes** de cargar su ropa.

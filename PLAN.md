@@ -46,7 +46,7 @@ Todo se diseña y se programa **primero para el iPhone de Alina** y después se 
 
 ### Instalación en el iPhone (PWA)
 
-- iPhone no muestra un aviso de "instalar app". Alina tiene que abrir el link en Safari y usar *Compartir → Agregar a pantalla de inicio*. La app le muestra una pantalla de bienvenida que le explica cómo hacerlo.
+- iPhone no muestra un aviso de "instalar app". Alina tiene que abrir el link en Safari y usar *Compartir → Agregar a pantalla de inicio*. No habrá pantalla de bienvenida (decisión del dueño): Alina tiene que instalarla **antes** de cargar su ropa, porque Safari y la app instalada guardan los datos por separado.
 - Para que se vea como app nativa:
   - `manifest.json` con `"display": "standalone"`
   - un ícono `apple-touch-icon` de 180 × 180 px
@@ -203,7 +203,7 @@ Es la parte técnicamente más difícil.
 
 - **IndexedDB** guarda las prendas, sus fotos, los conjuntos y los outfits favoritos. `localStorage` tiene muy poco espacio para fotos.
 - Todo queda en el iPhone de Alina. Si borra la app o los datos de Safari, se pierde.
-- Más adelante: exportar e importar una copia de seguridad (ver sección 9).
+- No habrá copia de seguridad (exportar e importar), por decisión del dueño. Riesgo aceptado: si Alina borra la app o cambia de iPhone, pierde su armario.
 
 ## 7. Tecnologías
 
@@ -271,7 +271,7 @@ Es la parte técnicamente más difícil.
 - [x] Ícono de la app: mariposa rosado pastel (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)
 - [x] Instalable en la pantalla de inicio del iPhone (manifest y barra de estado): `manifest.json`, etiquetas `apple-mobile-web-app-*` e íconos de 192 y 512 px. Safari y la app instalada guardan los datos por separado, así que Alina tiene que instalarla **antes** de cargar su ropa
 - [ ] Probar en el iPhone que se abre a pantalla completa y que nada queda bajo la Dynamic Island
-- [ ] Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio
+- ~~Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio~~ (descartada por decisión del dueño)
 - [x] `navigator.storage.persist()` para que iOS no borre el armario: se pide al abrir la app y al guardar (`js/armario.js`)
 - [x] Service worker (`sw.js`): siempre carga la versión más nueva sin mezclar archivos y guarda copias para usar sin conexión
 - [x] Accesibilidad: contraste revisado (AA), textos alternativos que describen cada prenda y outfit, el texto de cromo se lee una sola vez, la barra escondida no se lee y se respeta "reducir movimiento"
@@ -279,13 +279,12 @@ Es la parte técnicamente más difícil.
 - [x] Mensajes para cuando el armario está vacío o no hay prendas suficientes, y un mensaje distinto con "Reintentar" si no se puede abrir la base de datos (que se reconecta sola)
 
 ### Fase 7: Lanzamiento
-- [ ] Revisión completa con el agente `auditor`
+- [x] Revisión completa con el agente `auditor` (resultado al final de [auditoria.md](auditoria.md): se puede entregar, con condiciones)
 - [ ] Prueba completa en un iPhone **antes de entregarla**: instalar, fotografiar 5 prendas, generar outfits, guardar favoritos, cerrar y volver a abrir. Si no hay un iPhone a mano, usar uno remoto, por ejemplo con BrowserStack.
 - [ ] Publicar la versión 1.0 y mandarle el link a Alina 💖
 
 ## 9. Ideas para después
 
-- Exportar e importar una copia de seguridad del armario
 - Filtrar el outfit por ocasión o clima ("hoy hace frío", "voy a una fiesta")
 - Calendario de qué se puso cada día
 - Compartir un outfit como imagen
