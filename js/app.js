@@ -1,5 +1,6 @@
 import { PANTALLAS, PESTANAS, esVista, pantallaDesdeHash, pestanaDe } from './navegacion.js';
 import { generarChispas } from './destellos.js';
+import { pedirAlmacenamientoPersistente } from './armario.js';
 import { iniciarArmario, pintarArmario, pintarDetalle } from './vista-armario.js';
 import { entrarAOutfit, iniciarOutfit } from './vista-outfit.js';
 import { iniciarFavoritos, pintarCrear, pintarFavoritos } from './vista-favoritos.js';
@@ -45,6 +46,9 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) revisarVersion();
 });
 
+// Para que iOS no borre el armario si Alina pasa un tiempo sin abrir la app.
+pedirAlmacenamientoPersistente();
+
 let pantallaVisible = null;
 let navegoDentroDeLaApp = false;
 
@@ -61,7 +65,10 @@ function mostrarPantalla({ enfocar = true } = {}) {
   ponerTitulo(pestana);
 
   // La burbuja de vidrio se desliza hasta la pestaña activa.
-  document.getElementById('barra').style.setProperty('--indice', PESTANAS.indexOf(pestana));
+  const barra = document.getElementById('barra');
+  barra.style.setProperty('--indice', PESTANAS.indexOf(pestana));
+  // En las vistas la barra se esconde: tampoco se puede tocar ni la leen los lectores de pantalla.
+  barra.inert = esVista(actual);
   for (const enlace of document.querySelectorAll('.barra-enlace')) {
     if (enlace.getAttribute('href') === `#${pestana}`) {
       enlace.setAttribute('aria-current', 'page');
@@ -96,7 +103,6 @@ function mostrarPantalla({ enfocar = true } = {}) {
 function ponerTitulo(pestana) {
   const texto = TITULOS[pestana];
   const titulo = document.getElementById('titulo-pagina');
-  titulo.dataset.texto = texto;
   titulo.firstElementChild.textContent = texto;
 }
 

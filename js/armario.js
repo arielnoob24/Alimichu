@@ -22,12 +22,17 @@ function abrirBase() {
       }
     };
     pedido.onsuccess = () => {
+      const base = pedido.result;
       // Si otra pestaña con una versión nueva necesita actualizar la base, esta la suelta.
-      pedido.result.onversionchange = () => {
-        pedido.result.close();
+      base.onversionchange = () => {
+        base.close();
         conexion = null;
       };
-      resolver(pedido.result);
+      // Safari a veces cierra la conexión al volver de segundo plano: la próxima vez se abre otra.
+      base.onclose = () => {
+        conexion = null;
+      };
+      resolver(base);
     };
     pedido.onerror = () => {
       conexion = null;
@@ -37,11 +42,21 @@ function abrirBase() {
   return conexion;
 }
 
+// Abre una transacción. Si la conexión guardada quedó muerta (pasa en Safari), abre otra y reintenta una vez.
+async function transaccionDe(almacen, modo) {
+  try {
+    return (await abrirBase()).transaction(almacen, modo);
+  } catch (error) {
+    if (error?.name !== 'InvalidStateError') throw error;
+    conexion = null;
+    return (await abrirBase()).transaction(almacen, modo);
+  }
+}
+
 // Ejecuta una operación sobre un almacén y espera a que termine.
 async function con(almacen, modo, operacion) {
-  const base = await abrirBase();
+  const transaccion = await transaccionDe(almacen, modo);
   return new Promise((resolver, rechazar) => {
-    const transaccion = base.transaction(almacen, modo);
     const pedido = operacion(transaccion.objectStore(almacen));
     transaccion.oncomplete = () => resolver(pedido?.result);
     transaccion.onerror = () => rechazar(transaccion.error);
@@ -83,7 +98,15 @@ export function borrarFavorito(id) {
   return con(FAVORITOS, 'readwrite', (almacen) => almacen.delete(id));
 }
 
-// Le pide al navegador que no borre el armario cuando necesite espacio.
-function pedirAlmacenamientoPersistente() {
-  navigator.storage?.persist?.().catch(() => {});
+// Le pide al navegador que no borre el armario cuando necesite espacio ni por falta de uso.
+// Se pide al abrir la app y cada vez que se guarda algo: Safari y Chrome lo conceden según
+// cuánto se usa el sitio (y siempre a las apps instaladas), así que conviene volver a pedirlo.
+// Devuelve true si el armario ya está protegido.
+export async function pedirAlmacenamientoPersistente() {
+  try {
+    if (!navigator.storage?.persist) return false;
+    return (await navigator.storage.persisted()) || (await navigator.storage.persist());
+  } catch {
+    return false;
+  }
 }

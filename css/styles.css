@@ -174,6 +174,8 @@ select {
 .cromo::before,
 .cromo::after {
   content: attr(data-texto);
+  /* Texto alternativo vacío: los lectores de pantalla leen el texto una vez, no tres */
+  content: attr(data-texto) / '';
   position: absolute;
   inset: 0;
   padding: inherit;
@@ -365,6 +367,11 @@ select {
   margin: 0;
 }
 
+.vacio .boton-reintentar {
+  width: auto;
+  min-width: 180px;
+}
+
 .vacio-icono {
   --giro: 0deg;
   width: 72px;
@@ -413,6 +420,11 @@ body[data-pantalla='favoritos']::after {
   grid-template-columns: auto 1fr;
   gap: 10px;
   margin-top: 16px;
+}
+
+/* Sin outfit (por ejemplo, para reintentar) el botón de la derecha ocupa todo el ancho */
+.boton-favorito[hidden] + .boton-otra {
+  grid-column: 1 / -1;
 }
 
 .boton-favorito {

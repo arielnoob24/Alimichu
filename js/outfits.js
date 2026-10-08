@@ -1,6 +1,7 @@
 // Motor de outfits: arma combinaciones que combinan (no al azar) y elige entre las mejores.
 // Sin DOM ni base de datos, para poder testearlo.
 import { armoniaColores, esNeutro } from './colores.js';
+import { CATEGORIAS } from './prendas.js';
 
 // Lugares del outfit. El vestido ocupa arriba y abajo a la vez.
 export const LUGARES = ['arriba', 'abajo', 'vestido', 'zapatos', 'extra'];
@@ -38,6 +39,12 @@ function afinidadEstilos(a, b) {
 
 export function prendasDe(outfit) {
   return LUGARES.map((lugar) => outfit[lugar]).filter(Boolean);
+}
+
+// Texto para lectores de pantalla: "Parte de arriba, Parte de abajo y Zapatos".
+export function describirOutfit(outfit) {
+  const nombres = prendasDe(outfit).map((prenda) => CATEGORIAS[prenda.categoria] ?? prenda.categoria);
+  return nombres.length > 1 ? `${nombres.slice(0, -1).join(', ')} y ${nombres.at(-1)}` : (nombres[0] ?? '');
 }
 
 // Identifica un outfit por sus prendas, sin importar el orden.
@@ -150,7 +157,15 @@ export function generarOutfit(prendas, { fijas = {}, recientes = [], azar = Math
     if (recientes.includes(claveOutfit(outfit))) puntaje -= 3;
     return { outfit, puntaje };
   });
-  if (!candidatos.length) return { falta: 'No hay combinaciones con las prendas fijas. Quita algún candado.' };
+  if (!candidatos.length) {
+    // Sin candados, lo único que puede impedir un outfit es un conjunto que no cabe entero.
+    const hayCandados = Object.values(fijas).some(Boolean);
+    return {
+      falta: hayCandados
+        ? 'No hay combinaciones con las prendas fijas. Quita algún candado.'
+        : 'Tus conjuntos no dejan armar un outfit. Revisa las prendas que marcaste como conjunto.',
+    };
+  }
 
   // Se sortea solo entre los que están cerca del mejor: variedad, pero siempre algo que combina.
   candidatos.sort((a, b) => b.puntaje - a.puntaje);

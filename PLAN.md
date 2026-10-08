@@ -271,11 +271,11 @@ Es la parte técnicamente más difícil.
 - [x] Ícono de la app: mariposa rosado pastel (`assets/icono.svg`, `icono-32.png` para la pestaña y `icono-180.png` para la pantalla de inicio del iPhone)
 - [ ] Instalable en la pantalla de inicio del iPhone (manifest y barra de estado)
 - [ ] Pantalla de bienvenida que explique cómo agregarla a la pantalla de inicio
-- [ ] `navigator.storage.persist()` para que iOS no borre el armario
+- [x] `navigator.storage.persist()` para que iOS no borre el armario: se pide al abrir la app y al guardar (`js/armario.js`)
 - [x] Service worker (`sw.js`): siempre carga la versión más nueva sin mezclar archivos y guarda copias para usar sin conexión
-- [ ] Accesibilidad: contraste, textos alternativos, "reducir movimiento"
+- [x] Accesibilidad: contraste revisado (AA), textos alternativos que describen cada prenda y outfit, el texto de cromo se lee una sola vez, la barra escondida no se lee y se respeta "reducir movimiento"
 - [ ] Probar en el iPhone de Alina
-- [ ] Mensajes para cuando el armario está vacío o no hay prendas suficientes
+- [x] Mensajes para cuando el armario está vacío o no hay prendas suficientes, y un mensaje distinto con "Reintentar" si no se puede abrir la base de datos (que se reconecta sola)
 
 ### Fase 7: Lanzamiento
 - [ ] Revisión completa con el agente `auditor`

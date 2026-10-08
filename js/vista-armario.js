@@ -2,7 +2,7 @@
 import { borrarPrenda, guardarPrenda, listarPrendas, obtenerPrenda } from './armario.js';
 import { avisar } from './aviso.js';
 import { prepararFoto } from './fotos.js';
-import { CATEGORIAS, ESTILOS, filtrarPorCategoria, normalizarConjunto, ordenarPrendas, validarPrenda } from './prendas.js';
+import { CATEGORIAS, ESTILOS, describirPrenda, filtrarPorCategoria, normalizarConjunto, ordenarPrendas, validarPrenda } from './prendas.js';
 
 let filtro = '';
 let prendaSeleccionada = null;
@@ -16,18 +16,21 @@ let urlVistaPrevia = null;
 
 export async function pintarArmario() {
   let prendas = [];
+  let fallo = false;
   try {
     prendas = ordenarPrendas(await listarPrendas());
   } catch {
-    avisar('No se pudo abrir tu armario 😢');
+    // No es lo mismo que un armario vacío: las prendas siguen guardadas.
+    fallo = true;
   }
   const visibles = filtrarPorCategoria(prendas, filtro);
 
   for (const url of urlsCuadricula) URL.revokeObjectURL(url);
   urlsCuadricula.clear();
   document.getElementById('lista-prendas').replaceChildren(...visibles.map(tarjetaPrenda));
-  document.getElementById('armario-vacio').hidden = prendas.length > 0;
-  document.getElementById('filtro-vacio').hidden = prendas.length === 0 || visibles.length > 0;
+  document.getElementById('armario-error').hidden = !fallo;
+  document.getElementById('armario-vacio').hidden = fallo || prendas.length > 0;
+  document.getElementById('filtro-vacio').hidden = fallo || prendas.length === 0 || visibles.length > 0;
 }
 
 function tarjetaPrenda(prenda) {
@@ -35,7 +38,7 @@ function tarjetaPrenda(prenda) {
   tarjeta.type = 'button';
   tarjeta.className = 'tarjeta-prenda';
   tarjeta.dataset.id = prenda.id;
-  tarjeta.setAttribute('aria-label', `${CATEGORIAS[prenda.categoria]}, ${textoEstilos(prenda.estilos)}`);
+  tarjeta.setAttribute('aria-label', describirPrenda(prenda));
 
   const foto = document.createElement('img');
   const url = URL.createObjectURL(prenda.foto);
@@ -177,6 +180,8 @@ export function iniciarArmario({ volver }) {
     prendaSeleccionada = tarjeta.dataset.id;
     location.hash = '#prenda';
   });
+
+  document.querySelector('[data-reintentar="armario"]').addEventListener('click', pintarArmario);
 
   document.getElementById('foto-prenda').addEventListener('change', alElegirFoto);
   document.getElementById('form-prenda').addEventListener('submit', (evento) => alGuardar(evento, volver));

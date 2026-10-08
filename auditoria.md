@@ -402,3 +402,13 @@ Fuera del plan:
 | 18 | Documentación desactualizada | 🟢 Baja | A |
 | 19 | Publicación cortada a la mitad | 🟢 Baja | A |
 | 20 | Pendientes del plan | 🟢 Baja | — |
+
+---
+
+## Seguimiento
+
+- **8 de octubre de 2026 (Fase 6):**
+  - ✅ **Punto 3** resuelto con A + B: mensaje de error con "Reintentar" en Armario, Favoritos y "Tu outfit", y la conexión con la base de datos se reabre sola si Safari la cierra.
+  - ✅ **Punto 8** resuelto: el texto de cromo se lee una sola vez (`content: … / ''` y `aria-label` en botones y títulos) y la barra escondida queda `inert`.
+  - 🟡 **Punto 5** en parte: sin candados, la app ya no pide quitar candados; explica que el problema son los conjuntos. Falta el bono de los conjuntos y la regla de los dos extras.
+  - ✅ `persist()` ahora también se pide al abrir la app y se revisa si ya está concedido (punto 1, parte de "Lo que está bien").

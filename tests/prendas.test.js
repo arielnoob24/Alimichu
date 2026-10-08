@@ -1,6 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { filtrarPorCategoria, normalizarConjunto, ordenarPrendas, validarPrenda } from '../js/prendas.js';
+import { describirPrenda, filtrarPorCategoria, normalizarConjunto, ordenarPrendas, validarPrenda } from '../js/prendas.js';
+
+test('describe la prenda para lectores de pantalla', () => {
+  assert.equal(describirPrenda({ categoria: 'arriba', estilos: ['casual'] }), 'Parte de arriba, casual');
+  assert.equal(
+    describirPrenda({ categoria: 'vestido', estilos: ['casual', 'elegante', 'fiesta'], conjunto: 'set rosado' }),
+    'Vestido / enterito, casual, elegante y fiesta, del conjunto set rosado',
+  );
+});
 
 const foto = { tipo: 'blob falso' };
 

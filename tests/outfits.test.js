@@ -4,6 +4,7 @@ import {
   claveOutfit,
   combinacionCompleta,
   combinaciones,
+  describirOutfit,
   favoritoDesdeOutfit,
   generarOutfit,
   outfitDesdeFavorito,
@@ -121,6 +122,19 @@ test('avisa si los candados no dejan armar nada', () => {
   const vestido = prenda('vestido', ROSA);
   const prendas = [vestido, prenda('arriba', ROSA)];
   assert.match(generarOutfit(prendas, { fijas: { arriba: prendas[1] } }).falta, /candado/);
+});
+
+test('sin candados, no culpa a los candados si un conjunto no deja armar nada', () => {
+  // Dos accesorios del mismo conjunto no caben juntos en el único lugar de extra.
+  const prendas = [prenda('arriba', ROSA, ['casual'], 'set'), prenda('abajo', NEGRO), prenda('accesorio', BLANCO, ['casual'], 'set'), prenda('accesorio', NEGRO, ['casual'], 'set')];
+  const { falta } = generarOutfit(prendas);
+  assert.doesNotMatch(falta, /candado/);
+  assert.match(falta, /conjunto/);
+});
+
+test('describe el outfit para lectores de pantalla', () => {
+  assert.equal(describirOutfit({ arriba: prenda('arriba', ROSA), abajo: prenda('abajo', NEGRO), zapatos: prenda('zapatos', BLANCO) }), 'Parte de arriba, Parte de abajo y Zapatos');
+  assert.equal(describirOutfit({ vestido: prenda('vestido', ROSA) }), 'Vestido / enterito');
 });
 
 test('un favorito guarda los ids y se vuelve a armar con las prendas que quedan', () => {

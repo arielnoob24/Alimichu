@@ -83,7 +83,7 @@
       <svg class="decoracion grupo-chico" aria-hidden="true"><use href="#mariposas-y2k"/></svg>
       <svg class="decoracion mariposa-central" aria-hidden="true"><use href="#mariposa-sola"/></svg>
       <!-- El título no se ve (arriba solo hay mariposas); queda para lectores de pantalla -->
-      <h1 class="nombre cromo" id="titulo-pagina" data-texto="Hola"><span>Hola</span></h1>
+      <h1 class="nombre" id="titulo-pagina"><span>Inicio</span></h1>
       <div class="brillos" aria-hidden="true">
         <svg class="brillo"><use href="#mariposa-plata"/></svg>
         <svg class="brillo"><use href="#mariposa-plata"/></svg>
@@ -94,7 +94,7 @@
       <!-- ========== Portadas de cada pestaña: botones centrados que llevan a una vista ========== -->
 
       <section id="pantalla-inicio" class="pantalla portada" aria-label="Inicio">
-        <button class="boton-alina" id="boton-alina" type="button" aria-describedby="invitacion">
+        <button class="boton-alina" id="boton-alina" type="button" aria-label="Alina" aria-describedby="invitacion">
           <span class="cromo cromo-boton" data-texto="Alina"><span>Alina</span></span>
           <span class="destellos-nombre" aria-hidden="true">
             <span class="destello"></span>
@@ -132,7 +132,11 @@
           <p>Todavía no hay prendas en tu armario.<br>¡Agrega la primera!</p>
         </div>
         <p class="vacio" id="filtro-vacio" hidden>No hay prendas en esta categoría.</p>
-        <a class="boton-portada boton-flotante" href="#agregar">
+        <div class="vacio" id="armario-error" hidden>
+          <p>No pude abrir tu armario 😢<br>Tus prendas siguen guardadas.</p>
+          <button class="boton boton-secundario boton-reintentar" type="button" data-reintentar="armario">Reintentar</button>
+        </div>
+        <a class="boton-portada boton-flotante" href="#agregar" aria-label="Agregar prenda">
           <span class="cromo cromo-boton" data-texto="Agregar prenda"><span>Agregar prenda</span></span>
         </a>
       </section>
@@ -144,7 +148,11 @@
           <svg class="vacio-icono" aria-hidden="true"><use href="#mariposa-plata"/></svg>
           <p>Todavía no tienes outfits favoritos.<br>Guarda los que te gusten del botón Alina o arma uno tú 💖</p>
         </div>
-        <a class="boton-portada boton-flotante" href="#crear">
+        <div class="vacio" id="favoritos-error" hidden>
+          <p>No pude abrir tus favoritos 😢<br>Siguen guardados.</p>
+          <button class="boton boton-secundario boton-reintentar" type="button" data-reintentar="favoritos">Reintentar</button>
+        </div>
+        <a class="boton-portada boton-flotante" href="#crear" aria-label="Crear combinación">
           <span class="cromo cromo-boton" data-texto="Crear combinación"><span>Crear combinación</span></span>
         </a>
       </section>
@@ -157,7 +165,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
             <span id="volver-outfit-texto">Inicio</span>
           </button>
-          <h2 id="titulo-outfit" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Tu outfit"><span>Tu outfit</span></h2>
+          <h2 id="titulo-outfit" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Tu outfit" aria-label="Tu outfit"><span>Tu outfit</span></h2>
         </div>
         <div class="outfit" id="cuadro-outfit">
           <!-- Los lugares del outfit los dibuja js/vista-outfit.js -->
@@ -180,7 +188,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
             Armario
           </button>
-          <h2 id="titulo-agregar" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Agregar prenda"><span>Agregar prenda</span></h2>
+          <h2 id="titulo-agregar" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Agregar prenda" aria-label="Agregar prenda"><span>Agregar prenda</span></h2>
         </div>
         <form class="formulario" id="form-prenda" novalidate>
           <label class="foto" id="foto" for="foto-prenda">
@@ -233,7 +241,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
             Armario
           </button>
-          <h2 id="titulo-prenda" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Prenda"><span>Prenda</span></h2>
+          <h2 id="titulo-prenda" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Prenda" aria-label="Prenda"><span>Prenda</span></h2>
         </div>
         <div class="detalle-foto" id="detalle-foto"></div>
         <dl class="detalle-datos">
@@ -251,7 +259,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
             Favoritos
           </button>
-          <h2 id="titulo-crear" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Nuevo outfit"><span>Nuevo outfit</span></h2>
+          <h2 id="titulo-crear" class="titulo titulo-nav cromo" tabindex="-1" data-texto="Nuevo outfit" aria-label="Nuevo outfit"><span>Nuevo outfit</span></h2>
         </div>
         <p class="ayuda">Elige una prenda de cada parte. Desliza hacia el lado para ver todas.</p>
 

@@ -1,8 +1,8 @@
 // Pestaña Favoritos (outfits guardados) y vista "Nuevo outfit" (combinación hecha a mano).
 import { borrarFavorito, guardarFavorito, listarFavoritos, listarPrendas } from './armario.js';
 import { avisar } from './aviso.js';
-import { CATEGORIAS } from './prendas.js';
-import { LUGAR_DE_CATEGORIA, combinacionCompleta, favoritoDesdeOutfit, outfitDesdeFavorito, prendasDe } from './outfits.js';
+import { describirPrenda } from './prendas.js';
+import { LUGAR_DE_CATEGORIA, combinacionCompleta, describirOutfit, favoritoDesdeOutfit, outfitDesdeFavorito, prendasDe } from './outfits.js';
 import { abrirFavoritoEnOutfit, dibujarOutfit } from './vista-outfit.js';
 
 const urlsLista = new Set();
@@ -26,7 +26,15 @@ function liberar(urls) {
 // ---------- Lista de favoritos ----------
 
 export async function pintarFavoritos() {
-  const [favoritos, prendas] = await Promise.all([listarFavoritos().catch(() => []), listarPrendas().catch(() => [])]);
+  let favoritos = [];
+  let prendas = [];
+  let fallo = false;
+  try {
+    [favoritos, prendas] = await Promise.all([listarFavoritos(), listarPrendas()]);
+  } catch {
+    // No es lo mismo que no tener favoritos: siguen guardados.
+    fallo = true;
+  }
   liberar(urlsLista);
   favoritosPorId = new Map();
 
@@ -41,7 +49,8 @@ export async function pintarFavoritos() {
     });
 
   document.getElementById('lista-favoritos').replaceChildren(...tarjetas);
-  document.getElementById('favoritos-vacio').hidden = tarjetas.length > 0;
+  document.getElementById('favoritos-error').hidden = !fallo;
+  document.getElementById('favoritos-vacio').hidden = fallo || tarjetas.length > 0;
 }
 
 function tarjetaFavorito(favorito, outfit) {
@@ -52,7 +61,7 @@ function tarjetaFavorito(favorito, outfit) {
   const abrir = document.createElement('button');
   abrir.type = 'button';
   abrir.className = 'favorito-abrir';
-  abrir.setAttribute('aria-label', 'Ver este outfit');
+  abrir.setAttribute('aria-label', `Ver outfit: ${describirOutfit(outfit)}`);
   const collage = document.createElement('div');
   collage.className = 'prendas collage';
   dibujarOutfit(collage, outfit, { urls: urlsLista });
@@ -75,7 +84,14 @@ function tarjetaFavorito(favorito, outfit) {
 // ---------- Nuevo outfit (hecho a mano) ----------
 
 export async function pintarCrear() {
-  const prendas = await listarPrendas().catch(() => []);
+  let prendas = [];
+  let fallo = false;
+  try {
+    prendas = await listarPrendas();
+  } catch {
+    fallo = true;
+    avisar('No pude abrir tu armario 😢 Vuelve a intentarlo');
+  }
   liberar(urlsCrear);
   seleccion = {};
 
@@ -85,7 +101,7 @@ export async function pintarCrear() {
     if (!deLaFila.length) {
       const vacio = document.createElement('p');
       vacio.className = 'selector-vacio';
-      vacio.textContent = 'Todavía no hay prendas de esta parte';
+      vacio.textContent = fallo ? 'No se pudieron cargar las prendas' : 'Todavía no hay prendas de esta parte';
       contenedor.replaceChildren(vacio);
       continue;
     }
@@ -100,7 +116,7 @@ function opcionPrenda(prenda) {
   opcion.className = 'opcion-prenda';
   opcion.dataset.id = prenda.id;
   opcion.setAttribute('aria-pressed', 'false');
-  opcion.setAttribute('aria-label', CATEGORIAS[prenda.categoria]);
+  opcion.setAttribute('aria-label', describirPrenda(prenda));
   opcion.prenda = prenda;
   const foto = document.createElement('img');
   const url = URL.createObjectURL(prenda.foto);
@@ -137,6 +153,8 @@ function actualizarCrear() {
 }
 
 export function iniciarFavoritos({ volver }) {
+  document.querySelector('[data-reintentar="favoritos"]').addEventListener('click', pintarFavoritos);
+
   document.getElementById('lista-favoritos').addEventListener('click', async (evento) => {
     const tarjeta = evento.target.closest('.tarjeta-favorito');
     if (!tarjeta) return;

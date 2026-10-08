@@ -1,7 +1,7 @@
 // Vista "Tu outfit": muestra la combinación del botón Alina, con candados y botón de favorito.
 import { borrarFavorito, guardarFavorito, listarPrendas } from './armario.js';
 import { avisar } from './aviso.js';
-import { CATEGORIAS } from './prendas.js';
+import { CATEGORIAS, describirPrenda } from './prendas.js';
 import { claveOutfit, favoritoDesdeOutfit, generarOutfit } from './outfits.js';
 
 const VACIOS = {
@@ -17,6 +17,7 @@ let fijas = {};
 let recientes = [];
 let favoritoId = null;
 let outfitPreparado = false;
+let fallo = false;
 const urls = new Set();
 
 // Dibuja los lugares de un outfit (arriba, abajo o vestido, zapatos y extra) en un contenedor.
@@ -40,7 +41,7 @@ export function dibujarOutfit(contenedor, outfit, { candados = false, fijas: blo
       const url = URL.createObjectURL(prenda.foto);
       urlsUsadas.add(url);
       foto.src = url;
-      foto.alt = CATEGORIAS[prenda.categoria];
+      foto.alt = describirPrenda(prenda);
       figura.classList.add('llena');
       figura.append(foto);
 
@@ -71,8 +72,11 @@ function pintar(pista = '') {
   document.getElementById('outfit-pista').textContent = pista;
 
   const hayOutfit = Boolean(outfitActual);
-  document.getElementById('outfit-agregar').hidden = hayOutfit;
-  document.getElementById('otra-combinacion').hidden = !hayOutfit;
+  document.getElementById('outfit-agregar').hidden = hayOutfit || fallo;
+  // Si no se pudo abrir el armario, el mismo botón sirve para reintentar.
+  const otra = document.getElementById('otra-combinacion');
+  otra.hidden = !hayOutfit && !fallo;
+  otra.textContent = fallo ? 'Reintentar' : 'Otra combinación';
   const favorito = document.getElementById('guardar-favorito');
   favorito.hidden = !hayOutfit;
   favorito.setAttribute('aria-pressed', String(Boolean(favoritoId)));
@@ -87,7 +91,18 @@ function animarEntrada() {
 }
 
 async function generar() {
-  const prendas = await listarPrendas().catch(() => []);
+  let prendas;
+  try {
+    prendas = await listarPrendas();
+    fallo = false;
+  } catch {
+    // No es lo mismo que un armario vacío: no se le pide que agregue prendas.
+    fallo = true;
+    outfitActual = null;
+    favoritoId = null;
+    pintar('No pude abrir tu armario 😢 Tus prendas siguen guardadas.');
+    return;
+  }
   // Si una prenda fija se borró del armario, se suelta el candado.
   const ids = new Set(prendas.map((prenda) => prenda.id));
   fijas = Object.fromEntries(Object.entries(fijas).filter(([, prenda]) => ids.has(prenda.id)));
@@ -123,6 +138,7 @@ export function abrirFavoritoEnOutfit(outfit, id) {
   outfitActual = outfit;
   favoritoId = id;
   fijas = {};
+  fallo = false;
   outfitPreparado = true;
   document.getElementById('volver-outfit-texto').textContent = 'Favoritos';
   location.hash = '#outfit';
